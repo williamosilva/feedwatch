@@ -6,7 +6,7 @@ Local computer vision prototype for estimating fish feeding activity from video 
 
 ## Features
 
-- Classifies two-second windows as no observed, low, moderate or high feeding activity.
+- Assigns each two-second window a feeding activity level: not observed, low, moderate or high.
 - Shows detected fish and their tracks.
 - Summarizes time at each level and compares the start, middle and end of a video.
 - Exports annotated video and analysis results.
