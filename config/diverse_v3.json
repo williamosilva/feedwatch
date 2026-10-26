@@ -1,0 +1,50 @@
+{
+  "experiment": "diverse-days-v3",
+  "hypothesis": "Additional labeled recording days and equal sampling of day/session/class strata improve held-out-day performance compared with training only on 19–20 June.",
+  "source": {
+    "record": "https://zenodo.org/records/11060195",
+    "url": "https://zenodo.org/api/records/11060195/files/video_6.13-6.18.zip/content",
+    "size": 30674390494,
+    "publisher_md5": "81d17a2451e89e96d2c40dc62829d263",
+    "license": "CC-BY-4.0"
+  },
+  "new_days": {
+    "train": ["2022_6_13", "2022_6_14", "2022_6_15", "2022_6_16"],
+    "val": ["2022_6_17"],
+    "heldout": ["2022_6_18"]
+  },
+  "existing_days": {"train": ["2022_6_19", "2022_6_20"], "val": ["2022_6_21"]},
+  "members_per_day_session_class": 4,
+  "selection_seed": "feedwatch-diverse-days-20261025-v3",
+  "maximum_selected_bytes": 4000000000,
+  "download_workers": 6,
+  "seeds": [42, 43, 44],
+  "max_epochs": 60,
+  "patience": 10,
+  "batch_size": 128,
+  "evaluation_batch_size": 256,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.01,
+  "architecture": "unchanged frozen MobileNetV3 Small plus one-layer GRU, hidden size 32, dropout 0.3",
+  "sampling": "inverse training counts per date/group/class, replacement, one training-set-length draw per epoch; no validation-derived weights",
+  "normalization": "mean/std of training video-mean embeddings only",
+  "epoch_selection": "maximum arithmetic mean of validation macro-F1 per day, earliest exact tie",
+  "operational_seed": 42,
+  "validation_gate": {
+    "mean_day_macro_f1_gain": 0.03,
+    "mean_day_medium_recall_gain": 0.10,
+    "max_other_mean_day_recall_drop": 0.05,
+    "max_existing_day_macro_f1_drop": 0.01
+  },
+  "promotion": {
+    "macro_f1_gain": 0.03,
+    "medium_recall_gain": 0.10,
+    "max_other_recall_drop": 0.05,
+    "paired_session_bootstrap_lower_accuracy_delta": 0.0,
+    "bootstrap_replicates": 5000,
+    "bootstrap_seed": 20261025
+  },
+  "heldout_policy": "Acquire, decode and evaluate 18 June only if all validation gates pass; one fixed seed-42 candidate and seed-42 baseline, no further tuning after that examination.",
+  "excluded_days": ["2022_6_22", "2022_6_23", "2022_6_24", "2022_6_25", "2022_6_26", "2022_6_27", "2022_6_28", "2022_6_29"],
+  "scope": "Day-disjoint comparison within AV-FFIA; no claim of other species, farms, hunger, feed dosage or realized savings. Earlier held-out published evaluations remain evaluations of the old model only."
+}

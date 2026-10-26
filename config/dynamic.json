@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "detector": {
+    "weights": "artifacts/detectors/fishial/model.pt",
+    "weights_sha256": "5b786b334355fdb0c3faa9d375d70de24f3535ee6f11e9c3e26ec2e90810c03f",
+    "source": "https://github.com/Wye-Foundation/Fishial-Fish-Identification",
+    "source_revision": "f43074efba44a7c833457d0ecf2b96a403e8283d",
+    "download_url": "https://storage.googleapis.com/fishial-ml-resources/detector_v26_n3.zip",
+    "archive_sha256": "4f33cfdd724ffd26a5863774e157e8a43e590fdc183d854017a99b6dbf3a85ec",
+    "class_mapping": {"0": "Fish"},
+    "imgsz": 1280,
+    "conf": 0.25,
+    "iou": 0.45,
+    "max_det": 100,
+    "half": false,
+    "description": "Fishial YOLO26 nano v3, pretrained externally; no FeedWatch detection training. Full-frame proportional letterbox; independent of the feeding crop. 640 pilot missed small fish; 1280 pilot usable with misses/grouped boxes."
+  },
+  "tracker": {
+    "max_gap_seconds": 0.2,
+    "trail_seconds": 0.8,
+    "min_iou": 0.1,
+    "max_center_distance_in_box_diagonals": 0.65,
+    "association": "Hungarian IoU + normalized center distance, past constant-velocity prediction; never draw unmatched boxes"
+  },
+  "motion": {
+    "analysis_long_edge": 640,
+    "pyr_scale": 0.5,
+    "levels": 3,
+    "winsize": 15,
+    "iterations": 3,
+    "poly_n": 5,
+    "poly_sigma": 1.2,
+    "active_threshold_source_px_per_second": 20.0,
+    "heatmap_max_source_px_per_second": 400.0,
+    "heatmap_opacity": 0.16,
+    "vector_spacing_analysis_pixels": 48,
+    "graph_history_seconds": 8.0,
+    "description": "Farneback on consecutive full grayscale frames at proportional 640 long edge, Gaussian 3x3; scale vectors back to source pixels and divide by actual timestamp delta. Image motion includes water, reflections and camera motion; no fish segmentation."
+  }
+}

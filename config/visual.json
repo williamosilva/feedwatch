@@ -1,0 +1,17 @@
+{
+  "seed": 42,
+  "extraction": {
+    "frames_per_video": 16,
+    "window_seconds": 2.0,
+    "crop_xyxy": [0.05, 0.10, 0.95, 0.95],
+    "weights": "IMAGENET1K_V1"
+  },
+  "training": {
+    "max_epochs": 40,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "balance": "none",
+    "standardize_train_only": true
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "hypothesis": "Reduce memorization of training days with smaller capacity and stronger regularization, without changing the frozen visual extractor.",
+  "configurations": [
+    {
+      "name": "small_regularized",
+      "hidden_size": 16,
+      "dropout": 0.5,
+      "weight_decay": 0.05,
+      "label_smoothing": 0.05
+    },
+    {
+      "name": "strong_regularized",
+      "hidden_size": 32,
+      "dropout": 0.5,
+      "weight_decay": 0.1,
+      "label_smoothing": 0.1
+    },
+    {
+      "name": "small_strong_regularized",
+      "hidden_size": 16,
+      "dropout": 0.6,
+      "weight_decay": 0.1,
+      "label_smoothing": 0.1
+    }
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "max_epochs": 80,
+  "patience": 12,
+  "batch_size": 128,
+  "learning_rate": 0.0003,
+  "selection": "configuration with highest mean validation macro-F1 over three seeds; earliest configuration breaks ties; candidate seed 42 fixed independently of test",
+  "validation_gate": {
+    "mean_macro_f1_gain": 0.03,
+    "mean_medium_recall_gain": 0.1,
+    "max_other_mean_recall_drop": 0.05
+  },
+  "heldout_if_validation_gate_passes": "one clip per date/group/class from previously unused 2022_6_23 to 2022_6_26, deterministic SHA256 ranking fixed before inference",
+  "promotion": {
+    "macro_f1_gain": 0.03,
+    "medium_recall_gain": 0.1,
+    "max_other_recall_drop": 0.05,
+    "paired_cluster_bootstrap_lower_accuracy_delta": 0.0
+  },
+  "test_policy": "Do not reopen historical 2022_6_22 or use the already inspected 2022_6_27 to 29 results for selection. No adaptive configurations after these nine validation runs.",
+  "class_weights": "none",
+  "extractor_trained": false
+}

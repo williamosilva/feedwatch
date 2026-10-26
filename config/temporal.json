@@ -1,0 +1,26 @@
+{
+  "seeds": [42, 43, 44],
+  "heads": {
+    "embedding_dim": 576,
+    "gru_hidden_size": 32,
+    "mlp_hidden_size": 101,
+    "dropout": 0.3
+  },
+  "training": {
+    "max_epochs": 60,
+    "patience": 8,
+    "min_delta": 0.0,
+    "batch_size": 128,
+    "evaluation_batch_size": 256,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "balance": "none",
+    "normalization": "train_video_mean_embeddings"
+  },
+  "ablation": {
+    "permutation_seed": 20261019,
+    "permutation_policy": "sha256(seed:relative_path); one fixed permutation per video, shared by all model seeds"
+  },
+  "examples_seed": 42
+}

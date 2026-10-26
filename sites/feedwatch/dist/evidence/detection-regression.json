@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "status": "promoted fixed detector ensemble; conservative tracker retained",
+  "review_type": "Provisional visual regression check on two demonstration videos; no independent human validation. Box extents are uncertain for crowded and partially visible fish.",
+  "detector": {
+    "configuration_sha256": "0a2db78872972879b2d3bb6550e6d3e774b4b1569b39f210edc38b0a5f6da770",
+    "configuration": {
+      "weights": "artifacts/detectors/fishial/model.pt",
+      "weights_sha256": "5b786b334355fdb0c3faa9d375d70de24f3535ee6f11e9c3e26ec2e90810c03f",
+      "source": "https://github.com/Wye-Foundation/Fishial-Fish-Identification",
+      "source_revision": "f43074efba44a7c833457d0ecf2b96a403e8283d",
+      "download_url": "https://storage.googleapis.com/fishial-ml-resources/detector_v26_n3.zip",
+      "archive_sha256": "4f33cfdd724ffd26a5863774e157e8a43e590fdc183d854017a99b6dbf3a85ec",
+      "class_mapping": {
+        "0": "Fish"
+      },
+      "imgsz": 1280,
+      "conf": 0.6,
+      "iou": 0.45,
+      "max_det": 100,
+      "half": false,
+      "description": "Fixed full-frame ensemble: Fishial YOLO26 nano >=0.60 plus YOLOv12s TorchScript >=0.15; IoU0.55 removes duplicate boxes. Same configuration for every scene. Small assisted regression sample, not independently validated precision.",
+      "post_nms_iou": 0.55,
+      "additional_detectors": [
+        {
+          "weights": "artifacts/detectors/fishial-medium/model.ts",
+          "weights_sha256": "78b7c1b2eabd563e7a5d98135e791e4e6fa75c0dd88e119133c3a3f5260bdbbd",
+          "source": "https://github.com/Wye-Foundation/Fishial-Fish-Identification",
+          "source_revision": "f43074efba44a7c833457d0ecf2b96a403e8283d",
+          "download_url": "https://storage.googleapis.com/fishial-ml-resources/detector_v10_m5.zip",
+          "archive_sha256": "54839fa0c688c42c4114b251aff036a9b8a1288cf61db7d2956786a0238fa47a",
+          "class_mapping": {
+            "0": "Fish"
+          },
+          "imgsz": 640,
+          "conf": 0.15,
+          "iou": 0.45,
+          "max_det": 100,
+          "half": false,
+          "description": "Official Fishial archive labelled YOLOv12 Medium; embedded metadata identifies YOLOv12s fixed640, AGPL-3.0. Not trained in FeedWatch.",
+          "post_nms_iou": 0.55,
+          "backend": "fishial-torchscript",
+          "archive_filename": "detector_v10_m5.zip",
+          "archive_member": "model.ts"
+        }
+      ]
+    },
+    "development_frames": 9,
+    "second_reserve_frames": 5,
+    "second_reserve_boxes": 54,
+    "results": {
+      "baseline": {
+        "overall": {
+          "frames": 5,
+          "tp": 25,
+          "fp": 15,
+          "fn": 29,
+          "precision": 0.625,
+          "recall": 0.46296296296296297,
+          "f1": 0.5319148936170213,
+          "unmatched_hand_boxes": 0
+        },
+        "by_scene": {
+          "aquario_reserve": {
+            "frames": 2,
+            "tp": 25,
+            "fp": 15,
+            "fn": 10,
+            "precision": 0.625,
+            "recall": 0.7142857142857143,
+            "f1": 0.6666666666666666,
+            "unmatched_hand_boxes": 0
+          },
+          "carpas_reserve": {
+            "frames": 3,
+            "tp": 0,
+            "fp": 0,
+            "fn": 19,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "unmatched_hand_boxes": 0
+          }
+        }
+      },
+      "ensemble60": {
+        "overall": {
+          "frames": 5,
+          "tp": 33,
+          "fp": 17,
+          "fn": 21,
+          "precision": 0.66,
+          "recall": 0.6111111111111112,
+          "f1": 0.6346153846153846,
+          "unmatched_hand_boxes": 0
+        },
+        "by_scene": {
+          "aquario_reserve": {
+            "frames": 2,
+            "tp": 25,
+            "fp": 14,
+            "fn": 10,
+            "precision": 0.6410256410256411,
+            "recall": 0.7142857142857143,
+            "f1": 0.6756756756756757,
+            "unmatched_hand_boxes": 0
+          },
+          "carpas_reserve": {
+            "frames": 3,
+            "tp": 8,
+            "fp": 3,
+            "fn": 11,
+            "precision": 0.7272727272727273,
+            "recall": 0.42105263157894735,
+            "f1": 0.5333333333333333,
+            "unmatched_hand_boxes": 0
+          }
+        }
+      }
+    },
+    "diagnostic_hand": {
+      "frame_index": 28,
+      "timestamp_seconds": 0.9333333333333333,
+      "original_nano_score": 0.4698610007762909,
+      "new_global_nano_threshold": 0.6,
+      "policy": "No spatial, per-video or per-frame exclusion rules."
+    },
+    "reserve2_protocol_sha256": "6fe26e170f9470a60b165c04d14ddad06e5248ccfd783a5692c400144fe81f58",
+    "reserve2_annotations_sha256": "f307e6ed3fae4df2976e5fd6dcfc43d909167b8a13f7e71517fe9dfc7cefa4d5",
+    "raw_results_sha256": "4646579acd9297423af13329a7a8ada0891b1e24049fb97657c9c6f9a94c5ad4"
+  },
+  "tracking": {
+    "decision": "retain conservative-v2, no benefit observed in short identity smoke test",
+    "comparison": "Identical detector outputs, source timestamps, no predicted boxes. BoT-SORT without ReID/GMC.",
+    "review_type": "Provisional identity check on two selected fish per scene in 12 consecutive frames. Reference boxes were interpolated between inspected endpoints with a midpoint check. This does not validate long occlusions or new environments.",
+    "results": {
+      "conservative-v2": {
+        "matched_observations": 48,
+        "missed_observations": 0,
+        "identity_switches": 0
+      },
+      "bytetrack": {
+        "matched_observations": 48,
+        "missed_observations": 0,
+        "identity_switches": 0
+      },
+      "botsort": {
+        "matched_observations": 48,
+        "missed_observations": 0,
+        "identity_switches": 0
+      }
+    }
+  },
+  "runtime_fix": {
+    "issue": "OpenCV reports 0 for second frame in carpas source; tracker rejected duplicate timestamp.",
+    "policy": "Use frame_index/fps only for a duplicate/nonmonotonic decoder time still within 1.5 frames of expected CFR; large errors remain unavailable; record raw timestamp and fallback source in frames.jsonl.",
+    "appearance": "SimpleOverlay unchanged."
+  },
+  "production": {
+    "aquario": {
+      "frames": 395,
+      "zero_detection_frames": 0,
+      "missing_count_frames": 0
+    },
+    "carpas": {
+      "frames": 563,
+      "zero_detection_frames": 1,
+      "missing_count_frames": 0
+    },
+    "remaining_failure": "Incorrect box over part of feeding hand at 6 seconds in koi video; source remains labelled as an example with failures.",
+    "feeding_predictions_changed": false,
+    "annotation_appearance_changed": false
+  }
+}

@@ -1,0 +1,236 @@
+function calculateFeedingScenario(usualKg, proposedKg, unitPrice=null) {
+  if (![usualKg,proposedKg].every(n=>typeof n==='number' && Number.isFinite(n) && n>=0) ||
+      (unitPrice!==null && (typeof unitPrice!=='number' || !Number.isFinite(unitPrice) || unitPrice<0))) {
+    throw new Error('Informe quantidades e preço válidos, iguais ou maiores que zero.');
+  }
+  const result={usual_kg:usualKg,proposed_kg:proposedKg,difference_kg:usualKg-proposedKg,
+    difference_percent:usualKg>0?(usualKg-proposedKg)/usualKg*100:null,
+    usual_cost:unitPrice===null?null:usualKg*unitPrice,
+    proposed_cost:unitPrice===null?null:proposedKg*unitPrice,
+    difference_cost:unitPrice===null?null:(usualKg-proposedKg)*unitPrice};
+  if(Object.values(result).some(n=>n!==null && !Number.isFinite(n)))throw new Error('Os valores são grandes demais para calcular.');
+  return result;
+}
+
+function mountFeedWatch(root, data) {
+  const I=window.FeedWatchI18n;
+  const tr=(source, values)=>I.t(source, values);
+  if (root._fwCleanup) root._fwCleanup();
+  if (!root._fwTemplate) root._fwTemplate=root.innerHTML;
+  else root.innerHTML=root._fwTemplate;
+  I.apply(root);
+  const q = s => root.querySelector(s);
+  const screen=q('.fw-workspace');
+  if (!screen) return;
+  if (!data || !data.cases || !data.cases.length) {
+    screen.innerHTML='<div class="fw-error" role="status" aria-live="polite"></div>';
+    screen.firstChild.textContent=tr(data?.message) || tr('Preparando a análise…');
+    if(q('[data-credit]'))q('[data-credit]').textContent='';
+    if(q('[data-overview]'))q('[data-overview]').hidden=true;
+    if(q('.fw-result-details'))q('.fw-result-details').hidden=true;
+    if(q('[data-scenario]'))q('[data-scenario]').hidden=true;
+    const refreshEmpty=()=>{screen.firstChild.textContent=tr(data?.message || 'Preparando a análise…');};
+    refreshEmpty();
+    const unsubscribe=I.subscribe(refreshEmpty);
+    root._fwCleanup=unsubscribe;
+    return;
+  }
+  const video=q('video'), select=q('[data-source]'), segments=q('[data-segments]');
+  const seek=q('[data-seek]'), start=q('[data-start]');
+  const present=q('[data-present]');
+  let current=null, mode='annotated', switching=false, frame=0, destroyed=false, generation=0;
+  const format=t=>Number(t||0).toLocaleString(I.locale,{minimumFractionDigits:1,maximumFractionDigits:1})+tr(' s');
+  let names={none:tr('Não observada'),weak:tr('Baixa'),medium:tr('Moderada'),strong:tr('Alta')};
+  let meanings={none:tr('O sistema não identificou sinais de atividade alimentar neste período.'),weak:tr('O sistema estimou pouca atividade alimentar neste período.'),medium:tr('O sistema estimou um nível intermediário de atividade alimentar neste período.'),strong:tr('O sistema estimou atividade alimentar intensa neste período.')};
+  const setText=(selector,text)=>{const node=q(selector),value=tr(text);if(node && node.textContent!==value)node.textContent=value;};
+  const decimal=n=>Number(n).toLocaleString(I.locale,{maximumFractionDigits:1});
+  const scenarioForm=q('[data-scenario-form]');
+  scenarioForm.oninput=()=>{q('[data-scenario-output]').hidden=true;};
+  scenarioForm.onsubmit=event=>{
+    event.preventDefault();
+    const output=q('[data-scenario-output]');
+    try {
+      const price=q('[data-unit-price]').value;
+      const result=calculateFeedingScenario(q('[data-usual]').valueAsNumber,q('[data-proposed]').valueAsNumber,price===''?null:q('[data-unit-price]').valueAsNumber);
+      const quantity=n=>n.toLocaleString(I.locale,{maximumFractionDigits:3})+tr(' kg');
+      const money=n=>n.toLocaleString(I.locale,{style:'currency',currency:'BRL'});
+      const difference=result.difference_kg;
+      let text=tr('{usual} habituais → {proposed} no cenário. ',{usual:quantity(result.usual_kg),proposed:quantity(result.proposed_kg)});
+      text+=difference===0?tr('Sem alteração de quantidade.'):quantity(Math.abs(difference))+(difference>0?tr(' a menos'):tr(' a mais'))+(result.difference_percent===null?'':tr(' (')+decimal(Math.abs(result.difference_percent))+'%)')+'.';
+      if(result.usual_cost!==null)text+=tr(' Custo: ')+money(result.usual_cost)+tr(' → ')+money(result.proposed_cost)+tr('. Diferença de ')+money(Math.abs(result.difference_cost))+(result.difference_cost===0?'.':result.difference_cost>0?tr(' a menos.'):tr(' a mais.'));
+      output.textContent=text;
+    } catch(error) { output.textContent=tr(error.message); }
+    output.hidden=false;
+  };
+  function showOverview(overview) {
+    q('[data-overview]').hidden=!overview;
+    if(!overview)return;
+    setText('[data-overview-intro]',tr('Duração: ')+decimal(overview.duration_seconds)+tr(' segundos.'));
+    const winners=overview.predominant_classes;
+    const summaryAvailable=overview.summary_available??(overview.coverage_fraction>=.8);
+    setText('[data-overview-prediction]',!winners.length?tr('Sem resultado'):!summaryAvailable?tr('Dados insuficientes'):(overview.tie?tr('Sem predominância'):names[winners[0]]));
+    setText('[data-overview-conclusion]',!winners.length?tr('Nenhum período teve uma classificação válida.'):!summaryAvailable?tr('É preciso classificar pelo menos 80% da duração para apresentar um nível predominante do vídeo.'):overview.tie?tr('O tempo analisado ficou empatado entre ')+winners.map(n=>names[n].toLowerCase()).join(tr(' e '))+'.':decimal(overview.seconds_by_class[winners[0]])+tr(' segundos com este nível, de ')+decimal(overview.analyzed_seconds)+tr(' segundos classificados.'));
+    setText('[data-overview-coverage]',decimal(overview.analyzed_seconds)+tr(' de ')+decimal(overview.duration_seconds)+tr(' segundos tiveram classificação.')+(overview.unclassified_seconds>0.001?tr(' ')+decimal(overview.unclassified_seconds)+tr(' segundos ficaram sem resultado.'):''));
+    setText('[data-overview-changes]',overview.adjacent_pairs?overview.changes+tr(' mudança')+(overview.changes===1?'':tr('s'))+tr(' de nível entre períodos consecutivos.'):tr('Este vídeo não tem períodos consecutivos suficientes para comparar mudanças.'));
+    q('[data-distribution]').replaceChildren(...Object.keys(names).map(name=>{
+      const row=document.createElement('div');row.className='fw-distribution-row';
+      const label=document.createElement('span');label.textContent=names[name];
+      const track=document.createElement('span');track.className='fw-distribution-track';track.setAttribute('aria-hidden','true');
+      const bar=document.createElement('span');bar.dataset.class=name;bar.style.width=(100*overview.fractions_by_class[name])+'%';track.append(bar);
+      const amount=document.createElement('span');amount.className='fw-distribution-value';amount.textContent=decimal(100*overview.fractions_by_class[name])+'%';
+      amount.title=decimal(overview.seconds_by_class[name])+tr(' segundos');row.append(label,track,amount);return row;
+    }));
+    setText('[data-overview-count]',overview.detection_mean==null?tr('Sem dados'):decimal(overview.detection_mean)+tr(' em média'));
+    setText('[data-overview-count-note]',overview.detection_mean==null?tr('Não há contagens disponíveis para calcular a média neste vídeo.'):tr('De ')+overview.detection_min+tr(' a ')+overview.detection_max+tr(' por imagem, em ')+overview.detection_frames+tr(' imagens com resultado.')+(overview.detection_missing_frames?tr(' ')+overview.detection_missing_frames+tr(' imagens ficaram sem contagem.'):'')+(overview.detection_zero_frames?tr(' Em ')+overview.detection_zero_frames+tr(' imagens, o detector não encontrou peixes.'):'')+tr(' A contagem pode ter erros e não representa o total do tanque.'));
+    const evolution=overview.evolution, phases=q('[data-phases]');
+    phases.replaceChildren();
+    const short=evolution?.phases.some(p=>p.reason==='short_video');
+    phases.hidden=!evolution || short;
+    if(evolution && !short) {
+      const titles={start:tr('Início'),middle:tr('Meio'),end:tr('Final')};
+      phases.replaceChildren(...evolution.phases.map(phase=>{
+        const item=document.createElement('li');
+        const label=document.createElement('p');label.className='fw-label';label.textContent=titles[phase.key];
+        const value=document.createElement('p');value.className='fw-phase-value';
+        value.textContent=!phase.predominant_classes.length?tr('Sem resultado'):phase.predominant_classes.length>1?tr('Empate'):names[phase.predominant_classes[0]];
+        const range=document.createElement('p');range.className='fw-phase-range';range.textContent=decimal(phase.start_seconds)+'–'+decimal(phase.end_seconds)+tr(' s');
+        const coverage=document.createElement('p');coverage.className='fw-phase-coverage';coverage.textContent=decimal(phase.analyzed_seconds)+tr(' de ')+decimal(phase.end_seconds-phase.start_seconds)+tr(' s classificados');
+        item.append(label,value,range,coverage);return item;
+      }));
+    }
+    const comparison=evolution?.comparison;
+    let conclusion=tr('A comparação entre partes não está disponível nesta análise.');
+    if(short)conclusion=tr('A comparação entre início, meio e final precisa de pelo menos 12 segundos de vídeo.');
+    else if(comparison?.available)conclusion=comparison.direction==='lower'?tr('No final, predominou um nível menor que no início.'):comparison.direction==='higher'?tr('No final, predominou um nível maior que no início.'):comparison.middle_differs?tr('Mesmo nível predominante no início e no final, com variação no meio.'):tr('Mesmo nível predominante nas três partes do vídeo.');
+    else if(comparison?.reason==='ambiguous_predominance')conclusion=tr('Sem comparação conclusiva: pelo menos uma parte não teve um nível com mais da metade do tempo classificado.');
+    else if(comparison)conclusion=tr('Sem dados suficientes para comparar as três partes. Há poucos resultados ou tempo sem classificação.');
+    setText('[data-evolution]',conclusion);
+  }
+  if(data.live){setText('[data-demo-heading]',tr('Resultado do seu vídeo'));setText('[data-demo-intro]',tr('A classificação de cada período aparece durante a reprodução. O panorama abaixo resume o vídeo inteiro.'));}
+  select.replaceChildren(...data.cases.map((c,i)=>{const o=document.createElement('option');o.value=i;o.textContent=tr(c.title);return o;}));
+  function update() {
+    if (!current) return;
+    if(video.error){setText('[data-prediction]',tr('Vídeo indisponível'));setText('[data-meaning]',tr('Selecione outro exemplo ou recarregue a página para tentar novamente.'));setText('[data-window]',tr('Selecione outro exemplo'));setText('[data-count]','—');start.hidden=true;return;}
+    const t=video.currentTime;
+    const complete=current.windows.filter(w=>w.status!=='incomplete' && (w.available_at_seconds??w.end_seconds)<=t+1e-9);
+    const latest=complete.at(-1), tail=current.windows.some(w=>w.status==='incomplete'&&t>=w.start_seconds);
+    setText('[data-prediction]',latest ? (latest.status==='ok'?names[latest.predicted_class]:tr('Sem resultado')) : (t>0?tr('Aguardando'):tr('Inicie o vídeo')));
+    setText('[data-meaning]',latest ? (latest.status==='ok'?meanings[latest.predicted_class]:tr('Não foi possível analisar este período do vídeo.')) : tr('O primeiro resultado aparece quando o vídeo completa ')+format(current.windows[0]?.end_seconds||2)+'.');
+    setText('[data-window]',(latest ? format(latest.start_seconds)+tr(' a ')+format(latest.end_seconds) : tr('Resultado após ')+format(current.windows[0]?.end_seconds||2))+(tail?tr(' · Final sem nova análise'):''));
+    const observation=current.frames?.[Math.min(Math.floor(t*current.fps),current.frames.length-1)];
+    setText('[data-count]',current.hasCounts?(observation?.count==null?'—':observation.count.toLocaleString(I.locale)):tr('Sem dados'));
+    setText('[data-clock]',format(t)+tr(' / ')+format(current.duration));
+    seek.value=String(t);
+    for (const button of segments.children) button.dataset.active=String(latest?.window_id===Number(button.dataset.id));
+    start.hidden=!video.paused || t>0;
+  }
+  async function changeMode(next, time=video.currentTime, playing=!video.paused) {
+    if (!current) return;
+    switching=true; mode=next;
+    const version=++generation;
+    q('[data-mode-label]').textContent=current.original===current.annotated?tr('Exemplo do conjunto de pesquisa'):(mode==='original'?tr('Gravação sem marcações'):tr('Peixes identificados pelo sistema'));
+    for(const b of root.querySelectorAll('[data-mode]')) b.setAttribute('aria-pressed',String(b.dataset.mode===mode));
+    video.pause();
+    video.src=current[mode];
+    const loaded=()=>{if(version!==generation)return;video.currentTime=Math.min(time,current.duration);switching=false;update();if(playing)video.play().catch(()=>{});};
+    video.addEventListener('loadedmetadata',loaded,{once:true});
+    video.load();
+  }
+  function choose(index) {
+    current=data.cases[index];
+    showOverview(current.overview);
+    q('.fw-mode').hidden=current.original===current.annotated;
+    video.poster=current.poster||'';
+    video.setAttribute('aria-label',tr(current.title)+tr(' — vídeo com controles'));
+    q('[data-badge]').textContent=data.live?tr('Análise concluída'):tr('Exemplo já analisado');
+    q('[data-scope]').textContent=tr(current.scope);
+    q('[data-credit]').textContent=tr(current.credit);
+    const hasCounts=current.frames?.some(f=>f.count!=null);
+    current.hasCounts=hasCounts;
+    q('[data-count]').dataset.unavailable=String(!hasCounts);
+    q('[data-count-label]').textContent=tr('Peixes detectados');
+    q('[data-count-note]').textContent=hasCounts?tr('Quantidade na imagem atual. Não representa o total de peixes do tanque.'):tr('Este vídeo não contém contagens de peixes disponíveis. A atividade alimentar é uma análise separada.');
+    q('[data-reference]').hidden=!current.reference_class;
+    q('[data-reference]').textContent=current.reference_class?tr('Referência da pesquisa: ')+names[current.reference_class]+tr('. Compare com a estimativa do sistema.'):'';
+    seek.max=String(current.duration);
+    segments.replaceChildren(...current.windows.map(w=>{
+      const b=document.createElement('button');b.type='button';b.dataset.class=w.predicted_class||'unavailable';b.dataset.id=w.window_id;
+      b.style.flex=String(w.end_seconds-w.start_seconds);
+      b.textContent=(w.predicted_class==='none'?tr('Sem sinais'):names[w.predicted_class])||tr('Sem análise');
+      b.title=format(w.start_seconds)+tr(' a ')+format(w.end_seconds)+tr(': ')+(names[w.predicted_class]||tr('Sem análise'))+(w.status==='ok'?tr('. Resultado disponível após ')+format(w.end_seconds):tr('. Período sem resultado'));
+      b.setAttribute('aria-label',b.title);
+      b.addEventListener('click',()=>{video.currentTime=Math.min(w.status==='ok'?w.end_seconds+0.001:w.start_seconds,current.duration);update();});
+      return b;
+    }));
+    const coverage=current.windows.reduce((n,w)=>n+(w.status==='ok'?w.end_seconds-w.start_seconds:0),0);
+    q('[data-coverage]').textContent=format(coverage)+tr(' analisados');
+    changeMode(mode,0,false);
+    const params=new URLSearchParams(location.search);params.set('exemplo',current.id);
+    try{history.replaceState(null,'',location.pathname+'?'+params+location.hash);}catch{}
+  }
+  for(const b of root.querySelectorAll('[data-mode]')) b.onclick=()=>changeMode(b.dataset.mode);
+  function updatePresentation() {
+    const active=document.fullscreenElement===screen;
+    present.textContent=active?tr('Sair da apresentação'):tr('Modo apresentação');
+    present.setAttribute('aria-pressed',String(active));
+    present.setAttribute('aria-label',active?tr('Sair da demonstração em tela cheia'):tr('Abrir demonstração em tela cheia'));
+  }
+  function onPresentationKey(event) {
+    if(event.key==='Escape' && document.fullscreenElement===screen)document.exitFullscreen().catch(()=>{});
+  }
+  if(document.fullscreenEnabled && screen.requestFullscreen) {
+    present.hidden=false;
+    present.onclick=async()=>{
+      q('[data-presentation-status]').hidden=true;
+      try {
+        if(document.fullscreenElement===screen)await document.exitFullscreen();
+        else await screen.requestFullscreen();
+      } catch {
+        setText('[data-presentation-status]',tr('Não foi possível abrir a tela cheia. A reprodução continua disponível nesta página.'));
+        q('[data-presentation-status]').hidden=false;
+      }
+    };
+    document.addEventListener('fullscreenchange',updatePresentation);
+    document.addEventListener('keydown',onPresentationKey);
+  }
+  select.onchange=()=>choose(Number(select.value));
+  seek.oninput=()=>{video.currentTime=Number(seek.value);update();};
+  start.onclick=()=>video.play().catch(()=>{});
+  video.onplay=update;video.onpause=update;video.onended=update;video.ontimeupdate=update;
+  video.onerror=update;
+  function tick(){if(destroyed)return;if(!switching)update();frame=requestAnimationFrame(tick);}
+  const requested=new URLSearchParams(location.search).get('exemplo');
+  const initial=Math.max(0,data.cases.findIndex(c=>c.id===requested));select.value=initial;choose(initial);tick();
+  function refreshLanguage() {
+    names={none:tr('Não observada'),weak:tr('Baixa'),medium:tr('Moderada'),strong:tr('Alta')};
+    meanings={none:tr('O sistema não identificou sinais de atividade alimentar neste período.'),weak:tr('O sistema estimou pouca atividade alimentar neste período.'),medium:tr('O sistema estimou um nível intermediário de atividade alimentar neste período.'),strong:tr('O sistema estimou atividade alimentar intensa neste período.')};
+    for(const [index,option] of [...select.options].entries())option.textContent=tr(data.cases[index].title);
+    if(current) {
+      showOverview(current.overview);
+      video.setAttribute('aria-label',tr(current.title)+tr(' — vídeo com controles'));
+      q('[data-badge]').textContent=tr(data.live?'Análise concluída':'Exemplo já analisado');
+      q('[data-scope]').textContent=tr(current.scope);
+      q('[data-credit]').textContent=tr(current.credit);
+      q('[data-count-label]').textContent=tr('Peixes detectados');
+      q('[data-count-note]').textContent=tr(current.hasCounts?'Quantidade na imagem atual. Não representa o total de peixes do tanque.':'Este vídeo não contém contagens de peixes disponíveis. A atividade alimentar é uma análise separada.');
+      q('[data-reference]').textContent=current.reference_class?tr('Referência da pesquisa: ')+names[current.reference_class]+tr('. Compare com a estimativa do sistema.'):'';
+      q('[data-mode-label]').textContent=tr(current.original===current.annotated?'Exemplo do conjunto de pesquisa':(mode==='original'?'Gravação sem marcações':'Peixes identificados pelo sistema'));
+      for(const [index,button] of [...segments.children].entries()) {
+        const w=current.windows[index];
+        button.textContent=(w.predicted_class==='none'?tr('Sem sinais'):names[w.predicted_class])||tr('Sem análise');
+        button.title=format(w.start_seconds)+tr(' a ')+format(w.end_seconds)+': '+(names[w.predicted_class]||tr('Sem análise'))+(w.status==='ok'?tr('. Resultado disponível após ')+format(w.end_seconds):tr('. Período sem resultado'));
+        button.setAttribute('aria-label',button.title);
+      }
+      const coverage=current.windows.reduce((n,w)=>n+(w.status==='ok'?w.end_seconds-w.start_seconds:0),0);
+      q('[data-coverage]').textContent=format(coverage)+tr(' analisados');
+    }
+    if(data.live){setText('[data-demo-heading]','Resultado do seu vídeo');setText('[data-demo-intro]','A classificação de cada período aparece durante a reprodução. O panorama abaixo resume o vídeo inteiro.');}
+    if(!q('[data-scenario-output]').hidden)scenarioForm.onsubmit({preventDefault(){}});
+    updatePresentation();
+    update();
+  }
+  const unsubscribe=I.subscribe(refreshLanguage);
+  root._fwCleanup=()=>{unsubscribe();destroyed=true;cancelAnimationFrame(frame);video.pause();document.removeEventListener('fullscreenchange',updatePresentation);document.removeEventListener('keydown',onPresentationKey);};
+}
+
+fetch('data.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(data=>mountFeedWatch(document.querySelector('[data-fw-root]'),data)).catch(()=>{const target=document.querySelector('[data-fw-root]');const showError=()=>{target.textContent=window.FeedWatchI18n?.t('Não foi possível carregar a demonstração. Recarregue a página.')||'The demonstration could not be loaded. Reload the page.';};showError();window.FeedWatchI18n?.subscribe(showError);});

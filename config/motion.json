@@ -1,0 +1,31 @@
+{
+  "extraction": {
+    "sample_hz": 5.0,
+    "window_seconds": 2.0,
+    "resize_width": 320,
+    "resize_height": 180,
+    "crop_xyxy": [0.05, 0.10, 0.95, 0.95],
+    "blur_kernel": 3,
+    "difference_threshold": 0.047058823529411764,
+    "flow_threshold_diagonals_per_second": 0.01,
+    "grid_size": 4,
+    "region_active_fraction": 0.05,
+    "farneback": {
+      "pyr_scale": 0.5,
+      "levels": 3,
+      "winsize": 15,
+      "iterations": 3,
+      "poly_n": 5,
+      "poly_sigma": 1.2,
+      "flags": 0
+    }
+  },
+  "seed": 42,
+  "random_forest": {
+    "n_estimators": 100,
+    "max_depth": 10,
+    "min_samples_leaf": 4,
+    "max_features": "sqrt",
+    "class_weight": null
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "hypothesis": "Increase medium recall with a train-only class-balanced loss and a fixed 1.75 multiplier for medium, while selecting by validation macro-F1.",
+  "candidate": "gru-weighted-medium-v1",
+  "seeds": [42,43,44],
+  "max_epochs": 60,
+  "patience": 10,
+  "batch_size": 128,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.01,
+  "medium_multiplier": 1.75,
+  "selection": "maximum validation macro-F1; earliest exact tie; operational candidate seed 42 fixed before independent test",
+  "independent_test": "AV-FFIA 2022_6_27, 2022_6_28, 2022_6_29, two clips per date/group/class selected before inference",
+  "old_test_policy": "Never open or reevaluate 2022_6_22",
+  "promotion": {"macro_f1_gain": 0.03, "medium_recall_gain": 0.15, "max_other_recall_drop": 0.05, "must_match_random_forest_macro_f1": true},
+  "budget": "one weighted-loss hypothesis, three seeds; no adaptive retuning after independent evaluation"
+}

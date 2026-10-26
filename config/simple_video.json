@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "detector": {
+    "weights": "artifacts/detectors/fishial/model.pt",
+    "weights_sha256": "5b786b334355fdb0c3faa9d375d70de24f3535ee6f11e9c3e26ec2e90810c03f",
+    "source": "https://github.com/Wye-Foundation/Fishial-Fish-Identification",
+    "source_revision": "f43074efba44a7c833457d0ecf2b96a403e8283d",
+    "download_url": "https://storage.googleapis.com/fishial-ml-resources/detector_v26_n3.zip",
+    "archive_sha256": "4f33cfdd724ffd26a5863774e157e8a43e590fdc183d854017a99b6dbf3a85ec",
+    "class_mapping": {
+      "0": "Fish"
+    },
+    "imgsz": 1280,
+    "conf": 0.6,
+    "iou": 0.45,
+    "max_det": 100,
+    "half": false,
+    "description": "Fixed full-frame ensemble: Fishial YOLO26 nano >=0.60 plus YOLOv12s TorchScript >=0.15; IoU0.55 removes duplicate boxes. Same configuration for every scene. Small assisted regression sample, not independently validated precision.",
+    "post_nms_iou": 0.55,
+    "additional_detectors": [
+      {
+        "weights": "artifacts/detectors/fishial-medium/model.ts",
+        "weights_sha256": "78b7c1b2eabd563e7a5d98135e791e4e6fa75c0dd88e119133c3a3f5260bdbbd",
+        "source": "https://github.com/Wye-Foundation/Fishial-Fish-Identification",
+        "source_revision": "f43074efba44a7c833457d0ecf2b96a403e8283d",
+        "download_url": "https://storage.googleapis.com/fishial-ml-resources/detector_v10_m5.zip",
+        "archive_sha256": "54839fa0c688c42c4114b251aff036a9b8a1288cf61db7d2956786a0238fa47a",
+        "class_mapping": {
+          "0": "Fish"
+        },
+        "imgsz": 640,
+        "conf": 0.15,
+        "iou": 0.45,
+        "max_det": 100,
+        "half": false,
+        "description": "Official Fishial archive labelled YOLOv12 Medium; embedded metadata identifies YOLOv12s fixed640, AGPL-3.0. Not trained in FeedWatch.",
+        "post_nms_iou": 0.55,
+        "backend": "fishial-torchscript",
+        "archive_filename": "detector_v10_m5.zip",
+        "archive_member": "model.ts"
+      }
+    ]
+  },
+  "tracker": {
+    "kind": "conservative-v2",
+    "max_gap_seconds": 0.1,
+    "trail_seconds": 0.5,
+    "min_iou": 0.2,
+    "max_innovation_diagonals": 0.3,
+    "max_center_speed_diagonals_per_second": 8.0,
+    "max_area_ratio": 2.0,
+    "min_assignment_margin": 0.12,
+    "confirmation_frames": 3,
+    "min_speed_observations": 6,
+    "min_speed_history_seconds": 0.2,
+    "speed_window_seconds": 0.24,
+    "description": "AND gates and mutual assignment margin; trails only observed, confirmed consecutive positions; no predicted boxes; net displacement over >=0.2 s for displayed px/s."
+  },
+  "motion": {
+    "analysis_long_edge": 640,
+    "pyr_scale": 0.5,
+    "levels": 3,
+    "winsize": 15,
+    "iterations": 3,
+    "poly_n": 5,
+    "poly_sigma": 1.2,
+    "active_threshold_source_px_per_second": 20.0,
+    "heatmap_max_source_px_per_second": 400.0,
+    "heatmap_opacity": 0.16,
+    "vector_spacing_analysis_pixels": 48,
+    "graph_history_seconds": 8.0,
+    "description": "Farneback on consecutive full grayscale frames at proportional 640 long edge, Gaussian 3x3; scale vectors back to source pixels and divide by actual timestamp delta. Image motion includes water, reflections and camera motion; no fish segmentation."
+  },
+  "presentation": {
+    "footer_fraction_of_width": 0.14,
+    "card_seconds": 8.0,
+    "diagnostic_default": false,
+    "feeding_label": "Intensidade alimentar prevista",
+    "detection_label": "Peixes detectados neste frame",
+    "description": "Preserve entire image unchanged in size; add compact footer outside image; source-pixel boxes/trails."
+  }
+}

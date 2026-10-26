@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=77,<81"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "feedwatch"
+version = "0.1.0"
+description = "Preparação verificável de vídeos AV-FFIA para atividade alimentar de peixes"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "torch==2.10.0",
+  "torchvision==0.25.0",
+  "opencv-python==4.12.0.88",
+  "numpy==2.2.6",
+  "pandas==2.3.3",
+  "scikit-learn==1.7.2",
+  "matplotlib==3.10.8",
+  "imageio-ffmpeg==0.6.0",
+]
+
+[project.optional-dependencies]
+dynamic = ["ultralytics==8.4.0", "lap==0.5.13"]
+local = ["ultralytics==8.4.0", "lap==0.5.13", "gradio==6.30.0"]
+
+[project.scripts]
+feedwatch = "feedwatch.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+feedwatch = ["classes.json", "assets/*.css", "assets/*.js", "assets/*.json"]
+
+# Registro dos comandos; esta tabela não é um executor de tarefas.
+[tool.feedwatch.commands]
+venv = "py -3.12 -m venv .venv"
+install_gpu = ".venv/Scripts/python.exe -m pip install torch==2.10.0 torchvision==0.25.0 --index-url https://download.pytorch.org/whl/cu128"
+install_cpu = ".venv/Scripts/python.exe -m pip install torch==2.10.0 torchvision==0.25.0 --index-url https://download.pytorch.org/whl/cpu"
+install = ".venv/Scripts/python.exe -m pip install -e ."
+diagnose = ".venv/Scripts/python.exe -m feedwatch diagnose"
+index = '.venv/Scripts/python.exe -m feedwatch index --data-dir "video_6.19-6.22"'
+audit = '.venv/Scripts/python.exe -m feedwatch audit --data-dir "video_6.19-6.22" --sample-size 160 --seed 42'
+split = ".venv/Scripts/python.exe -m feedwatch split --config config/splits.json"
+summary = ".venv/Scripts/python.exe -m feedwatch summary"
+examples = '.venv/Scripts/python.exe -m feedwatch examples --data-dir "video_6.19-6.22"'
+test = ".venv/Scripts/python.exe -m unittest discover -s tests -v"
+motion_pilot = '.venv/Scripts/python.exe -m feedwatch motion-experiment --data-dir "video_6.19-6.22" --sample-per-class 4 --workers 4 --output-dir artifacts/experiments/motion-pilot'
+motion_full = '.venv/Scripts/python.exe -m feedwatch motion-experiment --data-dir "video_6.19-6.22" --workers 4 --output-dir artifacts/experiments/motion-full'
+motion_review = '.venv/Scripts/python.exe -m feedwatch motion-review --data-dir "video_6.19-6.22"'
+visual_pilot = '.venv/Scripts/python.exe -m feedwatch visual-experiment --data-dir "video_6.19-6.22" --sample-per-class 4 --output-dir artifacts/experiments/visual-pilot'
+visual_full = '.venv/Scripts/python.exe -m feedwatch visual-experiment --data-dir "video_6.19-6.22" --output-dir artifacts/experiments/visual-full'
+temporal_pilot = '.venv/Scripts/python.exe -m feedwatch temporal-experiment --data-dir "video_6.19-6.22" --sample-per-class 4 --output-dir artifacts/experiments/temporal-pilot'
+temporal_full = '.venv/Scripts/python.exe -m feedwatch temporal-experiment --data-dir "video_6.19-6.22" --output-dir artifacts/experiments/temporal-controlled'
+final_protocol = '.venv/Scripts/python.exe -m feedwatch final-protocol'
+final_evaluate = '.venv/Scripts/python.exe -m feedwatch final-evaluate'
+final_replay = '.venv/Scripts/python.exe -m feedwatch final-replay'
+annotate_clip = '.venv/Scripts/python.exe -m feedwatch annotate-video --video "video_6.19-6.22/2022_6_21/AM_15/none/21_video_8.mp4" --output-dir artifacts/exports/example-clip --mode clip'
+demo_videos = '.venv/Scripts/python.exe -m feedwatch demo-videos --data-dir "video_6.19-6.22" --output-dir artifacts/demos/validation-mvp --seed 42'
+test_video_mvp = '.venv/Scripts/python.exe -m unittest discover -s tests -p test_video_mvp.py -v'
+prepare_fish_detector = '.venv/Scripts/python.exe -m feedwatch prepare-fish-detector'
+dynamic_pilot = '.venv/Scripts/python.exe -m feedwatch annotate-dynamic --video "video_6.19-6.22/2022_6_21/AM_70/weak/21_video_14.mp4" --output-dir artifacts/demos/dynamic-pilot --mode clip'
+dynamic_demo = '.venv/Scripts/python.exe -m feedwatch dynamic-demo --data-dir "video_6.19-6.22" --output-dir artifacts/demos/dynamic-real --seed 42'

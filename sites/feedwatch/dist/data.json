@@ -1,0 +1,1 @@
+{"cases": [], "model": "MobileNetV3 Small congelada + GRU seed 42", "historical": {"accuracy": 0.6055962691538974, "macro_f1": 0.5902772087968453, "medium_recall": 0.18309859154929578}, "message": "Os vídeos da demonstração não acompanham o código. Na aplicação local, selecione seu vídeo ou use o exemplo do pacote de execução."}

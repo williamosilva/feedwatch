@@ -1,0 +1,1596 @@
+{
+  "source_url": "https://zenodo.org/api/records/11060195/files/video_6.27-6.29.zip/content",
+  "record": "https://zenodo.org/records/11060195",
+  "license": "CC-BY-4.0",
+  "archive_bytes": 13049105990,
+  "archive_publisher_md5": "5c238cad9dc717135692daeb429ebeab",
+  "full_archive_checksum_verified": false,
+  "seed": "feedwatch-independent-20261022-v1",
+  "policy": "two members per day/group/class, ranked by SHA256(seed:path), before inference",
+  "expected_strata": 112,
+  "selected_count": 224,
+  "by_date_class": {
+    "2022_6_27/medium": 18,
+    "2022_6_27/none": 18,
+    "2022_6_27/strong": 18,
+    "2022_6_27/weak": 18,
+    "2022_6_28/medium": 20,
+    "2022_6_28/none": 20,
+    "2022_6_28/strong": 20,
+    "2022_6_28/weak": 20,
+    "2022_6_29/medium": 18,
+    "2022_6_29/none": 18,
+    "2022_6_29/strong": 18,
+    "2022_6_29/weak": 18
+  },
+  "members": [
+    {
+      "relative_path": "2022_6_27/AM_100/medium/27_video_12.mp4",
+      "zip_member": "2022_6_27/AM_100/medium/27_video_12.mp4",
+      "crc32": 601614213,
+      "size": 3953159,
+      "compressed_size": 3912383
+    },
+    {
+      "relative_path": "2022_6_27/AM_100/medium/27_video_4.mp4",
+      "zip_member": "2022_6_27/AM_100/medium/27_video_4.mp4",
+      "crc32": 1588940171,
+      "size": 4060660,
+      "compressed_size": 4019681
+    },
+    {
+      "relative_path": "2022_6_27/AM_100/none/27_video_30.mp4",
+      "zip_member": "2022_6_27/AM_100/none/27_video_30.mp4",
+      "crc32": 2304286953,
+      "size": 4292382,
+      "compressed_size": 4237814
+    },
+    {
+      "relative_path": "2022_6_27/AM_100/none/27_video_16.mp4",
+      "zip_member": "2022_6_27/AM_100/none/27_video_16.mp4",
+      "crc32": 2747889291,
+      "size": 4815438,
+      "compressed_size": 4775934
+    },
+    {
+      "relative_path": "2022_6_27/AM_100/strong/27_video_43.mp4",
+      "zip_member": "2022_6_27/AM_100/strong/27_video_43.mp4",
+      "crc32": 1423515676,
+      "size": 4232676,
+      "compressed_size": 4189683
+    },
+    {
+      "relative_path": "2022_6_27/AM_100/strong/27_video_33.mp4",
+      "zip_member": "2022_6_27/AM_100/strong/27_video_33.mp4",
+      "crc32": 1234466698,
+      "size": 3988981,
+      "compressed_size": 3943619
+    },
+    {
+      "relative_path": "2022_6_27/AM_100/weak/27_video_28.mp4",
+      "zip_member": "2022_6_27/AM_100/weak/27_video_28.mp4",
+      "crc32": 1165189137,
+      "size": 3765721,
+      "compressed_size": 3735848
+    },
+    {
+      "relative_path": "2022_6_27/AM_100/weak/27_video_27.mp4",
+      "zip_member": "2022_6_27/AM_100/weak/27_video_27.mp4",
+      "crc32": 850464294,
+      "size": 3790356,
+      "compressed_size": 3759119
+    },
+    {
+      "relative_path": "2022_6_27/AM_40/medium/27_video_36.mp4",
+      "zip_member": "2022_6_27/AM_40/medium/27_video_36.mp4",
+      "crc32": 1366943352,
+      "size": 3018898,
+      "compressed_size": 2995570
+    },
+    {
+      "relative_path": "2022_6_27/AM_40/medium/27_video_24.mp4",
+      "zip_member": "2022_6_27/AM_40/medium/27_video_24.mp4",
+      "crc32": 692662868,
+      "size": 3092386,
+      "compressed_size": 3065730
+    },
+    {
+      "relative_path": "2022_6_27/AM_40/none/27_video_19.mp4",
+      "zip_member": "2022_6_27/AM_40/none/27_video_19.mp4",
+      "crc32": 3216174555,
+      "size": 3344068,
+      "compressed_size": 3318021
+    },
+    {
+      "relative_path": "2022_6_27/AM_40/none/27_video_11.mp4",
+      "zip_member": "2022_6_27/AM_40/none/27_video_11.mp4",
+      "crc32": 1834561260,
+      "size": 3396192,
+      "compressed_size": 3371380
+    },
+    {
+      "relative_path": "2022_6_27/AM_40/strong/27_video_11.mp4",
+      "zip_member": "2022_6_27/AM_40/strong/27_video_11.mp4",
+      "crc32": 8289622,
+      "size": 3457010,
+      "compressed_size": 3409047
+    },
+    {
+      "relative_path": "2022_6_27/AM_40/strong/27_video_1.mp4",
+      "zip_member": "2022_6_27/AM_40/strong/27_video_1.mp4",
+      "crc32": 1576566925,
+      "size": 3399650,
+      "compressed_size": 3371916
+    },
+    {
+      "relative_path": "2022_6_27/AM_40/weak/27_video_38.mp4",
+      "zip_member": "2022_6_27/AM_40/weak/27_video_38.mp4",
+      "crc32": 3555619751,
+      "size": 3237582,
+      "compressed_size": 3221465
+    },
+    {
+      "relative_path": "2022_6_27/AM_40/weak/27_video_3.mp4",
+      "zip_member": "2022_6_27/AM_40/weak/27_video_3.mp4",
+      "crc32": 2694919395,
+      "size": 3076726,
+      "compressed_size": 3055084
+    },
+    {
+      "relative_path": "2022_6_27/AM_5/medium/27_video_9.mp4",
+      "zip_member": "2022_6_27/AM_5/medium/27_video_9.mp4",
+      "crc32": 920515329,
+      "size": 2219286,
+      "compressed_size": 2183622
+    },
+    {
+      "relative_path": "2022_6_27/AM_5/medium/27_video_8.mp4",
+      "zip_member": "2022_6_27/AM_5/medium/27_video_8.mp4",
+      "crc32": 622814930,
+      "size": 2129662,
+      "compressed_size": 2096806
+    },
+    {
+      "relative_path": "2022_6_27/AM_5/none/27_video_22.mp4",
+      "zip_member": "2022_6_27/AM_5/none/27_video_22.mp4",
+      "crc32": 2930715771,
+      "size": 2096805,
+      "compressed_size": 2061148
+    },
+    {
+      "relative_path": "2022_6_27/AM_5/none/27_video_27.mp4",
+      "zip_member": "2022_6_27/AM_5/none/27_video_27.mp4",
+      "crc32": 212180042,
+      "size": 2063674,
+      "compressed_size": 2036014
+    },
+    {
+      "relative_path": "2022_6_27/AM_5/strong/27_video_13.mp4",
+      "zip_member": "2022_6_27/AM_5/strong/27_video_13.mp4",
+      "crc32": 2595051517,
+      "size": 2150886,
+      "compressed_size": 2114328
+    },
+    {
+      "relative_path": "2022_6_27/AM_5/strong/27_video_15.mp4",
+      "zip_member": "2022_6_27/AM_5/strong/27_video_15.mp4",
+      "crc32": 1446424818,
+      "size": 2177072,
+      "compressed_size": 2140096
+    },
+    {
+      "relative_path": "2022_6_27/AM_5/weak/27_video_24.mp4",
+      "zip_member": "2022_6_27/AM_5/weak/27_video_24.mp4",
+      "crc32": 3138540620,
+      "size": 2108544,
+      "compressed_size": 2083328
+    },
+    {
+      "relative_path": "2022_6_27/AM_5/weak/27_video_3.mp4",
+      "zip_member": "2022_6_27/AM_5/weak/27_video_3.mp4",
+      "crc32": 1858094776,
+      "size": 2145300,
+      "compressed_size": 2114540
+    },
+    {
+      "relative_path": "2022_6_27/AM_70/medium/27_video_16.mp4",
+      "zip_member": "2022_6_27/AM_70/medium/27_video_16.mp4",
+      "crc32": 2984924547,
+      "size": 3292906,
+      "compressed_size": 3267843
+    },
+    {
+      "relative_path": "2022_6_27/AM_70/medium/27_video_1.mp4",
+      "zip_member": "2022_6_27/AM_70/medium/27_video_1.mp4",
+      "crc32": 3603145663,
+      "size": 3307606,
+      "compressed_size": 3280308
+    },
+    {
+      "relative_path": "2022_6_27/AM_70/none/27_video_3.mp4",
+      "zip_member": "2022_6_27/AM_70/none/27_video_3.mp4",
+      "crc32": 426881728,
+      "size": 4286717,
+      "compressed_size": 4272406
+    },
+    {
+      "relative_path": "2022_6_27/AM_70/none/27_video_5.mp4",
+      "zip_member": "2022_6_27/AM_70/none/27_video_5.mp4",
+      "crc32": 2700360762,
+      "size": 4110657,
+      "compressed_size": 4097259
+    },
+    {
+      "relative_path": "2022_6_27/AM_70/strong/27_video_42.mp4",
+      "zip_member": "2022_6_27/AM_70/strong/27_video_42.mp4",
+      "crc32": 2603654008,
+      "size": 3419446,
+      "compressed_size": 3391438
+    },
+    {
+      "relative_path": "2022_6_27/AM_70/strong/27_video_2.mp4",
+      "zip_member": "2022_6_27/AM_70/strong/27_video_2.mp4",
+      "crc32": 2749166453,
+      "size": 3798593,
+      "compressed_size": 3766952
+    },
+    {
+      "relative_path": "2022_6_27/AM_70/weak/27_video_10.mp4",
+      "zip_member": "2022_6_27/AM_70/weak/27_video_10.mp4",
+      "crc32": 2846313201,
+      "size": 3311249,
+      "compressed_size": 3283577
+    },
+    {
+      "relative_path": "2022_6_27/AM_70/weak/27_video_19.mp4",
+      "zip_member": "2022_6_27/AM_70/weak/27_video_19.mp4",
+      "crc32": 4008045447,
+      "size": 3254576,
+      "compressed_size": 3231527
+    },
+    {
+      "relative_path": "2022_6_27/PM_100/medium/27_video_26.mp4",
+      "zip_member": "2022_6_27/PM_100/medium/27_video_26.mp4",
+      "crc32": 1629476738,
+      "size": 3281333,
+      "compressed_size": 3256281
+    },
+    {
+      "relative_path": "2022_6_27/PM_100/medium/27_video_39.mp4",
+      "zip_member": "2022_6_27/PM_100/medium/27_video_39.mp4",
+      "crc32": 934697688,
+      "size": 3634583,
+      "compressed_size": 3613995
+    },
+    {
+      "relative_path": "2022_6_27/PM_100/none/27_video_16.mp4",
+      "zip_member": "2022_6_27/PM_100/none/27_video_16.mp4",
+      "crc32": 123697476,
+      "size": 4031753,
+      "compressed_size": 3998126
+    },
+    {
+      "relative_path": "2022_6_27/PM_100/none/27_video_3.mp4",
+      "zip_member": "2022_6_27/PM_100/none/27_video_3.mp4",
+      "crc32": 1347567833,
+      "size": 4060175,
+      "compressed_size": 4030843
+    },
+    {
+      "relative_path": "2022_6_27/PM_100/strong/27_video_37.mp4",
+      "zip_member": "2022_6_27/PM_100/strong/27_video_37.mp4",
+      "crc32": 2013121327,
+      "size": 3575844,
+      "compressed_size": 3538962
+    },
+    {
+      "relative_path": "2022_6_27/PM_100/strong/27_video_44.mp4",
+      "zip_member": "2022_6_27/PM_100/strong/27_video_44.mp4",
+      "crc32": 1112521214,
+      "size": 3533511,
+      "compressed_size": 3499672
+    },
+    {
+      "relative_path": "2022_6_27/PM_100/weak/27_video_29.mp4",
+      "zip_member": "2022_6_27/PM_100/weak/27_video_29.mp4",
+      "crc32": 1859853639,
+      "size": 3291444,
+      "compressed_size": 3272819
+    },
+    {
+      "relative_path": "2022_6_27/PM_100/weak/27_video_14.mp4",
+      "zip_member": "2022_6_27/PM_100/weak/27_video_14.mp4",
+      "crc32": 2228354168,
+      "size": 3415994,
+      "compressed_size": 3395536
+    },
+    {
+      "relative_path": "2022_6_27/PM_15/medium/27_video_17.mp4",
+      "zip_member": "2022_6_27/PM_15/medium/27_video_17.mp4",
+      "crc32": 3174791871,
+      "size": 2516183,
+      "compressed_size": 2497207
+    },
+    {
+      "relative_path": "2022_6_27/PM_15/medium/27_video_30.mp4",
+      "zip_member": "2022_6_27/PM_15/medium/27_video_30.mp4",
+      "crc32": 3525614722,
+      "size": 2576025,
+      "compressed_size": 2555003
+    },
+    {
+      "relative_path": "2022_6_27/PM_15/none/27_video_13.mp4",
+      "zip_member": "2022_6_27/PM_15/none/27_video_13.mp4",
+      "crc32": 2039590038,
+      "size": 2823991,
+      "compressed_size": 2806870
+    },
+    {
+      "relative_path": "2022_6_27/PM_15/none/27_video_23.mp4",
+      "zip_member": "2022_6_27/PM_15/none/27_video_23.mp4",
+      "crc32": 1802079848,
+      "size": 2756916,
+      "compressed_size": 2737669
+    },
+    {
+      "relative_path": "2022_6_27/PM_15/strong/27_video_5.mp4",
+      "zip_member": "2022_6_27/PM_15/strong/27_video_5.mp4",
+      "crc32": 1229078636,
+      "size": 2970249,
+      "compressed_size": 2937828
+    },
+    {
+      "relative_path": "2022_6_27/PM_15/strong/27_video_14.mp4",
+      "zip_member": "2022_6_27/PM_15/strong/27_video_14.mp4",
+      "crc32": 3480885151,
+      "size": 2864632,
+      "compressed_size": 2839524
+    },
+    {
+      "relative_path": "2022_6_27/PM_15/weak/27_video_13.mp4",
+      "zip_member": "2022_6_27/PM_15/weak/27_video_13.mp4",
+      "crc32": 3203468126,
+      "size": 2576298,
+      "compressed_size": 2560560
+    },
+    {
+      "relative_path": "2022_6_27/PM_15/weak/27_video_15.mp4",
+      "zip_member": "2022_6_27/PM_15/weak/27_video_15.mp4",
+      "crc32": 3134929481,
+      "size": 2507432,
+      "compressed_size": 2491948
+    },
+    {
+      "relative_path": "2022_6_27/PM_40/medium/27_video_21.mp4",
+      "zip_member": "2022_6_27/PM_40/medium/27_video_21.mp4",
+      "crc32": 2673125832,
+      "size": 3074573,
+      "compressed_size": 3054024
+    },
+    {
+      "relative_path": "2022_6_27/PM_40/medium/27_video_8.mp4",
+      "zip_member": "2022_6_27/PM_40/medium/27_video_8.mp4",
+      "crc32": 2015104174,
+      "size": 3186873,
+      "compressed_size": 3162884
+    },
+    {
+      "relative_path": "2022_6_27/PM_40/none/27_video_13.mp4",
+      "zip_member": "2022_6_27/PM_40/none/27_video_13.mp4",
+      "crc32": 948709800,
+      "size": 3372857,
+      "compressed_size": 3356365
+    },
+    {
+      "relative_path": "2022_6_27/PM_40/none/27_video_3.mp4",
+      "zip_member": "2022_6_27/PM_40/none/27_video_3.mp4",
+      "crc32": 733913638,
+      "size": 3390941,
+      "compressed_size": 3375869
+    },
+    {
+      "relative_path": "2022_6_27/PM_40/strong/27_video_23.mp4",
+      "zip_member": "2022_6_27/PM_40/strong/27_video_23.mp4",
+      "crc32": 2094490303,
+      "size": 3262936,
+      "compressed_size": 3238748
+    },
+    {
+      "relative_path": "2022_6_27/PM_40/strong/27_video_27.mp4",
+      "zip_member": "2022_6_27/PM_40/strong/27_video_27.mp4",
+      "crc32": 1931519044,
+      "size": 3174658,
+      "compressed_size": 3154732
+    },
+    {
+      "relative_path": "2022_6_27/PM_40/weak/27_video_23.mp4",
+      "zip_member": "2022_6_27/PM_40/weak/27_video_23.mp4",
+      "crc32": 3414600739,
+      "size": 3070781,
+      "compressed_size": 3054921
+    },
+    {
+      "relative_path": "2022_6_27/PM_40/weak/27_video_30.mp4",
+      "zip_member": "2022_6_27/PM_40/weak/27_video_30.mp4",
+      "crc32": 3062974141,
+      "size": 3102832,
+      "compressed_size": 3088094
+    },
+    {
+      "relative_path": "2022_6_27/PM_5/medium/27_video_12.mp4",
+      "zip_member": "2022_6_27/PM_5/medium/27_video_12.mp4",
+      "crc32": 1573358543,
+      "size": 2238217,
+      "compressed_size": 2204279
+    },
+    {
+      "relative_path": "2022_6_27/PM_5/medium/27_video_13.mp4",
+      "zip_member": "2022_6_27/PM_5/medium/27_video_13.mp4",
+      "crc32": 2157779015,
+      "size": 2239249,
+      "compressed_size": 2206271
+    },
+    {
+      "relative_path": "2022_6_27/PM_5/none/27_video_10.mp4",
+      "zip_member": "2022_6_27/PM_5/none/27_video_10.mp4",
+      "crc32": 2630344248,
+      "size": 2296116,
+      "compressed_size": 2258573
+    },
+    {
+      "relative_path": "2022_6_27/PM_5/none/27_video_8.mp4",
+      "zip_member": "2022_6_27/PM_5/none/27_video_8.mp4",
+      "crc32": 2729006700,
+      "size": 2215172,
+      "compressed_size": 2184741
+    },
+    {
+      "relative_path": "2022_6_27/PM_5/strong/27_video_8.mp4",
+      "zip_member": "2022_6_27/PM_5/strong/27_video_8.mp4",
+      "crc32": 2827308981,
+      "size": 2317423,
+      "compressed_size": 2280811
+    },
+    {
+      "relative_path": "2022_6_27/PM_5/strong/27_video_4.mp4",
+      "zip_member": "2022_6_27/PM_5/strong/27_video_4.mp4",
+      "crc32": 3113565708,
+      "size": 2341451,
+      "compressed_size": 2304913
+    },
+    {
+      "relative_path": "2022_6_27/PM_5/weak/27_video_3.mp4",
+      "zip_member": "2022_6_27/PM_5/weak/27_video_3.mp4",
+      "crc32": 3198882833,
+      "size": 2231772,
+      "compressed_size": 2200746
+    },
+    {
+      "relative_path": "2022_6_27/PM_5/weak/27_video_8.mp4",
+      "zip_member": "2022_6_27/PM_5/weak/27_video_8.mp4",
+      "crc32": 2267335561,
+      "size": 2225181,
+      "compressed_size": 2196136
+    },
+    {
+      "relative_path": "2022_6_27/PM_70/medium/27_video_35.mp4",
+      "zip_member": "2022_6_27/PM_70/medium/27_video_35.mp4",
+      "crc32": 4231968701,
+      "size": 2996033,
+      "compressed_size": 2976051
+    },
+    {
+      "relative_path": "2022_6_27/PM_70/medium/27_video_20.mp4",
+      "zip_member": "2022_6_27/PM_70/medium/27_video_20.mp4",
+      "crc32": 3052447307,
+      "size": 2895586,
+      "compressed_size": 2873783
+    },
+    {
+      "relative_path": "2022_6_27/PM_70/none/27_video_25.mp4",
+      "zip_member": "2022_6_27/PM_70/none/27_video_25.mp4",
+      "crc32": 2742332123,
+      "size": 3605249,
+      "compressed_size": 3585477
+    },
+    {
+      "relative_path": "2022_6_27/PM_70/none/27_video_20.mp4",
+      "zip_member": "2022_6_27/PM_70/none/27_video_20.mp4",
+      "crc32": 3727322906,
+      "size": 3589866,
+      "compressed_size": 3572939
+    },
+    {
+      "relative_path": "2022_6_27/PM_70/strong/27_video_29.mp4",
+      "zip_member": "2022_6_27/PM_70/strong/27_video_29.mp4",
+      "crc32": 799830202,
+      "size": 3131061,
+      "compressed_size": 3107962
+    },
+    {
+      "relative_path": "2022_6_27/PM_70/strong/27_video_14.mp4",
+      "zip_member": "2022_6_27/PM_70/strong/27_video_14.mp4",
+      "crc32": 3986481940,
+      "size": 3123767,
+      "compressed_size": 3101296
+    },
+    {
+      "relative_path": "2022_6_27/PM_70/weak/27_video_41.mp4",
+      "zip_member": "2022_6_27/PM_70/weak/27_video_41.mp4",
+      "crc32": 1796630180,
+      "size": 2984647,
+      "compressed_size": 2971149
+    },
+    {
+      "relative_path": "2022_6_27/PM_70/weak/27_video_42.mp4",
+      "zip_member": "2022_6_27/PM_70/weak/27_video_42.mp4",
+      "crc32": 2351412141,
+      "size": 2988042,
+      "compressed_size": 2975429
+    },
+    {
+      "relative_path": "2022_6_28/AM_100/medium/28_video_8.mp4",
+      "zip_member": "2022_6_28/AM_100/medium/28_video_8.mp4",
+      "crc32": 783891457,
+      "size": 3624835,
+      "compressed_size": 3593752
+    },
+    {
+      "relative_path": "2022_6_28/AM_100/medium/28_video_28.mp4",
+      "zip_member": "2022_6_28/AM_100/medium/28_video_28.mp4",
+      "crc32": 2713496302,
+      "size": 3590542,
+      "compressed_size": 3560224
+    },
+    {
+      "relative_path": "2022_6_28/AM_100/none/28_video_4.mp4",
+      "zip_member": "2022_6_28/AM_100/none/28_video_4.mp4",
+      "crc32": 1622226755,
+      "size": 3862128,
+      "compressed_size": 3824583
+    },
+    {
+      "relative_path": "2022_6_28/AM_100/none/28_video_10.mp4",
+      "zip_member": "2022_6_28/AM_100/none/28_video_10.mp4",
+      "crc32": 170705767,
+      "size": 3916005,
+      "compressed_size": 3878177
+    },
+    {
+      "relative_path": "2022_6_28/AM_100/strong/28_video_29.mp4",
+      "zip_member": "2022_6_28/AM_100/strong/28_video_29.mp4",
+      "crc32": 525058668,
+      "size": 3734390,
+      "compressed_size": 3698338
+    },
+    {
+      "relative_path": "2022_6_28/AM_100/strong/28_video_9.mp4",
+      "zip_member": "2022_6_28/AM_100/strong/28_video_9.mp4",
+      "crc32": 2052376434,
+      "size": 4044007,
+      "compressed_size": 3999244
+    },
+    {
+      "relative_path": "2022_6_28/AM_100/weak/28_video_4.mp4",
+      "zip_member": "2022_6_28/AM_100/weak/28_video_4.mp4",
+      "crc32": 298216642,
+      "size": 3820858,
+      "compressed_size": 3790366
+    },
+    {
+      "relative_path": "2022_6_28/AM_100/weak/28_video_5.mp4",
+      "zip_member": "2022_6_28/AM_100/weak/28_video_5.mp4",
+      "crc32": 3902377015,
+      "size": 3927859,
+      "compressed_size": 3898690
+    },
+    {
+      "relative_path": "2022_6_28/AM_15/medium/28_video_9.mp4",
+      "zip_member": "2022_6_28/AM_15/medium/28_video_9.mp4",
+      "crc32": 540391520,
+      "size": 2280861,
+      "compressed_size": 2260699
+    },
+    {
+      "relative_path": "2022_6_28/AM_15/medium/28_video_20.mp4",
+      "zip_member": "2022_6_28/AM_15/medium/28_video_20.mp4",
+      "crc32": 3481530392,
+      "size": 2292284,
+      "compressed_size": 2272441
+    },
+    {
+      "relative_path": "2022_6_28/AM_15/none/28_video_7.mp4",
+      "zip_member": "2022_6_28/AM_15/none/28_video_7.mp4",
+      "crc32": 532451903,
+      "size": 2570785,
+      "compressed_size": 2543593
+    },
+    {
+      "relative_path": "2022_6_28/AM_15/none/28_video_2.mp4",
+      "zip_member": "2022_6_28/AM_15/none/28_video_2.mp4",
+      "crc32": 1900452170,
+      "size": 2456061,
+      "compressed_size": 2431221
+    },
+    {
+      "relative_path": "2022_6_28/AM_15/strong/28_video_15.mp4",
+      "zip_member": "2022_6_28/AM_15/strong/28_video_15.mp4",
+      "crc32": 3571759781,
+      "size": 2689337,
+      "compressed_size": 2646599
+    },
+    {
+      "relative_path": "2022_6_28/AM_15/strong/28_video_23.mp4",
+      "zip_member": "2022_6_28/AM_15/strong/28_video_23.mp4",
+      "crc32": 2298661452,
+      "size": 2364778,
+      "compressed_size": 2338511
+    },
+    {
+      "relative_path": "2022_6_28/AM_15/weak/28_video_27.mp4",
+      "zip_member": "2022_6_28/AM_15/weak/28_video_27.mp4",
+      "crc32": 4040693342,
+      "size": 2274987,
+      "compressed_size": 2258846
+    },
+    {
+      "relative_path": "2022_6_28/AM_15/weak/28_video_26.mp4",
+      "zip_member": "2022_6_28/AM_15/weak/28_video_26.mp4",
+      "crc32": 3210783192,
+      "size": 2278280,
+      "compressed_size": 2262082
+    },
+    {
+      "relative_path": "2022_6_28/AM_40/medium/28_video_28.mp4",
+      "zip_member": "2022_6_28/AM_40/medium/28_video_28.mp4",
+      "crc32": 2575677111,
+      "size": 3149850,
+      "compressed_size": 3133320
+    },
+    {
+      "relative_path": "2022_6_28/AM_40/medium/28_video_24.mp4",
+      "zip_member": "2022_6_28/AM_40/medium/28_video_24.mp4",
+      "crc32": 2050172616,
+      "size": 3601653,
+      "compressed_size": 3580452
+    },
+    {
+      "relative_path": "2022_6_28/AM_40/none/28_video_25.mp4",
+      "zip_member": "2022_6_28/AM_40/none/28_video_25.mp4",
+      "crc32": 3053161115,
+      "size": 3373509,
+      "compressed_size": 3349623
+    },
+    {
+      "relative_path": "2022_6_28/AM_40/none/28_video_29.mp4",
+      "zip_member": "2022_6_28/AM_40/none/28_video_29.mp4",
+      "crc32": 2869686781,
+      "size": 3559610,
+      "compressed_size": 3537976
+    },
+    {
+      "relative_path": "2022_6_28/AM_40/strong/28_video_2.mp4",
+      "zip_member": "2022_6_28/AM_40/strong/28_video_2.mp4",
+      "crc32": 3086203207,
+      "size": 3733358,
+      "compressed_size": 3696137
+    },
+    {
+      "relative_path": "2022_6_28/AM_40/strong/28_video_18.mp4",
+      "zip_member": "2022_6_28/AM_40/strong/28_video_18.mp4",
+      "crc32": 1849494143,
+      "size": 3596098,
+      "compressed_size": 3562307
+    },
+    {
+      "relative_path": "2022_6_28/AM_40/weak/28_video_4.mp4",
+      "zip_member": "2022_6_28/AM_40/weak/28_video_4.mp4",
+      "crc32": 335915177,
+      "size": 3642864,
+      "compressed_size": 3636151
+    },
+    {
+      "relative_path": "2022_6_28/AM_40/weak/28_video_10.mp4",
+      "zip_member": "2022_6_28/AM_40/weak/28_video_10.mp4",
+      "crc32": 3452090785,
+      "size": 3546911,
+      "compressed_size": 3538892
+    },
+    {
+      "relative_path": "2022_6_28/AM_5/medium/28_video_1.mp4",
+      "zip_member": "2022_6_28/AM_5/medium/28_video_1.mp4",
+      "crc32": 4120015063,
+      "size": 2689435,
+      "compressed_size": 2668598
+    },
+    {
+      "relative_path": "2022_6_28/AM_5/medium/28_video_6.mp4",
+      "zip_member": "2022_6_28/AM_5/medium/28_video_6.mp4",
+      "crc32": 2324207567,
+      "size": 2879965,
+      "compressed_size": 2862262
+    },
+    {
+      "relative_path": "2022_6_28/AM_5/none/28_video_18.mp4",
+      "zip_member": "2022_6_28/AM_5/none/28_video_18.mp4",
+      "crc32": 2718825554,
+      "size": 2618401,
+      "compressed_size": 2603941
+    },
+    {
+      "relative_path": "2022_6_28/AM_5/none/28_video_21.mp4",
+      "zip_member": "2022_6_28/AM_5/none/28_video_21.mp4",
+      "crc32": 1935022672,
+      "size": 2667138,
+      "compressed_size": 2652512
+    },
+    {
+      "relative_path": "2022_6_28/AM_5/strong/28_video_7.mp4",
+      "zip_member": "2022_6_28/AM_5/strong/28_video_7.mp4",
+      "crc32": 1398395583,
+      "size": 2762215,
+      "compressed_size": 2741494
+    },
+    {
+      "relative_path": "2022_6_28/AM_5/strong/28_video_4.mp4",
+      "zip_member": "2022_6_28/AM_5/strong/28_video_4.mp4",
+      "crc32": 3808183372,
+      "size": 2752130,
+      "compressed_size": 2734683
+    },
+    {
+      "relative_path": "2022_6_28/AM_5/weak/28_video_2.mp4",
+      "zip_member": "2022_6_28/AM_5/weak/28_video_2.mp4",
+      "crc32": 439211817,
+      "size": 2778161,
+      "compressed_size": 2762383
+    },
+    {
+      "relative_path": "2022_6_28/AM_5/weak/28_video_13.mp4",
+      "zip_member": "2022_6_28/AM_5/weak/28_video_13.mp4",
+      "crc32": 1613568792,
+      "size": 2752752,
+      "compressed_size": 2738160
+    },
+    {
+      "relative_path": "2022_6_28/AM_70/medium/28_video_27.mp4",
+      "zip_member": "2022_6_28/AM_70/medium/28_video_27.mp4",
+      "crc32": 1845654803,
+      "size": 3177272,
+      "compressed_size": 3154072
+    },
+    {
+      "relative_path": "2022_6_28/AM_70/medium/28_video_2.mp4",
+      "zip_member": "2022_6_28/AM_70/medium/28_video_2.mp4",
+      "crc32": 1067655381,
+      "size": 3129853,
+      "compressed_size": 3107908
+    },
+    {
+      "relative_path": "2022_6_28/AM_70/none/28_video_4.mp4",
+      "zip_member": "2022_6_28/AM_70/none/28_video_4.mp4",
+      "crc32": 3037192001,
+      "size": 3422263,
+      "compressed_size": 3398160
+    },
+    {
+      "relative_path": "2022_6_28/AM_70/none/28_video_15.mp4",
+      "zip_member": "2022_6_28/AM_70/none/28_video_15.mp4",
+      "crc32": 3674476495,
+      "size": 3350372,
+      "compressed_size": 3323500
+    },
+    {
+      "relative_path": "2022_6_28/AM_70/strong/28_video_27.mp4",
+      "zip_member": "2022_6_28/AM_70/strong/28_video_27.mp4",
+      "crc32": 1880318395,
+      "size": 3225029,
+      "compressed_size": 3198088
+    },
+    {
+      "relative_path": "2022_6_28/AM_70/strong/28_video_35.mp4",
+      "zip_member": "2022_6_28/AM_70/strong/28_video_35.mp4",
+      "crc32": 1096906723,
+      "size": 3218631,
+      "compressed_size": 3193360
+    },
+    {
+      "relative_path": "2022_6_28/AM_70/weak/28_video_21.mp4",
+      "zip_member": "2022_6_28/AM_70/weak/28_video_21.mp4",
+      "crc32": 4062363286,
+      "size": 3075393,
+      "compressed_size": 3054969
+    },
+    {
+      "relative_path": "2022_6_28/AM_70/weak/28_video_1.mp4",
+      "zip_member": "2022_6_28/AM_70/weak/28_video_1.mp4",
+      "crc32": 1686662061,
+      "size": 3140182,
+      "compressed_size": 3118572
+    },
+    {
+      "relative_path": "2022_6_28/PM_100/medium/28_video_31.mp4",
+      "zip_member": "2022_6_28/PM_100/medium/28_video_31.mp4",
+      "crc32": 271906386,
+      "size": 3364997,
+      "compressed_size": 3333924
+    },
+    {
+      "relative_path": "2022_6_28/PM_100/medium/28_video_35.mp4",
+      "zip_member": "2022_6_28/PM_100/medium/28_video_35.mp4",
+      "crc32": 3151549147,
+      "size": 4435274,
+      "compressed_size": 4406715
+    },
+    {
+      "relative_path": "2022_6_28/PM_100/none/28_video_23.mp4",
+      "zip_member": "2022_6_28/PM_100/none/28_video_23.mp4",
+      "crc32": 1628496279,
+      "size": 3688989,
+      "compressed_size": 3659292
+    },
+    {
+      "relative_path": "2022_6_28/PM_100/none/28_video_10.mp4",
+      "zip_member": "2022_6_28/PM_100/none/28_video_10.mp4",
+      "crc32": 628835558,
+      "size": 3673737,
+      "compressed_size": 3641320
+    },
+    {
+      "relative_path": "2022_6_28/PM_100/strong/28_video_15.mp4",
+      "zip_member": "2022_6_28/PM_100/strong/28_video_15.mp4",
+      "crc32": 1588400301,
+      "size": 3462508,
+      "compressed_size": 3427169
+    },
+    {
+      "relative_path": "2022_6_28/PM_100/strong/28_video_10.mp4",
+      "zip_member": "2022_6_28/PM_100/strong/28_video_10.mp4",
+      "crc32": 1582268485,
+      "size": 3551663,
+      "compressed_size": 3516520
+    },
+    {
+      "relative_path": "2022_6_28/PM_100/weak/28_video_67.mp4",
+      "zip_member": "2022_6_28/PM_100/weak/28_video_67.mp4",
+      "crc32": 1095976792,
+      "size": 3586988,
+      "compressed_size": 3564035
+    },
+    {
+      "relative_path": "2022_6_28/PM_100/weak/28_video_42.mp4",
+      "zip_member": "2022_6_28/PM_100/weak/28_video_42.mp4",
+      "crc32": 3821153551,
+      "size": 3603836,
+      "compressed_size": 3582945
+    },
+    {
+      "relative_path": "2022_6_28/PM_15/medium/28_video_4.mp4",
+      "zip_member": "2022_6_28/PM_15/medium/28_video_4.mp4",
+      "crc32": 3100994364,
+      "size": 2855922,
+      "compressed_size": 2838190
+    },
+    {
+      "relative_path": "2022_6_28/PM_15/medium/28_video_3.mp4",
+      "zip_member": "2022_6_28/PM_15/medium/28_video_3.mp4",
+      "crc32": 2135408769,
+      "size": 2948441,
+      "compressed_size": 2925994
+    },
+    {
+      "relative_path": "2022_6_28/PM_15/none/28_video_16.mp4",
+      "zip_member": "2022_6_28/PM_15/none/28_video_16.mp4",
+      "crc32": 2548356911,
+      "size": 2765542,
+      "compressed_size": 2742594
+    },
+    {
+      "relative_path": "2022_6_28/PM_15/none/28_video_8.mp4",
+      "zip_member": "2022_6_28/PM_15/none/28_video_8.mp4",
+      "crc32": 3133044063,
+      "size": 2901629,
+      "compressed_size": 2882373
+    },
+    {
+      "relative_path": "2022_6_28/PM_15/strong/28_video_1.mp4",
+      "zip_member": "2022_6_28/PM_15/strong/28_video_1.mp4",
+      "crc32": 85044623,
+      "size": 3068128,
+      "compressed_size": 3038981
+    },
+    {
+      "relative_path": "2022_6_28/PM_15/strong/28_video_9.mp4",
+      "zip_member": "2022_6_28/PM_15/strong/28_video_9.mp4",
+      "crc32": 1425689779,
+      "size": 3080476,
+      "compressed_size": 3053058
+    },
+    {
+      "relative_path": "2022_6_28/PM_15/weak/28_video_37.mp4",
+      "zip_member": "2022_6_28/PM_15/weak/28_video_37.mp4",
+      "crc32": 4095226444,
+      "size": 2624468,
+      "compressed_size": 2610248
+    },
+    {
+      "relative_path": "2022_6_28/PM_15/weak/28_video_28.mp4",
+      "zip_member": "2022_6_28/PM_15/weak/28_video_28.mp4",
+      "crc32": 2581877606,
+      "size": 2621652,
+      "compressed_size": 2607666
+    },
+    {
+      "relative_path": "2022_6_28/PM_40/medium/28_video_10.mp4",
+      "zip_member": "2022_6_28/PM_40/medium/28_video_10.mp4",
+      "crc32": 2329606973,
+      "size": 3226102,
+      "compressed_size": 3197383
+    },
+    {
+      "relative_path": "2022_6_28/PM_40/medium/28_video_22.mp4",
+      "zip_member": "2022_6_28/PM_40/medium/28_video_22.mp4",
+      "crc32": 3073881342,
+      "size": 3247195,
+      "compressed_size": 3210294
+    },
+    {
+      "relative_path": "2022_6_28/PM_40/none/28_video_16.mp4",
+      "zip_member": "2022_6_28/PM_40/none/28_video_16.mp4",
+      "crc32": 1273361314,
+      "size": 3006130,
+      "compressed_size": 2970950
+    },
+    {
+      "relative_path": "2022_6_28/PM_40/none/28_video_14.mp4",
+      "zip_member": "2022_6_28/PM_40/none/28_video_14.mp4",
+      "crc32": 4171241199,
+      "size": 2963038,
+      "compressed_size": 2930823
+    },
+    {
+      "relative_path": "2022_6_28/PM_40/strong/28_video_6.mp4",
+      "zip_member": "2022_6_28/PM_40/strong/28_video_6.mp4",
+      "crc32": 4156676089,
+      "size": 4360616,
+      "compressed_size": 4311144
+    },
+    {
+      "relative_path": "2022_6_28/PM_40/strong/28_video_4.mp4",
+      "zip_member": "2022_6_28/PM_40/strong/28_video_4.mp4",
+      "crc32": 2719411562,
+      "size": 4532341,
+      "compressed_size": 4469555
+    },
+    {
+      "relative_path": "2022_6_28/PM_40/weak/28_video_29.mp4",
+      "zip_member": "2022_6_28/PM_40/weak/28_video_29.mp4",
+      "crc32": 1917908299,
+      "size": 2944772,
+      "compressed_size": 2920785
+    },
+    {
+      "relative_path": "2022_6_28/PM_40/weak/28_video_23.mp4",
+      "zip_member": "2022_6_28/PM_40/weak/28_video_23.mp4",
+      "crc32": 1003584402,
+      "size": 2936942,
+      "compressed_size": 2913120
+    },
+    {
+      "relative_path": "2022_6_28/PM_5/medium/28_video_12.mp4",
+      "zip_member": "2022_6_28/PM_5/medium/28_video_12.mp4",
+      "crc32": 861717568,
+      "size": 2653963,
+      "compressed_size": 2627477
+    },
+    {
+      "relative_path": "2022_6_28/PM_5/medium/28_video_9.mp4",
+      "zip_member": "2022_6_28/PM_5/medium/28_video_9.mp4",
+      "crc32": 3705771275,
+      "size": 2640922,
+      "compressed_size": 2613861
+    },
+    {
+      "relative_path": "2022_6_28/PM_5/none/28_video_26.mp4",
+      "zip_member": "2022_6_28/PM_5/none/28_video_26.mp4",
+      "crc32": 4119547898,
+      "size": 2607550,
+      "compressed_size": 2582980
+    },
+    {
+      "relative_path": "2022_6_28/PM_5/none/28_video_8.mp4",
+      "zip_member": "2022_6_28/PM_5/none/28_video_8.mp4",
+      "crc32": 3704552584,
+      "size": 2629437,
+      "compressed_size": 2607853
+    },
+    {
+      "relative_path": "2022_6_28/PM_5/strong/28_video_3.mp4",
+      "zip_member": "2022_6_28/PM_5/strong/28_video_3.mp4",
+      "crc32": 3630946872,
+      "size": 2615019,
+      "compressed_size": 2585825
+    },
+    {
+      "relative_path": "2022_6_28/PM_5/strong/28_video_8.mp4",
+      "zip_member": "2022_6_28/PM_5/strong/28_video_8.mp4",
+      "crc32": 269921392,
+      "size": 2681331,
+      "compressed_size": 2652210
+    },
+    {
+      "relative_path": "2022_6_28/PM_5/weak/28_video_6.mp4",
+      "zip_member": "2022_6_28/PM_5/weak/28_video_6.mp4",
+      "crc32": 3762750569,
+      "size": 2661720,
+      "compressed_size": 2634069
+    },
+    {
+      "relative_path": "2022_6_28/PM_5/weak/28_video_8.mp4",
+      "zip_member": "2022_6_28/PM_5/weak/28_video_8.mp4",
+      "crc32": 3289380211,
+      "size": 2634514,
+      "compressed_size": 2609202
+    },
+    {
+      "relative_path": "2022_6_28/PM_70/medium/28_video_9.mp4",
+      "zip_member": "2022_6_28/PM_70/medium/28_video_9.mp4",
+      "crc32": 1179524885,
+      "size": 2835157,
+      "compressed_size": 2810870
+    },
+    {
+      "relative_path": "2022_6_28/PM_70/medium/28_video_4.mp4",
+      "zip_member": "2022_6_28/PM_70/medium/28_video_4.mp4",
+      "crc32": 3246437928,
+      "size": 2977336,
+      "compressed_size": 2952881
+    },
+    {
+      "relative_path": "2022_6_28/PM_70/none/28_video_8.mp4",
+      "zip_member": "2022_6_28/PM_70/none/28_video_8.mp4",
+      "crc32": 3937964207,
+      "size": 3720275,
+      "compressed_size": 3696347
+    },
+    {
+      "relative_path": "2022_6_28/PM_70/none/28_video_4.mp4",
+      "zip_member": "2022_6_28/PM_70/none/28_video_4.mp4",
+      "crc32": 1833688597,
+      "size": 3891923,
+      "compressed_size": 3868500
+    },
+    {
+      "relative_path": "2022_6_28/PM_70/strong/28_video_9.mp4",
+      "zip_member": "2022_6_28/PM_70/strong/28_video_9.mp4",
+      "crc32": 441409047,
+      "size": 3330386,
+      "compressed_size": 3297886
+    },
+    {
+      "relative_path": "2022_6_28/PM_70/strong/28_video_1.mp4",
+      "zip_member": "2022_6_28/PM_70/strong/28_video_1.mp4",
+      "crc32": 2589766483,
+      "size": 3447263,
+      "compressed_size": 3418422
+    },
+    {
+      "relative_path": "2022_6_28/PM_70/weak/28_video_59.mp4",
+      "zip_member": "2022_6_28/PM_70/weak/28_video_59.mp4",
+      "crc32": 902132410,
+      "size": 3293641,
+      "compressed_size": 3269534
+    },
+    {
+      "relative_path": "2022_6_28/PM_70/weak/28_video_19.mp4",
+      "zip_member": "2022_6_28/PM_70/weak/28_video_19.mp4",
+      "crc32": 141630332,
+      "size": 3018910,
+      "compressed_size": 2996778
+    },
+    {
+      "relative_path": "2022_6_29/AM_100/medium/29_video_60.mp4",
+      "zip_member": "2022_6_29/AM_100/medium/29_video_60.mp4",
+      "crc32": 425366596,
+      "size": 3638174,
+      "compressed_size": 3615367
+    },
+    {
+      "relative_path": "2022_6_29/AM_100/medium/29_video_34.mp4",
+      "zip_member": "2022_6_29/AM_100/medium/29_video_34.mp4",
+      "crc32": 590769061,
+      "size": 3577003,
+      "compressed_size": 3550309
+    },
+    {
+      "relative_path": "2022_6_29/AM_100/none/29_video_1.mp4",
+      "zip_member": "2022_6_29/AM_100/none/29_video_1.mp4",
+      "crc32": 2542650224,
+      "size": 3884115,
+      "compressed_size": 3852784
+    },
+    {
+      "relative_path": "2022_6_29/AM_100/none/29_video_28.mp4",
+      "zip_member": "2022_6_29/AM_100/none/29_video_28.mp4",
+      "crc32": 3753469274,
+      "size": 3919860,
+      "compressed_size": 3890486
+    },
+    {
+      "relative_path": "2022_6_29/AM_100/strong/29_video_21.mp4",
+      "zip_member": "2022_6_29/AM_100/strong/29_video_21.mp4",
+      "crc32": 4277582135,
+      "size": 3795889,
+      "compressed_size": 3765847
+    },
+    {
+      "relative_path": "2022_6_29/AM_100/strong/29_video_38.mp4",
+      "zip_member": "2022_6_29/AM_100/strong/29_video_38.mp4",
+      "crc32": 2846307782,
+      "size": 3665369,
+      "compressed_size": 3633675
+    },
+    {
+      "relative_path": "2022_6_29/AM_100/weak/29_video_39.mp4",
+      "zip_member": "2022_6_29/AM_100/weak/29_video_39.mp4",
+      "crc32": 2106950287,
+      "size": 3727062,
+      "compressed_size": 3701272
+    },
+    {
+      "relative_path": "2022_6_29/AM_100/weak/29_video_1.mp4",
+      "zip_member": "2022_6_29/AM_100/weak/29_video_1.mp4",
+      "crc32": 2026053956,
+      "size": 3663732,
+      "compressed_size": 3640488
+    },
+    {
+      "relative_path": "2022_6_29/AM_15/medium/29_video_7.mp4",
+      "zip_member": "2022_6_29/AM_15/medium/29_video_7.mp4",
+      "crc32": 1462337111,
+      "size": 2458715,
+      "compressed_size": 2444519
+    },
+    {
+      "relative_path": "2022_6_29/AM_15/medium/29_video_10.mp4",
+      "zip_member": "2022_6_29/AM_15/medium/29_video_10.mp4",
+      "crc32": 6599802,
+      "size": 2498445,
+      "compressed_size": 2482822
+    },
+    {
+      "relative_path": "2022_6_29/AM_15/none/29_video_14.mp4",
+      "zip_member": "2022_6_29/AM_15/none/29_video_14.mp4",
+      "crc32": 3609706071,
+      "size": 2618887,
+      "compressed_size": 2596740
+    },
+    {
+      "relative_path": "2022_6_29/AM_15/none/29_video_19.mp4",
+      "zip_member": "2022_6_29/AM_15/none/29_video_19.mp4",
+      "crc32": 966708654,
+      "size": 2528864,
+      "compressed_size": 2509448
+    },
+    {
+      "relative_path": "2022_6_29/AM_15/strong/29_video_6.mp4",
+      "zip_member": "2022_6_29/AM_15/strong/29_video_6.mp4",
+      "crc32": 1004028734,
+      "size": 2662915,
+      "compressed_size": 2637816
+    },
+    {
+      "relative_path": "2022_6_29/AM_15/strong/29_video_7.mp4",
+      "zip_member": "2022_6_29/AM_15/strong/29_video_7.mp4",
+      "crc32": 4098155918,
+      "size": 2667040,
+      "compressed_size": 2642262
+    },
+    {
+      "relative_path": "2022_6_29/AM_15/weak/29_video_41.mp4",
+      "zip_member": "2022_6_29/AM_15/weak/29_video_41.mp4",
+      "crc32": 113398613,
+      "size": 2504620,
+      "compressed_size": 2493657
+    },
+    {
+      "relative_path": "2022_6_29/AM_15/weak/29_video_75.mp4",
+      "zip_member": "2022_6_29/AM_15/weak/29_video_75.mp4",
+      "crc32": 921167981,
+      "size": 2480854,
+      "compressed_size": 2469710
+    },
+    {
+      "relative_path": "2022_6_29/AM_40/medium/29_video_24.mp4",
+      "zip_member": "2022_6_29/AM_40/medium/29_video_24.mp4",
+      "crc32": 3920436370,
+      "size": 3097811,
+      "compressed_size": 3068386
+    },
+    {
+      "relative_path": "2022_6_29/AM_40/medium/29_video_45.mp4",
+      "zip_member": "2022_6_29/AM_40/medium/29_video_45.mp4",
+      "crc32": 2673992947,
+      "size": 3253843,
+      "compressed_size": 3226993
+    },
+    {
+      "relative_path": "2022_6_29/AM_40/none/29_video_7.mp4",
+      "zip_member": "2022_6_29/AM_40/none/29_video_7.mp4",
+      "crc32": 3099618623,
+      "size": 3627215,
+      "compressed_size": 3606679
+    },
+    {
+      "relative_path": "2022_6_29/AM_40/none/29_video_12.mp4",
+      "zip_member": "2022_6_29/AM_40/none/29_video_12.mp4",
+      "crc32": 3937368502,
+      "size": 3588409,
+      "compressed_size": 3568176
+    },
+    {
+      "relative_path": "2022_6_29/AM_40/strong/29_video_28.mp4",
+      "zip_member": "2022_6_29/AM_40/strong/29_video_28.mp4",
+      "crc32": 3940543068,
+      "size": 3287160,
+      "compressed_size": 3256740
+    },
+    {
+      "relative_path": "2022_6_29/AM_40/strong/29_video_15.mp4",
+      "zip_member": "2022_6_29/AM_40/strong/29_video_15.mp4",
+      "crc32": 872058163,
+      "size": 3659732,
+      "compressed_size": 3610178
+    },
+    {
+      "relative_path": "2022_6_29/AM_40/weak/29_video_36.mp4",
+      "zip_member": "2022_6_29/AM_40/weak/29_video_36.mp4",
+      "crc32": 2674669398,
+      "size": 3271228,
+      "compressed_size": 3247986
+    },
+    {
+      "relative_path": "2022_6_29/AM_40/weak/29_video_22.mp4",
+      "zip_member": "2022_6_29/AM_40/weak/29_video_22.mp4",
+      "crc32": 512978203,
+      "size": 3326911,
+      "compressed_size": 3303650
+    },
+    {
+      "relative_path": "2022_6_29/AM_70/medium/29_video_1.mp4",
+      "zip_member": "2022_6_29/AM_70/medium/29_video_1.mp4",
+      "crc32": 2930028299,
+      "size": 3506373,
+      "compressed_size": 3487128
+    },
+    {
+      "relative_path": "2022_6_29/AM_70/medium/29_video_20.mp4",
+      "zip_member": "2022_6_29/AM_70/medium/29_video_20.mp4",
+      "crc32": 4155825289,
+      "size": 3403470,
+      "compressed_size": 3386440
+    },
+    {
+      "relative_path": "2022_6_29/AM_70/none/29_video_19.mp4",
+      "zip_member": "2022_6_29/AM_70/none/29_video_19.mp4",
+      "crc32": 3647679354,
+      "size": 3472307,
+      "compressed_size": 3451775
+    },
+    {
+      "relative_path": "2022_6_29/AM_70/none/29_video_15.mp4",
+      "zip_member": "2022_6_29/AM_70/none/29_video_15.mp4",
+      "crc32": 166523140,
+      "size": 3601886,
+      "compressed_size": 3581762
+    },
+    {
+      "relative_path": "2022_6_29/AM_70/strong/29_video_15.mp4",
+      "zip_member": "2022_6_29/AM_70/strong/29_video_15.mp4",
+      "crc32": 363012495,
+      "size": 3483490,
+      "compressed_size": 3462277
+    },
+    {
+      "relative_path": "2022_6_29/AM_70/strong/29_video_10.mp4",
+      "zip_member": "2022_6_29/AM_70/strong/29_video_10.mp4",
+      "crc32": 4164946665,
+      "size": 3601960,
+      "compressed_size": 3578556
+    },
+    {
+      "relative_path": "2022_6_29/AM_70/weak/29_video_26.mp4",
+      "zip_member": "2022_6_29/AM_70/weak/29_video_26.mp4",
+      "crc32": 3605498024,
+      "size": 3342470,
+      "compressed_size": 3323774
+    },
+    {
+      "relative_path": "2022_6_29/AM_70/weak/29_video_28.mp4",
+      "zip_member": "2022_6_29/AM_70/weak/29_video_28.mp4",
+      "crc32": 1801772631,
+      "size": 3563347,
+      "compressed_size": 3540692
+    },
+    {
+      "relative_path": "2022_6_29/PM_100/medium/29_video_30.mp4",
+      "zip_member": "2022_6_29/PM_100/medium/29_video_30.mp4",
+      "crc32": 1465313593,
+      "size": 3687006,
+      "compressed_size": 3660558
+    },
+    {
+      "relative_path": "2022_6_29/PM_100/medium/29_video_13.mp4",
+      "zip_member": "2022_6_29/PM_100/medium/29_video_13.mp4",
+      "crc32": 3244766020,
+      "size": 3446070,
+      "compressed_size": 3416242
+    },
+    {
+      "relative_path": "2022_6_29/PM_100/none/29_video_21.mp4",
+      "zip_member": "2022_6_29/PM_100/none/29_video_21.mp4",
+      "crc32": 2258669909,
+      "size": 3781050,
+      "compressed_size": 3740889
+    },
+    {
+      "relative_path": "2022_6_29/PM_100/none/29_video_29.mp4",
+      "zip_member": "2022_6_29/PM_100/none/29_video_29.mp4",
+      "crc32": 1659299888,
+      "size": 3668366,
+      "compressed_size": 3627445
+    },
+    {
+      "relative_path": "2022_6_29/PM_100/strong/29_video_8.mp4",
+      "zip_member": "2022_6_29/PM_100/strong/29_video_8.mp4",
+      "crc32": 4258769505,
+      "size": 3627349,
+      "compressed_size": 3589751
+    },
+    {
+      "relative_path": "2022_6_29/PM_100/strong/29_video_52.mp4",
+      "zip_member": "2022_6_29/PM_100/strong/29_video_52.mp4",
+      "crc32": 868841115,
+      "size": 3415830,
+      "compressed_size": 3380084
+    },
+    {
+      "relative_path": "2022_6_29/PM_100/weak/29_video_81.mp4",
+      "zip_member": "2022_6_29/PM_100/weak/29_video_81.mp4",
+      "crc32": 1563553123,
+      "size": 3581017,
+      "compressed_size": 3556568
+    },
+    {
+      "relative_path": "2022_6_29/PM_100/weak/29_video_76.mp4",
+      "zip_member": "2022_6_29/PM_100/weak/29_video_76.mp4",
+      "crc32": 2957400246,
+      "size": 3805778,
+      "compressed_size": 3783508
+    },
+    {
+      "relative_path": "2022_6_29/PM_15/medium/29_video_10.mp4",
+      "zip_member": "2022_6_29/PM_15/medium/29_video_10.mp4",
+      "crc32": 3916374551,
+      "size": 2141611,
+      "compressed_size": 2117540
+    },
+    {
+      "relative_path": "2022_6_29/PM_15/medium/29_video_15.mp4",
+      "zip_member": "2022_6_29/PM_15/medium/29_video_15.mp4",
+      "crc32": 1299979520,
+      "size": 2132893,
+      "compressed_size": 2110726
+    },
+    {
+      "relative_path": "2022_6_29/PM_15/none/29_video_11.mp4",
+      "zip_member": "2022_6_29/PM_15/none/29_video_11.mp4",
+      "crc32": 3582210318,
+      "size": 2329627,
+      "compressed_size": 2293478
+    },
+    {
+      "relative_path": "2022_6_29/PM_15/none/29_video_2.mp4",
+      "zip_member": "2022_6_29/PM_15/none/29_video_2.mp4",
+      "crc32": 3252860142,
+      "size": 2310935,
+      "compressed_size": 2277166
+    },
+    {
+      "relative_path": "2022_6_29/PM_15/strong/29_video_15.mp4",
+      "zip_member": "2022_6_29/PM_15/strong/29_video_15.mp4",
+      "crc32": 2695227560,
+      "size": 2285760,
+      "compressed_size": 2250390
+    },
+    {
+      "relative_path": "2022_6_29/PM_15/strong/29_video_27.mp4",
+      "zip_member": "2022_6_29/PM_15/strong/29_video_27.mp4",
+      "crc32": 1656262150,
+      "size": 2155684,
+      "compressed_size": 2127165
+    },
+    {
+      "relative_path": "2022_6_29/PM_15/weak/29_video_37.mp4",
+      "zip_member": "2022_6_29/PM_15/weak/29_video_37.mp4",
+      "crc32": 1478375623,
+      "size": 2095094,
+      "compressed_size": 2075911
+    },
+    {
+      "relative_path": "2022_6_29/PM_15/weak/29_video_163.mp4",
+      "zip_member": "2022_6_29/PM_15/weak/29_video_163.mp4",
+      "crc32": 581923530,
+      "size": 2124641,
+      "compressed_size": 2107175
+    },
+    {
+      "relative_path": "2022_6_29/PM_40/medium/29_video_10.mp4",
+      "zip_member": "2022_6_29/PM_40/medium/29_video_10.mp4",
+      "crc32": 345262088,
+      "size": 3201566,
+      "compressed_size": 3182990
+    },
+    {
+      "relative_path": "2022_6_29/PM_40/medium/29_video_15.mp4",
+      "zip_member": "2022_6_29/PM_40/medium/29_video_15.mp4",
+      "crc32": 920354752,
+      "size": 3242571,
+      "compressed_size": 3225719
+    },
+    {
+      "relative_path": "2022_6_29/PM_40/none/29_video_24.mp4",
+      "zip_member": "2022_6_29/PM_40/none/29_video_24.mp4",
+      "crc32": 2824626127,
+      "size": 3522125,
+      "compressed_size": 3499914
+    },
+    {
+      "relative_path": "2022_6_29/PM_40/none/29_video_13.mp4",
+      "zip_member": "2022_6_29/PM_40/none/29_video_13.mp4",
+      "crc32": 2354592516,
+      "size": 3602730,
+      "compressed_size": 3584084
+    },
+    {
+      "relative_path": "2022_6_29/PM_40/strong/29_video_7.mp4",
+      "zip_member": "2022_6_29/PM_40/strong/29_video_7.mp4",
+      "crc32": 2019512512,
+      "size": 3568285,
+      "compressed_size": 3531903
+    },
+    {
+      "relative_path": "2022_6_29/PM_40/strong/29_video_21.mp4",
+      "zip_member": "2022_6_29/PM_40/strong/29_video_21.mp4",
+      "crc32": 475580780,
+      "size": 3348495,
+      "compressed_size": 3325118
+    },
+    {
+      "relative_path": "2022_6_29/PM_40/weak/29_video_18.mp4",
+      "zip_member": "2022_6_29/PM_40/weak/29_video_18.mp4",
+      "crc32": 3963989416,
+      "size": 3215911,
+      "compressed_size": 3200034
+    },
+    {
+      "relative_path": "2022_6_29/PM_40/weak/29_video_28.mp4",
+      "zip_member": "2022_6_29/PM_40/weak/29_video_28.mp4",
+      "crc32": 2304221008,
+      "size": 3277919,
+      "compressed_size": 3262284
+    },
+    {
+      "relative_path": "2022_6_29/PM_5/medium/29_video_58.mp4",
+      "zip_member": "2022_6_29/PM_5/medium/29_video_58.mp4",
+      "crc32": 2165444816,
+      "size": 2537450,
+      "compressed_size": 2521328
+    },
+    {
+      "relative_path": "2022_6_29/PM_5/medium/29_video_40.mp4",
+      "zip_member": "2022_6_29/PM_5/medium/29_video_40.mp4",
+      "crc32": 4250216447,
+      "size": 2563742,
+      "compressed_size": 2544989
+    },
+    {
+      "relative_path": "2022_6_29/PM_5/none/29_video_27.mp4",
+      "zip_member": "2022_6_29/PM_5/none/29_video_27.mp4",
+      "crc32": 1914222473,
+      "size": 2826229,
+      "compressed_size": 2787319
+    },
+    {
+      "relative_path": "2022_6_29/PM_5/none/29_video_3.mp4",
+      "zip_member": "2022_6_29/PM_5/none/29_video_3.mp4",
+      "crc32": 453360947,
+      "size": 2550903,
+      "compressed_size": 2517643
+    },
+    {
+      "relative_path": "2022_6_29/PM_5/strong/29_video_9.mp4",
+      "zip_member": "2022_6_29/PM_5/strong/29_video_9.mp4",
+      "crc32": 2355141942,
+      "size": 2705654,
+      "compressed_size": 2663069
+    },
+    {
+      "relative_path": "2022_6_29/PM_5/strong/29_video_16.mp4",
+      "zip_member": "2022_6_29/PM_5/strong/29_video_16.mp4",
+      "crc32": 2357714372,
+      "size": 2752731,
+      "compressed_size": 2716768
+    },
+    {
+      "relative_path": "2022_6_29/PM_5/weak/29_video_11.mp4",
+      "zip_member": "2022_6_29/PM_5/weak/29_video_11.mp4",
+      "crc32": 1077331473,
+      "size": 2452270,
+      "compressed_size": 2436934
+    },
+    {
+      "relative_path": "2022_6_29/PM_5/weak/29_video_13.mp4",
+      "zip_member": "2022_6_29/PM_5/weak/29_video_13.mp4",
+      "crc32": 2915148766,
+      "size": 2482180,
+      "compressed_size": 2467484
+    },
+    {
+      "relative_path": "2022_6_29/PM_70/medium/29_video_14.mp4",
+      "zip_member": "2022_6_29/PM_70/medium/29_video_14.mp4",
+      "crc32": 1430442818,
+      "size": 2964498,
+      "compressed_size": 2939413
+    },
+    {
+      "relative_path": "2022_6_29/PM_70/medium/29_video_22.mp4",
+      "zip_member": "2022_6_29/PM_70/medium/29_video_22.mp4",
+      "crc32": 357514355,
+      "size": 2995094,
+      "compressed_size": 2969754
+    },
+    {
+      "relative_path": "2022_6_29/PM_70/none/29_video_5.mp4",
+      "zip_member": "2022_6_29/PM_70/none/29_video_5.mp4",
+      "crc32": 3729168395,
+      "size": 3514188,
+      "compressed_size": 3486365
+    },
+    {
+      "relative_path": "2022_6_29/PM_70/none/29_video_15.mp4",
+      "zip_member": "2022_6_29/PM_70/none/29_video_15.mp4",
+      "crc32": 2943826855,
+      "size": 3384390,
+      "compressed_size": 3351205
+    },
+    {
+      "relative_path": "2022_6_29/PM_70/strong/29_video_55.mp4",
+      "zip_member": "2022_6_29/PM_70/strong/29_video_55.mp4",
+      "crc32": 4118265404,
+      "size": 3084705,
+      "compressed_size": 3051985
+    },
+    {
+      "relative_path": "2022_6_29/PM_70/strong/29_video_8.mp4",
+      "zip_member": "2022_6_29/PM_70/strong/29_video_8.mp4",
+      "crc32": 3553356422,
+      "size": 3659020,
+      "compressed_size": 3609772
+    },
+    {
+      "relative_path": "2022_6_29/PM_70/weak/29_video_7.mp4",
+      "zip_member": "2022_6_29/PM_70/weak/29_video_7.mp4",
+      "crc32": 1788628067,
+      "size": 2948510,
+      "compressed_size": 2925234
+    },
+    {
+      "relative_path": "2022_6_29/PM_70/weak/29_video_37.mp4",
+      "zip_member": "2022_6_29/PM_70/weak/29_video_37.mp4",
+      "crc32": 882370009,
+      "size": 2969077,
+      "compressed_size": 2946083
+    }
+  ]
+}
