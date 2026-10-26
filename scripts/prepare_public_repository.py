@@ -1,4 +1,4 @@
-"""Create a source distribution without media, weights or machine-local state."""
+"""Create a source distribution without full videos, weights or machine-local state."""
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -10,6 +10,7 @@ STATIC_EXTENSIONS={'.html','.css','.js','.svg','.json','.csv','.md','.txt','.jpg
 STATIC_DOCUMENTS={'methodology.md','evaluation.md','THIRD_PARTY.md','reproducao.md'}
 ROOT_FILES=('README.md','README.pt-BR.md','LICENSE','THIRD_PARTY.md','pyproject.toml','.gitignore',
             'requirements-lock.txt','requirements-local-lock.txt','requirements-dynamic-lock.txt')
+README_ASSETS=('feedwatch-demo.gif','feedwatch-interface-en.png','feedwatch-interface-pt.png')
 PUBLIC_SCRIPTS=(
     'acquire_independent_sample.py','benchmark_fish_detection.py','benchmark_fish_tracking.py',
     'build_diverse_evidence.py','build_learning_evidence.py','build_portfolio.py',
@@ -69,6 +70,7 @@ def public_files():
     for name in ROOT_FILES:files[name]=(ROOT/name).read_bytes()
     files['.gitignore']=PUBLIC_IGNORE.encode('utf-8')
     for name in DOCUMENTS:files['docs/'+name]=(ROOT/'docs'/name).read_bytes()
+    for name in README_ASSETS:files['docs/assets/'+name]=(ROOT/'docs/assets'/name).read_bytes()
     dist=ROOT/'sites/feedwatch/dist'
     for name in EVIDENCE.values():files['evidence/'+name]=(dist/'evidence'/name).read_bytes()
     for path in dist.rglob('*'):

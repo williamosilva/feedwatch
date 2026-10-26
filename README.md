@@ -4,6 +4,10 @@
 
 Local computer vision prototype for estimating fish feeding activity from video and studying its use in feed management.
 
+![Fish moving in an aquarium with FeedWatch detection boxes and tracks](docs/assets/feedwatch-demo.gif)
+
+Real output from an aquarium clip. This footage was not used to train the feeding classifier and has no feeding activity labels. Video: [Richard Muller / Pexels](https://www.pexels.com/video/fishes-swimming-in-aquarium-6472322/) ([license](https://www.pexels.com/license/)).
+
 ## Features
 
 - Assigns each two-second window a feeding activity level: not observed, low, moderate or high.
@@ -12,6 +16,13 @@ Local computer vision prototype for estimating fish feeding activity from video 
 - Exports annotated video and analysis results.
 
 A frozen MobileNetV3 Small extracts features; a GRU trained on AV-FFIA classifies feeding activity. Separate Fishial models detect fish. The application accepts videos from 2 to 60 seconds, up to 100 MB. The interface starts in English and includes a Portuguese language selector.
+
+<details>
+<summary>Interface and video overview</summary>
+
+![FeedWatch interface with annotated fish, activity timeline and whole-video summary](docs/assets/feedwatch-interface-en.png)
+
+</details>
 
 ## Run locally
 

@@ -4,6 +4,10 @@
 
 Protótipo local de visão computacional para estimar a atividade alimentar de peixes em vídeo e estudar seu uso no manejo da ração.
 
+![Peixes em um aquário com caixas de detecção e trajetórias do FeedWatch](docs/assets/feedwatch-demo.gif)
+
+Resultado real da análise de um vídeo de aquário. Essa gravação não foi usada no treinamento do classificador nem possui rótulos de atividade alimentar. Vídeo: [Richard Muller / Pexels](https://www.pexels.com/video/fishes-swimming-in-aquarium-6472322/) ([licença](https://www.pexels.com/license/)).
+
 ## Funcionamento
 
 - Classifica períodos de dois segundos em atividade não observada, baixa, moderada e alta.
@@ -12,6 +16,13 @@ Protótipo local de visão computacional para estimar a atividade alimentar de p
 - Exporta o vídeo e os resultados para conferência.
 
 Uma MobileNetV3 Small congelada extrai características; uma GRU treinada com AV-FFIA classifica a atividade. A detecção usa modelos Fishial separados. A aplicação aceita vídeos de 2 a 60 segundos, com até 100 MB. A interface inicia em inglês e permite alternar para português.
+
+<details>
+<summary>Interface e panorama do vídeo</summary>
+
+![Interface do FeedWatch com peixes marcados, atividade por período e panorama do vídeo inteiro](docs/assets/feedwatch-interface-pt.png)
+
+</details>
 
 ## Executar
 
