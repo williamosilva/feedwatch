@@ -1,21 +1,21 @@
 # FeedWatch
 
-Protótipo local de visão computacional para estimar a atividade alimentar de peixes em vídeo e estudar seu uso no manejo da ração.
+**English** | [Português](README.pt-BR.md)
 
-[Ver demonstração](https://feedwatch-visao-lab-2026.trueant258.chatgpt.site)
+Local computer vision prototype for estimating fish feeding activity from video and studying its use in feed management.
 
-## Funcionamento
+## Features
 
-- Classifica períodos de dois segundos em atividade não observada, baixa, moderada e alta.
-- Mostra peixes detectados e trajetórias.
-- Resume o tempo em cada nível e compara início, meio e final.
-- Exporta o vídeo e os resultados para conferência.
+- Classifies two-second windows as no observed, low, moderate or high feeding activity.
+- Shows detected fish and their tracks.
+- Summarizes time at each level and compares the start, middle and end of a video.
+- Exports annotated video and analysis results.
 
-MobileNetV3 Small congelada extrai características; uma GRU treinada com AV-FFIA classifica a atividade. A detecção usa modelos Fishial separados. A aplicação aceita vídeos de 2 a 60 segundos, com até 100 MB. A demonstração pública contém exemplos já analisados. A interface inicia em inglês e permite alternar para português.
+A frozen MobileNetV3 Small extracts features; a GRU trained on AV-FFIA classifies feeding activity. Separate Fishial models detect fish. The application accepts videos from 2 to 60 seconds, up to 100 MB. The interface starts in English and includes a Portuguese language selector.
 
-## Executar
+## Run locally
 
-Requer Python 3.12. No Windows, abra o PowerShell na pasta do projeto:
+Requires Python 3.12. On Windows, open PowerShell in the project folder:
 
 ```powershell
 py -3.12 -m venv .venv
@@ -23,55 +23,57 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e ".[local]"
 ```
 
-Extraia o [pacote com os pesos treinados](https://feedwatch-visao-lab-2026.trueant258.chatgpt.site/feedwatch-runtime.zip) na pasta do projeto. Depois, prepare os detectores e inicie:
+Download the [runtime package](https://github.com/williamosilva/feedwatch/releases/download/v0.1.0/feedwatch-runtime.zip) and extract it into the project folder. It contains the trained classifier, feature extractor and an aquarium video. You do not need to retrain the model or download the datasets to use the application.
+
+Download the fish detectors and start the application:
 
 ```powershell
 .\.venv\Scripts\python.exe -m feedwatch prepare-fish-detector
 .\.venv\Scripts\python.exe -m feedwatch serve
 ```
 
-Abra `http://127.0.0.1:7860`. Estes comandos usam CPU.
+Open `http://127.0.0.1:7860`. These installation commands use CPU.
 
-## Vídeos usados nos experimentos
+## Experiment videos
 
-Dados oficiais AV-FFIA, de Meng Cui e colaboradores (CC BY 4.0). Servem para repetir os experimentos; a execução usa os pesos já treinados.
+Official AV-FFIA data by Meng Cui and colleagues (CC BY 4.0). These downloads are for reproducing the experiments; the application uses pretrained weights.
 
-| Download | Tamanho | Uso no projeto |
+| Download | Size | Use in this project |
 |---|---:|---|
-| [Vídeos de 19–22/06/2022](https://zenodo.org/api/records/11059975/files/video_6.19-6.22.zip/content) | 21,76 GB | Treino, validação e teste do modelo atual |
-| [Vídeos de 13–18/06/2022](https://zenodo.org/api/records/11060195/files/video_6.13-6.18.zip/content) | 30,67 GB | Retreinamento adicional não aprovado |
-| [Vídeos de 27–29/06/2022](https://zenodo.org/api/records/11060195/files/video_6.27-6.29.zip/content) | 13,05 GB | Amostra adicional de avaliação |
+| [June 19–22, 2022](https://zenodo.org/api/records/11059975/files/video_6.19-6.22.zip/content) | 21.76 GB | Training, validation and testing of the current model |
+| [June 13–18, 2022](https://zenodo.org/api/records/11060195/files/video_6.13-6.18.zip/content) | 30.67 GB | Additional training experiment; candidate not adopted |
+| [June 27–29, 2022](https://zenodo.org/api/records/11060195/files/video_6.27-6.29.zip/content) | 13.05 GB | Additional evaluation sample |
 
-O modelo atual usou 3.898 clipes no treino (dias 19–20), 1.705 na validação (dia 21) e 1.501 no teste (dia 22). Extraia esses dados em `video_6.19-6.22`.
+The current model used 3,898 training clips (June 19–20), 1,705 validation clips (June 21) and 1,501 test clips (June 22). Extract the first dataset into `video_6.19-6.22` to reproduce these experiments.
 
-## Resultados e limites
+## Results and limitations
 
-| Avaliação do modelo atual | Clipes | Acerto | Macro-F1 |
+| Current model evaluation | Clips | Accuracy | Macro-F1 |
 |---|---:|---:|---:|
-| Teste de 22/06/2022 | 1.501 | 60,56% | 0,5903 |
-| Amostra de 27–29/06/2022 | 224 | 53,57% | 0,4914 |
+| June 22, 2022 test set | 1,501 | 60.56% | 0.5903 |
+| June 27–29, 2022 sample | 224 | 53.57% | 0.4914 |
 
-O retreinamento com mais dias melhorou a categoria moderada, mas piorou a alta. O modelo anterior foi mantido.
+Training with additional days improved the moderate category but reduced performance on high activity. The previous model was retained.
 
-As previsões não determinam fome, quantidade de ração ou economia. A contagem é por imagem. A validação de sessões contínuas com revisores ainda está pendente.
+Predictions do not determine hunger, feed quantities or cost savings. Fish counts apply to individual frames. Validation of continuous feeding sessions by human reviewers is still pending.
 
-[Método](docs/methodology.md) · [Avaliação completa](docs/evaluation.md) · [Evidências](evidence/independent-results.json)
+[Method](docs/methodology.md) · [Full evaluation](docs/evaluation.md) · [Evidence](evidence/independent-results.json)
 
-## Referências
+## References
 
-- [Cui et al. — Multimodal Fish Feeding Intensity Assessment in Aquaculture](https://arxiv.org/abs/2309.05058v3): estudo do AV-FFIA/U-FFIA. O FeedWatch usa somente vídeo.
-- [U-FFIA](https://github.com/FishMaster93/U-FFIA): código dos autores.
-- [Fishial](https://github.com/Wye-Foundation/Fishial-Fish-Identification): detectores pré-treinados de peixes.
-- [FAO — On-farm feeding and feed management in aquaculture](https://www.fao.org/4/i3481e/i3481e00.htm): referência de manejo alimentar.
-- [NOAA — 5 Things to Know About Aquafeeds](https://www.fisheries.noaa.gov/feature-story/5-things-know-about-aquafeeds): câmeras no acompanhamento da alimentação.
+- [Cui et al. — Multimodal Fish Feeding Intensity Assessment in Aquaculture](https://arxiv.org/abs/2309.05058v3): AV-FFIA/U-FFIA study. FeedWatch uses video only.
+- [U-FFIA](https://github.com/FishMaster93/U-FFIA): the authors' code.
+- [Fishial](https://github.com/Wye-Foundation/Fishial-Fish-Identification): pretrained fish detectors.
+- [FAO — On-farm feeding and feed management in aquaculture](https://www.fao.org/4/i3481e/i3481e00.htm): feeding management reference.
+- [NOAA — 5 Things to Know About Aquafeeds](https://www.fisheries.noaa.gov/feature-story/5-things-know-about-aquafeeds): cameras for monitoring feeding.
 
-## Testes
+## Tests
 
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-## Licença
+## License
 
-Código sob [AGPL-3.0](LICENSE). Dados, modelos e vídeos mantêm suas próprias licenças: [créditos](THIRD_PARTY.md). Vídeos, pesos, datasets e arquivos de execução ficam fora do Git.
+Code is licensed under [AGPL-3.0](LICENSE). Data, models and videos retain their own licenses: see [third-party credits](THIRD_PARTY.md). Videos, weights, datasets and generated files are excluded from Git.

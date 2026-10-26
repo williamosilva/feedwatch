@@ -8,7 +8,7 @@ from export_public_evidence import DOCUMENTS, EVIDENCE
 ROOT=Path(__file__).resolve().parents[1]
 STATIC_EXTENSIONS={'.html','.css','.js','.svg','.json','.csv','.md','.txt','.jpg'}
 STATIC_DOCUMENTS={'methodology.md','evaluation.md','THIRD_PARTY.md','reproducao.md'}
-ROOT_FILES=('README.md','LICENSE','THIRD_PARTY.md','pyproject.toml','.gitignore',
+ROOT_FILES=('README.md','README.pt-BR.md','LICENSE','THIRD_PARTY.md','pyproject.toml','.gitignore',
             'requirements-lock.txt','requirements-local-lock.txt','requirements-dynamic-lock.txt')
 PUBLIC_SCRIPTS=(
     'acquire_independent_sample.py','benchmark_fish_detection.py','benchmark_fish_tracking.py',
