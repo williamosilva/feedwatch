@@ -10,7 +10,8 @@ STATIC_EXTENSIONS={'.html','.css','.js','.svg','.json','.csv','.md','.txt','.jpg
 STATIC_DOCUMENTS={'methodology.md','evaluation.md','THIRD_PARTY.md','reproducao.md'}
 ROOT_FILES=('README.md','README.pt-BR.md','LICENSE','THIRD_PARTY.md','pyproject.toml','.gitignore',
             'requirements-lock.txt','requirements-local-lock.txt','requirements-dynamic-lock.txt')
-README_ASSETS=('feedwatch-demo.gif','feedwatch-interface-en.png','feedwatch-interface-pt.png')
+README_ASSETS=('feedwatch-demo.gif','feedwatch-demo-pt.gif',
+               'feedwatch-interface-en.png','feedwatch-interface-pt.png')
 PUBLIC_SCRIPTS=(
     'acquire_independent_sample.py','benchmark_fish_detection.py','benchmark_fish_tracking.py',
     'build_diverse_evidence.py','build_learning_evidence.py','build_portfolio.py',

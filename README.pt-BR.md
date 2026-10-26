@@ -2,11 +2,15 @@
 
 [English](README.md) | **Português**
 
-Protótipo local de visão computacional para estimar a atividade alimentar de peixes em vídeo e estudar seu uso no manejo da ração.
+Envie um vídeo dos peixes durante a alimentação. O FeedWatch usa um modelo treinado para estimar a intensidade em trechos de dois segundos e gerar um relatório com os tempos de cada resultado.
 
-![Peixes em um aquário com caixas de detecção e trajetórias do FeedWatch](docs/assets/feedwatch-demo.gif)
+![Como enviar um vídeo e consultar a intensidade por trecho, seguido de peixes com caixas de detecção e trajetórias](docs/assets/feedwatch-demo-pt.gif)
 
-Resultado real da análise de um vídeo de aquário. Essa gravação não foi usada no treinamento do classificador nem possui rótulos de atividade alimentar. Vídeo: [Richard Muller / Pexels](https://www.pexels.com/video/fishes-swimming-in-aquarium-6472322/) ([licença](https://www.pexels.com/license/)).
+Exemplos de estimativas no relatório: `00:00–00:02 · moderada` e `00:02–00:04 · baixa`. Os tempos correspondem à posição no vídeo enviado.
+
+[Baixar o vídeo de demonstração em Full HD](https://github.com/williamosilva/feedwatch/releases/download/v0.1.0/feedwatch-demo-pt-BR.mp4)
+
+O trecho do aquário mostra uma saída real da detecção e do rastreamento. Essa gravação não foi usada no treinamento do classificador nem possui rótulos de atividade alimentar. Vídeo: [Richard Muller / Pexels](https://www.pexels.com/video/fishes-swimming-in-aquarium-6472322/) ([licença](https://www.pexels.com/license/)).
 
 ## Funcionamento
 
@@ -15,7 +19,7 @@ Resultado real da análise de um vídeo de aquário. Essa gravação não foi us
 - Resume o tempo em cada nível e compara início, meio e final.
 - Exporta o vídeo e os resultados para conferência.
 
-Uma MobileNetV3 Small congelada extrai características; uma GRU treinada com AV-FFIA classifica a atividade. A detecção usa modelos Fishial separados. A aplicação aceita vídeos de 2 a 60 segundos, com até 100 MB. A interface inicia em inglês e permite alternar para português.
+Este protótipo roda localmente. Uma MobileNetV3 Small congelada extrai características; uma GRU treinada com AV-FFIA classifica a atividade. A detecção usa modelos Fishial separados. A aplicação aceita vídeos de 2 a 60 segundos, com até 100 MB. A interface inicia em inglês e permite alternar para português.
 
 <details>
 <summary>Interface e panorama do vídeo</summary>
