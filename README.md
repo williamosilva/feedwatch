@@ -76,4 +76,4 @@ Predictions do not determine hunger, feed quantities or cost savings. Fish count
 
 ## License
 
-Code is licensed under [AGPL-3.0](LICENSE). Data, models and videos retain their own licenses: see [third-party credits](THIRD_PARTY.md). Videos, weights, datasets and generated files are excluded from Git.
+Code is licensed under [AGPL-3.0](LICENSE). Data, models and videos retain their own licenses: see [third-party credits](THIRD_PARTY.md). Videos, weights, datasets and local run outputs are excluded from Git.
