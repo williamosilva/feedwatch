@@ -1,0 +1,77 @@
+{
+  "experiment": "mobilenet-partial-finetune-v4",
+  "hypothesis": "Adapting the last MobileNet blocks to fish images with temporally consistent augmentation improves day-disjoint feeding classification.",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "operational_seed": 42,
+  "train_days": [
+    "2022_6_19",
+    "2022_6_20"
+  ],
+  "validation_days": [
+    "2022_6_21"
+  ],
+  "expected_counts": {
+    "train": 3898,
+    "val": 1705
+  },
+  "first_trainable_block": 9,
+  "initialization": "Original ImageNet MobileNetV3 Small and the matching seed's trained GRU; no new downloads",
+  "normalization": "Keep the original mean/std fitted on training video embeddings only",
+  "batch_norm": "Frozen running statistics in every block; affine parameters trainable in blocks 9-12",
+  "training": {
+    "max_epochs": 24,
+    "patience": 6,
+    "batch_size": 8,
+    "accumulation_steps": 4,
+    "encoder_learning_rate": 3e-05,
+    "head_learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "class_balance": "none",
+    "label_smoothing": 0.0,
+    "encoder_amp": true,
+    "evaluation_amp": false
+  },
+  "augmentation": {
+    "crop_side_range": [
+      0.94,
+      1.0
+    ],
+    "brightness_range": [
+      0.85,
+      1.15
+    ],
+    "contrast_range": [
+      0.85,
+      1.15
+    ],
+    "saturation_range": [
+      0.9,
+      1.1
+    ],
+    "policy": "New parameters per training clip per epoch, shared by all 16 frames; no frame reordering or validation augmentation"
+  },
+  "selection": "Maximum validation macro-F1, earliest exact tie, including epoch zero (unchanged initialization)",
+  "validation_gate": {
+    "mean_macro_f1_gain": 0.03,
+    "mean_medium_recall_gain": 0.1,
+    "max_other_mean_recall_drop": 0.05,
+    "minimum_improved_seeds": 3,
+    "operational_seed_macro_f1_gain": 0.03
+  },
+  "audit_policy": "Only after the validation gate passes: evaluate fixed seed 42 once on historical June 22 and already acquired June 27-29 clips. These sets were examined in earlier work and are retrospective audits, not new untouched tests. No further tuning on their results.",
+  "audit_gate": {
+    "macro_f1_gain": 0.03,
+    "medium_recall_gain": 0.1,
+    "max_other_recall_drop": 0.05
+  },
+  "references": [
+    "https://arxiv.org/abs/2309.05058",
+    "https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html"
+  ],
+  "scope": "Same data, MobileNet and GRU; no claim of reproducing the paper's S3D results or measuring ration savings. Runtime remains unchanged unless all gates pass."
+}

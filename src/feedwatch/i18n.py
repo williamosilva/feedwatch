@@ -18,7 +18,8 @@ SKIP = {'script', 'style', 'code', 'pre', 'noscript', 'textarea', 'svg'}
 TEXT_ONLY = {'title', 'option'}
 TEXT_ATTRIBUTES = {'alt', 'aria-label', 'aria-description', 'title', 'placeholder'}
 GRAPH_NAMES = ('operational-learning', 'operational-learning-mobile', 'class-recall',
-               'class-recall-mobile', 'diverse-learning', 'diverse-learning-mobile')
+               'class-recall-mobile', 'diverse-learning', 'diverse-learning-mobile',
+               'finetune-learning', 'finetune-learning-mobile')
 _expanded = {}
 
 

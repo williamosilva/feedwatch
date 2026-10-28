@@ -75,6 +75,8 @@ The current model used 3,898 training clips (June 19–20), 1,705 validation cli
 
 Training with additional days improved the moderate category but reduced performance on high activity. The previous model was retained.
 
+I also fine-tuned the last MobileNet layers with small image variations, using the same training videos. The average validation score improved, but the candidate did not meet the replacement criteria. The application keeps its original model. [Fine-tuning method, results and curves](docs/finetuning.md).
+
 Predictions do not determine hunger, feed quantities or cost savings. Fish counts apply to individual frames. Validation of continuous feeding sessions by human reviewers is still pending.
 
 [Method](docs/methodology.md) · [Full evaluation](docs/evaluation.md) · [Evidence](evidence/independent-results.json)

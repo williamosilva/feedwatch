@@ -8,6 +8,8 @@ O extrator MobileNetV3 Small, pré-treinado e congelado, produz representações
 
 O [AV-FFIA/U-FFIA](https://github.com/FishMaster93/U-FFIA), de Meng Cui e colaboradores, fornece dados de intensidade alimentar. O FeedWatch usa vídeo e parte desse conjunto; não reproduz integralmente o modelo multimodal da pesquisa.
 
+O [experimento de ajuste da MobileNet](finetuning.md) treina suas últimas camadas junto com a GRU e aplica pequenas variações de imagem, mantendo os mesmos dias de treino e validação. Os candidatos ficam separados do modelo operacional e são comparados em três execuções, com critérios definidos antes do treinamento.
+
 ## Panorama
 
 O panorama soma o tempo de cada categoria. Informa a classe predominante, os empates, a distribuição percentual do tempo classificado e a duração sem resultado. A predominância do vídeo só é apresentada quando pelo menos 80% da duração recebeu classificação. Abaixo disso, o resultado é insuficiente; a distribuição bruta e o tempo sem classificação continuam disponíveis. As classes são ordinais: uma média numérica arbitrária de seus nomes não é calculada.

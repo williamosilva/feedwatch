@@ -1,0 +1,54 @@
+{
+  "checks": [
+    {
+      "seed": 42,
+      "original_head_unchanged": true,
+      "frozen_prefix_unchanged": true,
+      "batchnorm_statistics_unchanged": true,
+      "changed_encoder_tensors": 42,
+      "maximum_encoder_parameter_change": 0.0033857449889183044,
+      "saved_predictions_reproduce_metrics": true
+    },
+    {
+      "seed": 43,
+      "original_head_unchanged": true,
+      "frozen_prefix_unchanged": true,
+      "batchnorm_statistics_unchanged": true,
+      "changed_encoder_tensors": 42,
+      "maximum_encoder_parameter_change": 0.011314939707517624,
+      "saved_predictions_reproduce_metrics": true
+    },
+    {
+      "seed": 44,
+      "original_head_unchanged": true,
+      "frozen_prefix_unchanged": true,
+      "batchnorm_statistics_unchanged": true,
+      "changed_encoder_tensors": 42,
+      "maximum_encoder_parameter_change": 0.008485421538352966,
+      "saved_predictions_reproduce_metrics": true
+    }
+  ],
+  "gate_recomputed": true,
+  "comparison": {
+    "baseline": {
+      "mean_macro_f1": 0.5664127785116412,
+      "mean_accuracy": 0.5853372434017595,
+      "mean_recalls": {
+        "none": 0.7207207207207208,
+        "weak": 0.553177691309987,
+        "medium": 0.17642276422764228,
+        "strong": 0.8824742268041237
+      }
+    },
+    "validation": {
+      "mean_macro_f1": 0.5971616325668131,
+      "mean_accuracy": 0.6105571847507331,
+      "mean_recalls": {
+        "none": 0.6114864864864865,
+        "weak": 0.7120622568093385,
+        "medium": 0.2804878048780488,
+        "strong": 0.781443298969072
+      }
+    }
+  }
+}

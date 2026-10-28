@@ -7,7 +7,7 @@ from export_public_evidence import DOCUMENTS, EVIDENCE
 
 ROOT=Path(__file__).resolve().parents[1]
 STATIC_EXTENSIONS={'.html','.css','.js','.svg','.json','.csv','.md','.txt','.jpg'}
-STATIC_DOCUMENTS={'methodology.md','evaluation.md','THIRD_PARTY.md','reproducao.md'}
+STATIC_DOCUMENTS={'methodology.md','evaluation.md','finetuning.md','THIRD_PARTY.md','reproducao.md'}
 ROOT_FILES=('README.md','README.pt-BR.md','LICENSE','THIRD_PARTY.md','pyproject.toml','.gitignore',
             'requirements-lock.txt','requirements-local-lock.txt','requirements-dynamic-lock.txt')
 README_ASSETS=('feedwatch-demo.gif','feedwatch-demo-pt.gif',
@@ -15,12 +15,12 @@ README_ASSETS=('feedwatch-demo.gif','feedwatch-demo-pt.gif',
 PUBLIC_SCRIPTS=(
     'acquire_independent_sample.py','benchmark_fish_detection.py','benchmark_fish_tracking.py',
     'benchmark_tracking_continuity.py',
-    'build_diverse_evidence.py','build_learning_evidence.py','build_portfolio.py',
+    'build_diverse_evidence.py','build_learning_evidence.py','build_finetune_evidence.py','build_portfolio.py',
     'build_release_bundle.py','check_public_assets.py','evaluate_independent_candidate.py',
     'evaluate_sessions.py','export_public_evidence.py','prepare_official_continuous.py',
     'learning_svg_locale.py',
     'prepare_public_repository.py','retrack_saved_video.py','serve_portfolio.py','train_diverse_candidate.py',
-    'train_generalization_candidate.py','train_portfolio_candidate.py',
+    'train_generalization_candidate.py','train_portfolio_candidate.py','train_finetune_candidate.py',
 )
 PUBLIC_IGNORE='''/.venv/
 __pycache__/

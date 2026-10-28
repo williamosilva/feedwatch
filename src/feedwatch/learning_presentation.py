@@ -61,5 +61,30 @@ def _learning_html(local=False):
     return baseline+'<details class="fw-details"><summary>Treino adicional com mais dias de gravação</summary>'+current+'</details>'
 
 
+def _finetune_html(local=False):
+    path=DIST/'learning/finetune-evidence.json'
+    if not path.exists():return ''
+    data=json.loads(path.read_text(encoding='utf-8'))
+    def url(name):return escape(local_url(DIST/name) if local else name,quote=True)
+    comparison=data['comparison'];results=data['results']
+    status=('O ajuste foi aprovado nas comparações e passou a ser usado na aplicação.' if results['promoted'] else
+            'O ajuste não atingiu todos os critérios de substituição. O modelo anterior continua em uso.')
+    def f1(value):return f'{value:.4f}'.replace('.',',')
+    def percent(value):return f'{100*value:.1f}%'.replace('.',',')
+    old,new=comparison['baseline'],comparison['validation']
+    rows=f'<tr><th scope="row">Macro-F1</th><td>{f1(old["mean_macro_f1"])}</td><td>{f1(new["mean_macro_f1"])}</td></tr>'
+    rows+=''.join(f'<tr><th scope="row">{label}</th><td>{percent(old["mean_recalls"][name])}</td><td>{percent(new["mean_recalls"][name])}</td></tr>'
+                  for name,label in (('none','Não observada'),('weak','Baixa'),('medium','Moderada'),('strong','Alta')))
+    return f'''<details class="fw-details" id="finetune-experiment"><summary>Ajuste das camadas de imagem</summary>
+<section class="fw fw-section fw-learning"><h2>Ajuste da MobileNet</h2>
+<p>Treinei as últimas camadas da MobileNet junto com a GRU, usando os mesmos vídeos e pequenas variações de iluminação, cor e recorte. A comparação foi repetida com três inicializações.</p>
+<p>{status}</p><div class="fw-table-scroll"><table class="fw-metrics"><caption>Validação de 21/06/2022: média das três execuções</caption>
+<thead><tr><th scope="col">Medida</th><th scope="col">Modelo anterior</th><th scope="col">Após o ajuste</th></tr></thead><tbody>{rows}</tbody></table></div>
+<p>O Macro-F1 combina o desempenho nas quatro categorias. Vai de zero a um; quanto maior, melhor. Os percentuais mostram quantos exemplos de cada categoria foram reconhecidos corretamente.</p>
+<figure class="fw-learning-figure"><picture><source media="(max-width:600px)" srcset="{url('learning/finetune-learning-mobile.svg')}"><img src="{url('learning/finetune-learning.svg')}" width="1000" height="420" loading="lazy" alt="Desempenho na validação durante os três ajustes da MobileNet."></picture>
+<figcaption>Cada linha representa um treinamento. Os pontos marcam as etapas escolhidas; a etapa zero é o modelo antes do ajuste. A validação usa 1.705 clipes de outro dia.</figcaption></figure>
+<div class="fw-document-links"><a href="{url('finetuning.md')}">Método do ajuste</a><a href="{url('learning/finetune-evidence.json')}">Resultados do ajuste</a><a href="{url('learning/finetune-history.csv')}">Histórico do ajuste (CSV)</a></div></section></details>'''
+
+
 def learning_html(local=False):
-    return localize_html(_learning_html(local))
+    return localize_html(_learning_html(local)+_finetune_html(local))

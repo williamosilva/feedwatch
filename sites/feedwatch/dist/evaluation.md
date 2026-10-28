@@ -40,6 +40,25 @@ A categoria moderada melhorou 9,49 pontos percentuais, mas a alta perdeu 7,19 po
 
 O [protocolo](evidence/diverse-training-protocol.json), os [resultados das três inicializações](evidence/diverse-validation-results.json) e as [curvas do novo treino](learning/diverse-evidence.json) registram esse resultado, inclusive os critérios reprovados. Esses dados ampliam os dias observados no mesmo local de pesquisa; não representam novas fazendas ou espécies.
 
+## Ajuste das últimas camadas da MobileNet
+
+O experimento ajustou os blocos 9–12 da MobileNetV3 Small e a GRU, mantendo as camadas anteriores e as estatísticas de BatchNorm. Usou os mesmos 3.898 vídeos de treino, pequenas variações de imagem iguais em todos os frames de cada trecho e três inicializações. Não houve download de novos dados.
+
+As médias abaixo usam os mesmos 1.705 vídeos de validação de 21/06/2022. Os percentuais de cada categoria representam recall: quantos exemplos daquela categoria foram reconhecidos corretamente.
+
+| Medida na validação | Modelo anterior | Após o ajuste |
+|---|---:|---:|
+| Acerto geral | 58,53% | 61,06% |
+| Macro-F1 | 0,5664 | 0,5972 |
+| Não observada | 72,07% | 61,15% |
+| Baixa | 55,32% | 71,21% |
+| Moderada | 17,64% | 28,05% |
+| Alta | 88,25% | 78,14% |
+
+O Macro-F1 melhorou nas três execuções, mas houve perda de 10,92 pontos percentuais em não observada e 10,10 em alta, acima do limite de 5 pontos. A inicialização operacional 42 também não alcançou o ganho mínimo de 0,03 no Macro-F1. O candidato foi rejeitado pelos critérios registrados antes do treino; o modelo anterior foi mantido. Os conjuntos de avaliação de 22 e 27–29/06 não foram reabertos. Esta tabela não altera as métricas históricas do modelo em uso.
+
+Foram executadas 48 épocas no total, com cerca de 23 minutos de treino e avaliação na RTX 4060 Ti de 8 GB, além da preparação das imagens. Os checkpoints recarregados reproduziram as previsões. As camadas congeladas e os arquivos dos modelos anteriores ficaram intactos. Veja o [método e as curvas](finetuning.md), o [protocolo](evidence/finetune-protocol.json), os [resultados](evidence/finetune-results.json) e a [verificação](evidence/finetune-verification.json).
+
 ## Detecção e acompanhamento
 
 A configuração atual combina dois detectores Fishial em todas as imagens: YOLO26 nano com limiar 0,60 e YOLOv12s com limiar 0,15. Uma etapa de remoção de duplicatas usa IoU 0,55. Não há troca de detector por vídeo, máscara sobre a mão ou exclusão por posição. A classificação alimentar continua separada dessa detecção.

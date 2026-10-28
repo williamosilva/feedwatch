@@ -73,6 +73,8 @@ O modelo atual usou 3.898 clipes no treino (dias 19–20), 1.705 na validação 
 
 O retreinamento com mais dias melhorou a categoria moderada, mas piorou a alta. O modelo anterior foi mantido.
 
+Também ajustei as últimas camadas da MobileNet com pequenas variações de imagem, usando os mesmos vídeos de treino. O resultado médio na validação melhorou, mas o candidato não atingiu os critérios de substituição. A aplicação mantém o modelo original. [Método, resultados e curvas do ajuste](docs/finetuning.md).
+
 As previsões não determinam fome, quantidade de ração ou economia. A contagem é por imagem. A validação de sessões contínuas com revisores ainda está pendente.
 
 [Método](docs/methodology.md) · [Avaliação completa](docs/evaluation.md) · [Evidências](evidence/independent-results.json)

@@ -18,8 +18,11 @@ EVIDENCE={
     'artifacts/improvements-v9/detection-evidence.json':'detection-regression.json',
     'artifacts/tracking-continuity/summary.json':'tracking-continuity.json',
     'artifacts/tracking-continuity/references-v1.json':'tracking-references.json',
+    'config/finetune_v4.json':'finetune-protocol.json',
+    'artifacts/experiments/finetune-v4/results.json':'finetune-results.json',
+    'artifacts/experiments/finetune-v4/verification.json':'finetune-verification.json',
 }
-DOCUMENTS=('methodology.md','evaluation.md','session-review-template.csv')
+DOCUMENTS=('methodology.md','evaluation.md','finetuning.md','session-review-template.csv')
 
 
 def portable_text(text):

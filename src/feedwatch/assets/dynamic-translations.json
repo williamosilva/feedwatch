@@ -135,5 +135,19 @@
   "Movimento médio da imagem até {seconds} s; escala de 0 a {maximum} px/s.": "Average image motion up to {seconds} s; scale from 0 to {maximum} px/s.",
   "Área em movimento: pixels acima de {threshold} px/s.": "Moving area: pixels above {threshold} px/s.",
   "Carregando vídeo…": "Loading video…",
-  "Preparando a reprodução": "Preparing playback"
+  "Preparando a reprodução": "Preparing playback",
+  "Ajuste das camadas de imagem": "Fine-tuning the image encoder",
+  "Ajuste da MobileNet": "MobileNet fine-tuning",
+  "Treinei as últimas camadas da MobileNet junto com a GRU, usando os mesmos vídeos e pequenas variações de iluminação, cor e recorte. A comparação foi repetida com três inicializações.": "I fine-tuned the last MobileNet layers together with the GRU, using the same videos with small changes in lighting, color and crop. The comparison was repeated with three initializations.",
+  "O ajuste foi aprovado nas comparações e passou a ser usado na aplicação.": "The fine-tuned model passed the comparisons and is now used by the application.",
+  "O ajuste não atingiu todos os critérios de substituição. O modelo anterior continua em uso.": "The fine-tuned model did not meet every replacement criterion. The previous model remains in use.",
+  "Validação de 21/06/2022: média das três execuções": "June 21, 2022 validation: average of three runs",
+  "Desempenho na validação durante os três ajustes da MobileNet.": "Validation performance during the three MobileNet fine-tuning runs.",
+  "Cada linha representa um treinamento. Os pontos marcam as etapas escolhidas; a etapa zero é o modelo antes do ajuste. A validação usa 1.705 clipes de outro dia.": "Each line represents one training run. Dots mark the selected epochs; epoch zero is the model before fine-tuning. Validation uses 1,705 clips from another day.",
+  "Método do ajuste": "Fine-tuning method",
+  "Resultados do ajuste": "Fine-tuning results",
+  "Histórico do ajuste (CSV)": "Fine-tuning history (CSV)",
+  "O Macro-F1 combina o desempenho nas quatro categorias. Vai de zero a um; quanto maior, melhor. Os percentuais mostram quantos exemplos de cada categoria foram reconhecidos corretamente.": "Macro-F1 combines performance across the four categories. It ranges from zero to one; higher is better. Percentages show how many examples of each category were recognized correctly.",
+  "Medida": "Measure",
+  "Após o ajuste": "After fine-tuning"
 }
