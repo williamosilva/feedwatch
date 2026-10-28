@@ -4,11 +4,11 @@
 
 Envie um vídeo dos peixes durante a alimentação. O FeedWatch usa um modelo treinado para estimar a intensidade em trechos de dois segundos e gerar um relatório com os tempos de cada resultado.
 
-![Como enviar um vídeo e consultar a intensidade por trecho, seguido de peixes com caixas de detecção e trajetórias](docs/assets/feedwatch-demo-pt.gif)
+![Como o FeedWatch analisa um vídeo de alimentação, seguido de peixes marcados, mapa de movimento e métricas sincronizadas](docs/assets/feedwatch-demo-pt.gif)
 
 Exemplos de estimativas no relatório: `00:00–00:02 · moderada` e `00:02–00:04 · baixa`. Os tempos correspondem à posição no vídeo enviado.
 
-[Baixar o vídeo de demonstração em Full HD](https://github.com/williamosilva/feedwatch/releases/download/v0.1.0/feedwatch-demo-pt-BR.mp4)
+[Baixar o vídeo de demonstração em Full HD](https://github.com/williamosilva/feedwatch/releases/download/v0.1.0/feedwatch-grid-pt-BR.mp4)
 
 O trecho do aquário mostra uma saída real da detecção e do rastreamento. Essa gravação não foi usada no treinamento do classificador nem possui rótulos de atividade alimentar. Vídeo: [Richard Muller / Pexels](https://www.pexels.com/video/fishes-swimming-in-aquarium-6472322/) ([licença](https://www.pexels.com/license/)).
 
@@ -16,10 +16,13 @@ O trecho do aquário mostra uma saída real da detecção e do rastreamento. Ess
 
 - Classifica períodos de dois segundos em atividade não observada, baixa, moderada e alta.
 - Mostra peixes detectados e trajetórias.
+- Exibe um mapa de movimento sincronizado e um gráfico do movimento aparente da imagem.
 - Resume o tempo em cada nível e compara início, meio e final.
 - Exporta o vídeo e os resultados para conferência.
 
 Este protótipo roda localmente. Uma MobileNetV3 Small congelada extrai características; uma GRU treinada com AV-FFIA classifica a atividade. A detecção usa modelos Fishial separados. A aplicação aceita vídeos de 2 a 60 segundos, com até 100 MB. A interface inicia em inglês e permite alternar para português.
+
+O mapa destaca mudanças entre imagens consecutivas da gravação original. Inclui água e reflexos; as cores representam movimento da imagem, separado da estimativa alimentar.
 
 <details>
 <summary>Interface e panorama do vídeo</summary>

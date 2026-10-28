@@ -13,6 +13,7 @@ from feedwatch.video_export import hidden_process, verify_export
 from feedwatch.video_overview import summarize_video
 from feedwatch.learning_presentation import learning_html
 from feedwatch.i18n import i18n_javascript, localize_html
+from feedwatch.motion_presentation import export_motion_presentation
 
 ROOT=Path(__file__).resolve().parents[1]
 NAMES={'none':'Não observada','weak':'Baixa','medium':'Moderada','strong':'Alta'}
@@ -26,11 +27,45 @@ def encode(source,target,filters):
         check=True,timeout=180,**hidden_process())
 
 
+def motion_case(source, media, identifier, motion_config):
+    """Reuse only a verified export of the same original recording and settings."""
+    cache=ROOT/'artifacts/motion-dashboard'/identifier
+    index=cache.parent/(identifier+'-latest.json')
+    def cached(directory):
+        if not (directory/'motion.json').is_file() or not (directory/'motion-audit.json').is_file():return None
+        try:
+            result=json.loads((directory/'motion.json').read_text(encoding='utf-8'))
+            audit=json.loads((directory/'motion-audit.json').read_text(encoding='utf-8'))
+            video=Path(result['video'])
+            if (audit['source_sha256']!=file_hash(source) or audit['motion_config']!=motion_config
+                    or not video.resolve().is_relative_to(directory.resolve())
+                    or not video.is_file() or result['video_sha256']!=file_hash(video)):return None
+            return result
+        except (OSError,ValueError,KeyError,TypeError):return None
+    result=cached(cache)
+    if result is None and index.is_file():
+        try:
+            candidate=(cache.parent/json.loads(index.read_text(encoding='utf-8'))['directory']).resolve()
+            if candidate.is_relative_to(cache.parent.resolve()):result=cached(candidate)
+        except (OSError,ValueError,KeyError,TypeError):pass
+    if result is None:
+        from datetime import datetime, timezone
+        cache=cache.parent/(identifier+'-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f'))
+        result=export_motion_presentation(source,cache,motion_config)
+        index.write_text(json.dumps({'directory':cache.name}),encoding='utf-8')
+    video=Path(result['video'])
+    target=media/(identifier+'-motion-'+result['video_sha256'][:12]+'.mp4')
+    if not target.exists():shutil.copy2(video,target)
+    assert file_hash(target)==result['video_sha256']
+    return {**result,'video':target.relative_to(DIST).as_posix()}
+
+
 def main():
     DIST.mkdir(parents=True,exist_ok=True)
     media=DIST/'media';media.mkdir(exist_ok=True)
     for name in ('portfolio.css','portfolio.js'):shutil.copy2(ASSETS/name,DIST/('styles.css' if name.endswith('css') else 'app.js'))
     cases=[]
+    motion_config=json.loads((ROOT/'config/simple_video.json').read_text(encoding='utf-8'))['motion']
     for identifier,title,runid,original,credit in [
         ('aquario','Aquário','20261026T010808-detector-v2-aquario','pexels-6472322-fullhd.mp4','Richard Muller · Pexels 6472322 · licença Pexels'),
         ('carpas','Carpas — exemplo com falhas','20261026T011136-detector-v3-carpas','pexels-3625177-fullhd.mp4','lam loi · Pexels 3625177 · licença Pexels')]:
@@ -48,6 +83,7 @@ def main():
         cases.append({'id':identifier,'title':title,'original':origin.relative_to(DIST).as_posix(),'annotated':target.relative_to(DIST).as_posix(),
             'poster':poster.relative_to(DIST).as_posix(),'windows':run['windows'],'fps':run['metadata']['fps'],
             'duration':run['metadata']['duration_seconds'],'frames':frames,
+            'motion':motion_case(raw,media,identifier,motion_config),
             'scope':'Este vídeo foi gravado em um ambiente diferente do AV-FFIA. Não há uma classificação de referência para medir o acerto da atividade alimentar neste exemplo.',
             'credit':credit,
             'processing_note':'Filmagem integral; rodapé da saída técnica removido para exibição em 16:9.',
@@ -66,6 +102,7 @@ def main():
         cases.append({'id':'dataset-'+label,'title':'AV-FFIA — referência: '+NAMES[label].lower()+' (2 s)','reference_class':label,
             'original':target.relative_to(DIST).as_posix(),'annotated':target.relative_to(DIST).as_posix(),'poster':poster.relative_to(DIST).as_posix(),
             'windows':[{**w,'available_at_seconds':w['end_seconds']} for w in analysis['windows']],'fps':25.,'duration':2.,'frames':[],
+            'motion':motion_case(original,media,'dataset-'+label,motion_config),
             'scope':'A categoria de referência é a publicada no AV-FFIA. Este clipe fez parte da validação do projeto; a previsão do modelo pode discordar da referência.',
             'credit':'Meng Cui e colaboradores · AV-FFIA · CC BY 4.0 · Clipe da validação.',
             'source_clip':entry['relative_path'],'selection_note':'Seleção histórica, seed 42.',

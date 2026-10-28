@@ -22,6 +22,14 @@ Um detector Fishial pré-treinado encontra peixes visíveis. O rastreador associ
 
 Os relatórios de processamento incluem configuração, origem, hashes, janelas, observações por imagem, falhas e metadados. O deslocamento opcional em pixels/s é uma medida aparente da imagem, sem conversão para velocidade física.
 
+## Mapa de movimento
+
+O painel colorido compara imagens consecutivas da gravação original com o método de [fluxo óptico de Farneback, disponível no OpenCV](https://docs.opencv.org/4.x/d4/dee/tutorial_optical_flow.html). A escala é fixa: azul indica menor movimento aparente e vermelho, maior movimento, com saturação em 400 pixels da imagem original por segundo. A resolução de análise é proporcional, com até 640 pixels no lado maior.
+
+A curva mostra o movimento médio da imagem ao longo do tempo. O percentual de área em movimento corresponde aos pixels com deslocamento estimado acima de 20 pixels por segundo. Esses valores incluem água, reflexos e movimento da câmera. Não medem temperatura, velocidade física dos peixes ou atenção da GRU, e não alteram a classificação alimentar.
+
+O primeiro quadro não possui comparação anterior e aparece sem medição. Falhas permanecem indisponíveis. O mapa e as métricas usam os mesmos tempos do vídeo principal; não há normalização independente das cores a cada quadro.
+
 ## Simulação de alimentação
 
 O usuário informa a quantidade habitual, a quantidade do cenário e, opcionalmente, o preço por kg, sempre para o mesmo período. O cálculo compara quantidade, variação percentual e custos. A diferença em kg é a quantidade habitual menos a quantidade do cenário. Custo é quantidade multiplicada pelo preço por kg.

@@ -12,6 +12,33 @@ function calculateFeedingScenario(usualKg, proposedKg, unitPrice=null) {
   return result;
 }
 
+function motionFrameAt(frames, time) {
+  let low=0, high=frames.length-1, found=-1;
+  while(low<=high) {
+    const middle=(low+high)>>1;
+    if(frames[middle].timestamp_seconds<=time+1e-9){found=middle;low=middle+1;}
+    else high=middle-1;
+  }
+  return found<0?null:frames[found];
+}
+
+function motionChartData(frames, time, duration) {
+  const visible=frames.filter(row=>row.timestamp_seconds<=time+1e-9);
+  const valid=row=>row.status==='ok' && Number.isFinite(row.mean_source_px_per_second) && row.mean_source_px_per_second>=0;
+  const maximum=Math.max(400,Math.ceil(Math.max(0,...visible.filter(valid).map(row=>row.mean_source_px_per_second))*1.1/20)*20);
+  const step=Math.max(1,Math.ceil(visible.length/150));
+  const length=Math.max(duration,0.001);
+  let path='', move=true;
+  for(const [index,row] of visible.entries()) {
+    if(!valid(row)){move=true;continue;}
+    if(index%step && index!==visible.length-1)continue;
+    const x=300*Math.min(1,Math.max(0,row.timestamp_seconds/length));
+    const y=66-62*row.mean_source_px_per_second/maximum;
+    path+=(move?'M':'L')+x.toFixed(2)+','+y.toFixed(2);move=false;
+  }
+  return {path,maximum,cursor:300*Math.min(1,Math.max(0,time/length))};
+}
+
 function mountFeedWatch(root, data) {
   const I=window.FeedWatchI18n;
   const tr=(source, values)=>I.t(source, values);
@@ -35,15 +62,103 @@ function mountFeedWatch(root, data) {
     root._fwCleanup=unsubscribe;
     return;
   }
-  const video=q('video'), select=q('[data-source]'), segments=q('[data-segments]');
+  const video=q('[data-primary-video]'), select=q('[data-source]'), segments=q('[data-segments]');
+  const motionVideo=q('[data-motion-video]'), motionCard=q('[data-motion-card]');
   const seek=q('[data-seek]'), start=q('[data-start]');
   const present=q('[data-present]');
   let current=null, mode='annotated', switching=false, frame=0, destroyed=false, generation=0;
+  let motionFrames=[], motionFailed=false, motionPlayPending=false, motionAutoplayBlocked=false, motionKey='', motionPlayToken=0;
   const format=t=>Number(t||0).toLocaleString(I.locale,{minimumFractionDigits:1,maximumFractionDigits:1})+tr(' s');
   let names={none:tr('Não observada'),weak:tr('Baixa'),medium:tr('Moderada'),strong:tr('Alta')};
   let meanings={none:tr('O sistema não identificou sinais de atividade alimentar neste período.'),weak:tr('O sistema estimou pouca atividade alimentar neste período.'),medium:tr('O sistema estimou um nível intermediário de atividade alimentar neste período.'),strong:tr('O sistema estimou atividade alimentar intensa neste período.')};
   const setText=(selector,text)=>{const node=q(selector),value=tr(text);if(node && node.textContent!==value)node.textContent=value;};
   const decimal=n=>Number(n).toLocaleString(I.locale,{maximumFractionDigits:1});
+  const motionSource=()=>current?.motion?.video?new URL(current.motion.video,document.baseURI).href:'';
+  function stopMotion(unload=false) {
+    motionVideo.pause();
+    if(unload){motionVideo.removeAttribute('src');motionVideo.load();}
+  }
+  function syncMotion(force=false) {
+    if(destroyed || !current?.motion?.video || motionFailed || motionVideo.readyState<1)return;
+    const target=Math.max(0,Math.min(video.currentTime,Number.isFinite(motionVideo.duration)?motionVideo.duration:current.duration));
+    if((force || Math.abs(motionVideo.currentTime-target)>.08) && !motionVideo.seeking) {
+      try{motionVideo.currentTime=target;}catch{}
+    }
+    if(motionVideo.playbackRate!==video.playbackRate)motionVideo.playbackRate=video.playbackRate;
+    if(video.paused || video.ended || switching){motionVideo.pause();return;}
+    if(motionVideo.paused && !motionPlayPending && !motionAutoplayBlocked && (!motionVideo.ended || target<motionVideo.duration-.05)) {
+      const token=++motionPlayToken;
+      motionPlayPending=true;
+      motionVideo.play().catch(error=>{if(token===motionPlayToken && error.name!=='AbortError')motionAutoplayBlocked=true;}).finally(()=>{if(token===motionPlayToken)motionPlayPending=false;});
+    }
+  }
+  function configureMotion() {
+    stopMotion(true);
+    motionPlayToken++;motionPlayPending=false;motionFailed=false;motionAutoplayBlocked=false;motionKey='';
+    motionFrames=(current.motion?.frames||[]).filter(row=>Number.isFinite(row.timestamp_seconds));
+    const available=Boolean(current.motion?.video);
+    motionCard.dataset.available=String(available);
+    motionCard.setAttribute('aria-busy',String(available));
+    motionVideo.hidden=!available;
+    q('[data-motion-empty]').hidden=available;
+    q('[data-motion-empty]').textContent=tr('Mapa não disponível neste vídeo.');
+    setText('[data-motion-status]',available?'Carregando mapa…':'Sem dados');
+    q('[data-motion-legend]').hidden=!available;
+    q('[data-motion-scale]').hidden=!available;
+    q('[data-motion-metrics]').hidden=!motionFrames.length;
+    if(available) {
+      motionVideo.muted=true;motionVideo.defaultMuted=true;motionVideo.disablePictureInPicture=true;
+      motionVideo.src=current.motion.video;motionVideo.load();
+    }
+    updateMotionLabels();
+  }
+  function updateMotionLabels() {
+    const scale=current?.motion?.scale_max_source_px_per_second;
+    const threshold=current?.motion?.active_threshold_source_px_per_second;
+    setText('[data-motion-scale]',Number.isFinite(scale)?'0–'+decimal(scale)+'+ px/s':'—');
+    const description=Number.isFinite(threshold)?tr('Área em movimento: pixels acima de {threshold} px/s.',{threshold:decimal(threshold)}):'';
+    q('[data-motion-threshold]').textContent=description;
+    q('[data-motion-threshold]').hidden=!description;
+    q('[data-motion-area]').title=description;
+    motionVideo.setAttribute('aria-label',tr('Mapa de movimento sincronizado ao vídeo principal'));
+    if(!current?.motion?.video)setText('[data-motion-status]','Sem dados');
+    else if(motionFailed)setText('[data-motion-status]','Mapa indisponível.');
+    else setText('[data-motion-status]',motionVideo.readyState<1?'Carregando mapa…':'Sincronizado');
+  }
+  function updateMotion(time) {
+    syncMotion();
+    if(!motionFrames.length)return;
+    const key=Math.round(time*1000)+':'+I.language;
+    if(key===motionKey)return;
+    motionKey=key;
+    const sample=motionFrameAt(motionFrames,time);
+    const ready=sample?.status==='ok';
+    const mean=ready && Number.isFinite(sample.mean_source_px_per_second) && sample.mean_source_px_per_second>=0?sample.mean_source_px_per_second:null;
+    const area=ready && Number.isFinite(sample.moving_fraction) && sample.moving_fraction>=0 && sample.moving_fraction<=1?sample.moving_fraction:null;
+    setText('[data-motion-mean]',mean===null?'—':decimal(mean)+' px/s');
+    setText('[data-motion-area]',area===null?'—':decimal(100*area)+'%');
+    if(current.motion?.video && !motionFailed && motionVideo.readyState>=1)setText('[data-motion-status]',sample?.status==='initializing'?'Preparando movimento':'Sincronizado');
+    const chart=motionChartData(motionFrames,time,current.duration);
+    q('[data-motion-path]').setAttribute('d',chart.path);
+    q('[data-motion-cursor]').setAttribute('x1',chart.cursor.toFixed(2));
+    q('[data-motion-cursor]').setAttribute('x2',chart.cursor.toFixed(2));
+    setText('[data-motion-chart-max]','0–'+decimal(chart.maximum)+' px/s');
+    setText('[data-motion-chart-time]',format(current.duration));
+    q('[data-motion-chart]').setAttribute('aria-label',tr('Movimento médio da imagem até {seconds} s; escala de 0 a {maximum} px/s.',{seconds:decimal(time),maximum:decimal(chart.maximum)}));
+  }
+  motionVideo.onloadedmetadata=()=>{
+    if(destroyed || motionVideo.currentSrc!==motionSource())return;
+    motionCard.setAttribute('aria-busy','false');
+    updateMotionLabels();syncMotion(true);
+  };
+  motionVideo.onerror=()=>{
+    if(destroyed || motionFailed || (motionVideo.currentSrc||motionVideo.src)!==motionSource())return;
+    motionFailed=true;stopMotion(true);motionVideo.hidden=true;motionCard.dataset.available='false';
+    motionCard.setAttribute('aria-busy','false');
+    q('[data-motion-empty]').hidden=false;q('[data-motion-empty]').textContent=tr('Mapa indisponível.');
+    q('[data-motion-legend]').hidden=true;q('[data-motion-scale]').hidden=true;
+    setText('[data-motion-status]','Mapa indisponível.');
+  };
   const scenarioForm=q('[data-scenario-form]');
   scenarioForm.oninput=()=>{q('[data-scenario-output]').hidden=true;};
   scenarioForm.onsubmit=event=>{
@@ -112,6 +227,7 @@ function mountFeedWatch(root, data) {
     if (!current) return;
     if(video.error){setText('[data-prediction]',tr('Vídeo indisponível'));setText('[data-meaning]',tr('Selecione outro exemplo ou recarregue a página para tentar novamente.'));setText('[data-window]',tr('Selecione outro exemplo'));setText('[data-count]','—');start.hidden=true;return;}
     const t=video.currentTime;
+    updateMotion(t);
     const complete=current.windows.filter(w=>w.status!=='incomplete' && (w.available_at_seconds??w.end_seconds)<=t+1e-9);
     const latest=complete.at(-1), tail=current.windows.some(w=>w.status==='incomplete'&&t>=w.start_seconds);
     setText('[data-prediction]',latest ? (latest.status==='ok'?names[latest.predicted_class]:tr('Sem resultado')) : (t>0?tr('Aguardando'):tr('Inicie o vídeo')));
@@ -138,6 +254,7 @@ function mountFeedWatch(root, data) {
   }
   function choose(index) {
     current=data.cases[index];
+    configureMotion();
     showOverview(current.overview);
     q('.fw-mode').hidden=current.original===current.annotated;
     video.poster=current.poster||'';
@@ -196,8 +313,14 @@ function mountFeedWatch(root, data) {
   select.onchange=()=>choose(Number(select.value));
   seek.oninput=()=>{video.currentTime=Number(seek.value);update();};
   start.onclick=()=>video.play().catch(()=>{});
-  video.onplay=update;video.onpause=update;video.onended=update;video.ontimeupdate=update;
-  video.onerror=update;
+  video.onplay=()=>{motionAutoplayBlocked=false;update();syncMotion(true);};
+  video.onpause=()=>{stopMotion();update();syncMotion(true);};
+  video.onended=()=>{stopMotion();update();syncMotion(true);};
+  video.ontimeupdate=update;
+  video.onseeking=()=>{stopMotion();syncMotion(true);update();};
+  video.onseeked=()=>{syncMotion(true);update();};
+  video.onratechange=()=>syncMotion(true);
+  video.onerror=()=>{stopMotion();update();};
   function tick(){if(destroyed)return;if(!switching)update();frame=requestAnimationFrame(tick);}
   const requested=new URLSearchParams(location.search).get('exemplo');
   const initial=Math.max(0,data.cases.findIndex(c=>c.id===requested));select.value=initial;choose(initial);tick();
@@ -223,6 +346,8 @@ function mountFeedWatch(root, data) {
       }
       const coverage=current.windows.reduce((n,w)=>n+(w.status==='ok'?w.end_seconds-w.start_seconds:0),0);
       q('[data-coverage]').textContent=format(coverage)+tr(' analisados');
+      motionKey='';updateMotionLabels();
+      q('[data-motion-empty]').textContent=tr(motionFailed?'Mapa indisponível.':'Mapa não disponível neste vídeo.');
     }
     if(data.live){setText('[data-demo-heading]','Resultado do seu vídeo');setText('[data-demo-intro]','A classificação de cada período aparece durante a reprodução. O panorama abaixo resume o vídeo inteiro.');}
     if(!q('[data-scenario-output]').hidden)scenarioForm.onsubmit({preventDefault(){}});
@@ -230,5 +355,5 @@ function mountFeedWatch(root, data) {
     update();
   }
   const unsubscribe=I.subscribe(refreshLanguage);
-  root._fwCleanup=()=>{unsubscribe();destroyed=true;cancelAnimationFrame(frame);video.pause();document.removeEventListener('fullscreenchange',updatePresentation);document.removeEventListener('keydown',onPresentationKey);};
+  root._fwCleanup=()=>{unsubscribe();destroyed=true;cancelAnimationFrame(frame);video.pause();stopMotion(true);document.removeEventListener('fullscreenchange',updatePresentation);document.removeEventListener('keydown',onPresentationKey);};
 }

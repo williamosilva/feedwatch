@@ -17,8 +17,13 @@ WORKSPACE='''<div class="fw">
 <section class="fw-workspace" aria-label="Demonstração interativa">
 <div class="fw-toolbar"><span class="fw-presentation-brand" translate="no">FeedWatch</span><div class="fw-source"><label for="fw-source">Vídeo de exemplo</label><select id="fw-source" name="example" data-source></select></div><div class="fw-toolbar-actions"><div class="fw-mode" aria-label="Marcações no vídeo"><button type="button" data-mode="original" aria-pressed="false">Sem marcações</button><button type="button" data-mode="annotated" aria-pressed="true">Com marcações</button></div><button class="fw-present" type="button" data-present aria-pressed="false" aria-label="Abrir demonstração em tela cheia" hidden>Modo apresentação</button></div></div>
 <p class="fw-playback-heading">Vídeo e classificação</p>
-<div class="fw-main"><div class="fw-screen"><video controls playsinline muted preload="metadata"></video><span class="fw-watermark" data-mode-label>Peixes identificados pelo sistema</span><button class="fw-start" type="button" data-start>Reproduzir vídeo</button></div>
-<aside class="fw-insight" aria-label="Resultado no momento do vídeo"><div class="fw-current-result" role="status" aria-live="polite" aria-atomic="true"><p class="fw-label">Atividade do período</p><p class="fw-prediction" data-prediction>Inicie o vídeo</p><p class="fw-window" data-window>Resultado após 2 s</p></div><div class="fw-counter"><p class="fw-label" data-count-label>Peixes detectados</p><span class="fw-number" data-count>—</span></div></aside></div>
+<div class="fw-main"><div class="fw-screen"><video data-primary-video controls playsinline muted preload="metadata"></video><span class="fw-watermark" data-mode-label>Peixes identificados pelo sistema</span><button class="fw-start" type="button" data-start>Reproduzir vídeo</button></div>
+<aside class="fw-analysis-side" aria-label="Mapa e métricas do vídeo">
+<section class="fw-motion-card" data-motion-card data-available="false" aria-label="Mapa de movimento"><div class="fw-panel-heading"><h3>Mapa de movimento</h3><span data-motion-status>Sem dados</span></div><div class="fw-motion-view"><video data-motion-video muted playsinline preload="metadata" aria-label="Mapa de movimento sincronizado ao vídeo principal" hidden></video><p class="fw-motion-empty" data-motion-empty>Mapa não disponível neste vídeo.</p></div><div class="fw-motion-legend" data-motion-legend hidden><span>Menos movimento</span><span>Mais movimento</span><i aria-hidden="true"></i></div><p class="fw-motion-scale" data-motion-scale hidden>0–400 px/s</p></section>
+<section class="fw-insight" aria-label="Resultado no momento do vídeo"><div class="fw-current-result" role="status" aria-live="polite" aria-atomic="true"><p class="fw-label">Atividade do período</p><p class="fw-prediction" data-prediction>Inicie o vídeo</p><p class="fw-window" data-window>Resultado após 2 s</p></div><div class="fw-counter"><p class="fw-label" data-count-label>Peixes detectados</p><span class="fw-number" data-count>—</span></div></section>
+<section class="fw-motion-metrics" data-motion-metrics hidden aria-label="Métricas de movimento da imagem"><div class="fw-motion-values"><div><p class="fw-label">Movimento médio</p><p class="fw-motion-number" data-motion-mean>—</p></div><div><p class="fw-label">Área em movimento</p><p class="fw-motion-number" data-motion-area>—</p></div></div><svg class="fw-motion-chart" data-motion-chart viewBox="0 0 300 70" role="img" aria-label="Movimento médio da imagem ao longo do vídeo"><path data-motion-path fill="none"></path><line data-motion-cursor x1="0" x2="0" y1="4" y2="66"></line></svg><div class="fw-motion-chart-labels"><span>0 s</span><span data-motion-chart-max>—</span><span data-motion-chart-time>—</span></div></section>
+<details class="fw-motion-info"><summary>Como ler o mapa</summary><p>Cores mais quentes indicam maior movimento entre imagens. Inclui água, reflexos e movimento de câmera. A classificação alimentar é calculada separadamente.</p><p data-motion-threshold></p></details>
+</aside></div>
 <div class="fw-timeline"><div class="fw-timeline-heading"><span>Atividade ao longo do vídeo</span><span data-clock>0,0 s</span></div><div class="fw-segments" data-segments></div><label class="fw-seek-label"><span>Posição do vídeo</span><input class="fw-seek" type="range" name="video-position" data-seek min="0" max="12" step="0.001" value="0" aria-label="Posição do vídeo em segundos"></label></div><p class="fw-footnote"><span data-coverage></span>. Cada parte corresponde a 2 segundos. Selecione uma parte para consultar seu resultado.</p>
 <p class="fw-reference" data-reference hidden></p><p class="fw-presentation-status" data-presentation-status role="status" hidden></p></section>
 <section class="fw-overview" aria-labelledby="fw-overview-title" data-overview>
@@ -54,6 +59,9 @@ def demo_payload():
     for case in data['cases']:
         for key in ('original','annotated','poster'):
             if case.get(key) and not case[key].startswith(('https://','http://')):case[key]=local_url(DIST/case[key])
+        motion=case.get('motion')
+        if motion and motion.get('video') and not motion['video'].startswith(('https://','http://','/gradio_api/')):
+            motion['video']=local_url(DIST/motion['video'])
     return data
 
 
@@ -63,10 +71,13 @@ def result_payload(result):
     path=Path(result['directory'])/'frames.jsonl'
     if path.exists():
         frames=[{'count':row.get('detected_count')} for row in (json.loads(line) for line in path.read_text(encoding='utf-8').splitlines())]
+    motion=deepcopy(details.get('motion'))
+    if motion and motion.get('video'):
+        motion['video']=local_url(Path(motion['video']))
     return {'live':True,'cases':[{'id':'seu-video','title':'Seu vídeo · análise concluída',
         'original':local_url(details['local_app']['input_copy']),'annotated':local_url(result['video']),
         'poster':'','windows':deepcopy(details['windows']),'fps':meta['fps'],'duration':meta['duration_seconds'],
-        'frames':frames,'overview':summarize_video(details['windows'],meta['duration_seconds'],frames),
+        'frames':frames,'motion':motion,'overview':summarize_video(details['windows'],meta['duration_seconds'],frames),
         'scope':'A atividade alimentar e a identificação de peixes são analisadas separadamente. O sistema pode errar.',
         'credit':'Seu arquivo, analisado neste computador. Os resultados dos testes do projeto não medem o acerto desta gravação.'}]}
 

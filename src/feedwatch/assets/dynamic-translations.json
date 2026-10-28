@@ -127,5 +127,11 @@
   " a menos": " less",
   " a mais": " more",
   "{usual} habituais → {proposed} no cenário. ": "Usual: {usual} → Scenario: {proposed}. ",
-  "Não foi possível carregar a demonstração. Recarregue a página.": "The demonstration could not be loaded. Reload the page."
+  "Não foi possível carregar a demonstração. Recarregue a página.": "The demonstration could not be loaded. Reload the page.",
+  "Carregando mapa…": "Loading map…",
+  "Mapa indisponível.": "Motion map unavailable.",
+  "Preparando movimento": "Preparing motion",
+  "Sincronizado": "Synchronized",
+  "Movimento médio da imagem até {seconds} s; escala de 0 a {maximum} px/s.": "Average image motion up to {seconds} s; scale from 0 to {maximum} px/s.",
+  "Área em movimento: pixels acima de {threshold} px/s.": "Moving area: pixels above {threshold} px/s."
 }

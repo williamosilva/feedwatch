@@ -6,6 +6,7 @@ import threading
 import time
 import uuid
 import zipfile
+import cv2
 from html import escape
 from datetime import datetime, timezone
 from pathlib import Path
@@ -14,6 +15,7 @@ from .data import file_hash, write_json
 from .local_example import DIRECTORY, EXAMPLE, prepare_example
 from .local_summary import plain_summary
 from .simple_video import SimpleRuntime, run_simple
+from .motion_presentation import export_motion_presentation
 from .video_inference import inspect_video, open_capture, plan_windows
 from .research_presentation import (CSS, REPORTS, historical_data, historical_table,
                                     light_theme, portuguese_i18n, report_links, result_sections)
@@ -141,6 +143,7 @@ def local_i18n_javascript():
 PHASES={'prepare':'Preparando vídeo','food':'Analisando imagens',
         'render':'Renderizando resultado','verify':'Verificando vídeo',
         'replay':'Conferindo previsões','card':'Finalizando vídeo',
+        'motion':'Gerando mapa de movimento',
         'save':'Salvando arquivos'}
 
 
@@ -166,7 +169,7 @@ class LocalService:
                 elapsed=time.perf_counter()-started
                 events.append({'phase':phase,'completed':completed,'total':total,'elapsed_seconds':elapsed})
                 if progress is not None and (completed in (0,total) or elapsed-last_sent>=.15):
-                    progress((completed,total) if total else None,desc=local_text(PHASES[phase]),unit='frames' if phase in ('food','render','verify','replay') else 'steps')
+                    progress((completed,total) if total else None,desc=local_text(PHASES[phase]),unit='frames' if phase in ('food','render','verify','replay','motion') else 'steps')
                     last_sent=elapsed
             try:
                 advance('prepare',0,3)
@@ -207,6 +210,11 @@ class LocalService:
                                   command=command,runtime=self.runtime,progress=advance,
                                   diagnostic=diagnostic,show_speed=show_speed)
                 if not result.get('output_video'):raise ValueError(result.get('error','Não foi possível concluir a exportação.'))
+                try:
+                    result['motion']=export_motion_presentation(staged,output/'motion',self.runtime.config['motion'],progress=advance)
+                except (ValueError,RuntimeError,OSError,cv2.error) as error:
+                    # A display-only map failure must not discard a completed feeding analysis.
+                    result['motion']={'status':'unavailable','video':None,'frames':[],'error':str(error)}
                 advance('save',0,1)
                 summary=json.loads((output/'summary.json').read_text(encoding='utf-8'))
                 explanation=plain_summary(summary,result)
@@ -227,7 +235,7 @@ class LocalService:
                     f'Comando equivalente (pasta nova):\n\n```powershell\n{command}\n```\n')
                 (output/'report.md').write_text(report,encoding='utf-8')
                 details={key:result.get(key) for key in ('status','metadata','windows','visual_errors','food_model','detector',
-                         'dynamic_config','timings','hardware','export_verification','reload_verification','source_note','local_app')}
+                         'dynamic_config','timings','hardware','export_verification','reload_verification','source_note','local_app','motion')}
                 details['coverage']=summary
                 details['rendered_frames']=result['rendered_frames']
                 write_json(output/'details.json',details)
@@ -237,7 +245,8 @@ class LocalService:
                 write_json(output/'progress.json',events)
                 with zipfile.ZipFile(output/'technical-results.zip','w',zipfile.ZIP_DEFLATED) as archive:
                     for name in ('run.json','analysis.json','config.json','source.json','summary.json','summary.md',
-                                 'report.md','details.json','windows.csv','frames.csv','frames.jsonl','progress.json'):
+                                 'report.md','details.json','windows.csv','frames.csv','frames.jsonl','progress.json',
+                                 'motion/motion.json','motion/motion-audit.json'):
                         if (output/name).exists():archive.write(output/name,name)
                 return {'video':str(output/'annotated.mp4'),'report':str(output/'report.md'),
                         'summary':explanation,'details':details,'archive':str(output/'technical-results.zip'),

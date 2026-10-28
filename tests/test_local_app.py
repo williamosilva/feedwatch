@@ -4,8 +4,10 @@ import unittest
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from types import SimpleNamespace
+from unittest.mock import patch
 
 import torch
+import cv2
 
 from feedwatch.local_app import LocalService
 from feedwatch.local_summary import cost_text, plain_summary, simulate_costs
@@ -84,9 +86,22 @@ class LocalAppTest(unittest.TestCase):
                 self.assertIn('**Previsões:**',result['summary'])
                 self.assertIn('**Interpretação:**',result['summary'])
                 self.assertEqual(result['details']['food_model']['integer_map'],{'0':'none'})
+                motion=result['details']['motion']
+                self.assertTrue(Path(motion['video']).is_file())
+                self.assertEqual(motion['frame_count'],50)
+                self.assertEqual(len(motion['frames']),50)
+                self.assertEqual(motion['frames'][0]['status'],'initializing')
+                self.assertIsNone(motion['frames'][0]['mean_source_px_per_second'])
                 progress=json.loads((Path(result['directory'])/'progress.json').read_text())
                 render=[e['completed'] for e in progress if e['phase']=='render']
                 self.assertEqual(render,list(range(51)))
+                self.assertEqual([e['completed'] for e in progress if e['phase']=='motion'],list(range(51)))
+            with patch('feedwatch.local_app.export_motion_presentation',side_effect=cv2.error('Map unavailable')):
+                fallback=service.analyze(source)
+            self.assertTrue(Path(fallback['video']).is_file())
+            self.assertEqual(fallback['details']['windows'],results[0]['details']['windows'])
+            self.assertEqual(fallback['details']['motion']['status'],'unavailable')
+            self.assertEqual(service.model_load_count,1)
 
     def test_summary_keeps_failed_windows_unavailable_and_weak_is_not_no_feeding(self):
         analysis={'mode':'sequential','metadata':{'duration_seconds':6.,'fps':30},'rendered_frames':180,

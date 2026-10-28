@@ -42,6 +42,13 @@ def main():
     for case in json.loads((DIST/'data.json').read_text(encoding='utf-8'))['cases']:
         for key in ('original', 'annotated', 'poster'):
             assert (DIST/case[key]).is_file(), case[key]
+        motion=case.get('motion')
+        if motion and motion.get('video'):
+            path=DIST/motion['video']
+            assert path.is_file(), motion['video']
+            assert hashlib.sha256(path.read_bytes()).hexdigest()==motion['video_sha256'], motion['video']
+            assert len(motion['frames'])==motion['frame_count'], case['id']
+            assert abs(motion['duration_seconds']-case['duration'])<=1/case['fps'], case['id']
     large = [(str(p.relative_to(DIST)), p.stat().st_size) for p in DIST.rglob('*')
              if p.is_file() and p.stat().st_size > 25*1024*1024]
     for name, meta in json.loads((DIST/'downloads.json').read_text()).items():

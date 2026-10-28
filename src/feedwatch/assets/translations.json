@@ -217,5 +217,17 @@
   "25,9%": "25.9%",
   "61,5%": "61.5%",
   "0,6068": "0.6068",
-  "35,4%": "35.4%"
+  "35,4%": "35.4%",
+  "Mapa e métricas do vídeo": "Video map and metrics",
+  "Mapa de movimento": "Motion map",
+  "Mapa de movimento sincronizado ao vídeo principal": "Motion map synchronized with the main video",
+  "Mapa não disponível neste vídeo.": "A motion map is not available for this video.",
+  "Menos movimento": "Less motion",
+  "Mais movimento": "More motion",
+  "Métricas de movimento da imagem": "Image motion metrics",
+  "Movimento médio": "Average motion",
+  "Área em movimento": "Moving image area",
+  "Movimento médio da imagem ao longo do vídeo": "Average image motion throughout the video",
+  "Como ler o mapa": "Reading the map",
+  "Cores mais quentes indicam maior movimento entre imagens. Inclui água, reflexos e movimento de câmera. A classificação alimentar é calculada separadamente.": "Warmer colors show more movement between frames. This includes water, reflections and camera motion. Feeding activity is classified separately."
 }

@@ -28,6 +28,7 @@
   "O teste histórico não mede o acerto do vídeo enviado. O recall da classe média foi **18,31%**. A GRU não demonstrou superioridade consistente sobre a Random Forest nem benefício claro da ordem temporal. Um dia reservado não representa outras fazendas ou câmeras. Scores não são confiança calibrada.": "The historical test does not measure accuracy on your uploaded video. Recall for the moderate category was **18.31%**. The GRU did not consistently outperform the Random Forest or show a clear benefit from temporal order. One held-out day does not represent other farms or cameras. Scores are not calibrated confidence.",
   "Protótipo experimental. A classificação descreve intensidade alimentar prevista; não determina fome, saciedade ou dosagem de ração.": "Experimental prototype. The classification estimates feeding intensity; it does not determine hunger, satiety or feed dosage.",
   "Preparando vídeo": "Preparing video",
+  "Gerando mapa de movimento": "Building motion map",
   "Preparando vídeo…": "Preparing video…",
   "Analisando imagens": "Analyzing images",
   "Renderizando resultado": "Rendering result",

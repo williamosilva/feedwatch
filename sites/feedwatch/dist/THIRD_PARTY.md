@@ -14,3 +14,5 @@ O código do FeedWatch é disponibilizado sob AGPL-3.0, conforme LICENSE. Depend
 | Barlow Semi Condensed | Jeremy Tribby e colaboradores, distribuída pelo Google Fonts. SIL Open Font License, incluída em sites/feedwatch/dist/fonts/OFL.txt. |
 
 Os vídeos são utilizados para demonstrar esta aplicação e não como banco de mídia. Não há vínculo ou endosso de seus autores. As versões anotadas e os cartões de apresentação são derivados identificados; os originais locais permanecem preservados. O pacote de execução inclui a GRU do projeto, os pesos MobileNet necessários à reprodução e um vídeo Pexels de exemplo; o detector é obtido separadamente do fornecedor original.
+
+Os GIFs `docs/assets/feedwatch-demo.gif` e `docs/assets/feedwatch-demo-pt.gif` combinam uma explicação inicial com um trecho reduzido, sem áudio, da saída anotada do vídeo de aquário de Richard Muller. As capturas de interface em `docs/assets/` e os vídeos de demonstração da release mostram a análise dessa mesma gravação. As tabelas usam estimativas do modelo, com tempos relativos ao vídeo original.
