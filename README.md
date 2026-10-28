@@ -8,7 +8,7 @@ Upload a video of fish during feeding. FeedWatch uses a trained model to estimat
 
 Example estimates in the report: `00:00–00:02 · moderate` and `00:02–00:04 · low`. Times refer to positions in the uploaded video.
 
-[Download the Full HD demonstration video](https://github.com/williamosilva/feedwatch/releases/download/v0.1.0/feedwatch-grid-clean-en.mp4)
+[Download the Full HD demonstration video](https://github.com/williamosilva/feedwatch/releases/download/v0.1.0/feedwatch-grid-only-en.mp4)
 
 The aquarium segment shows real detection and tracking output. This footage was not used to train the feeding classifier and has no feeding activity labels. Video: [Richard Muller / Pexels](https://www.pexels.com/video/fishes-swimming-in-aquarium-6472322/) ([license](https://www.pexels.com/license/)).
 
