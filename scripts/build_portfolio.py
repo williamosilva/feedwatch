@@ -67,8 +67,8 @@ def main():
     cases=[]
     motion_config=json.loads((ROOT/'config/simple_video.json').read_text(encoding='utf-8'))['motion']
     for identifier,title,runid,original,credit in [
-        ('aquario','Aquário','20261026T010808-detector-v2-aquario','pexels-6472322-fullhd.mp4','Richard Muller · Pexels 6472322 · licença Pexels'),
-        ('carpas','Carpas — exemplo com falhas','20261026T011136-detector-v3-carpas','pexels-3625177-fullhd.mp4','lam loi · Pexels 3625177 · licença Pexels')]:
+        ('aquario','Aquário','20261028-occlusion-v1-aquario','pexels-6472322-fullhd.mp4','Richard Muller · Pexels 6472322 · licença Pexels'),
+        ('carpas','Carpas — exemplo com falhas','20261028-occlusion-v1-carpas','pexels-3625177-fullhd.mp4','lam loi · Pexels 3625177 · licença Pexels')]:
         directory=ROOT/'artifacts/local-app-runs'/runid
         run=json.loads((directory/'run.json').read_text(encoding='utf-8'))
         raw=ROOT/'artifacts/external-examples/pexels-20261020/originals'/original

@@ -105,6 +105,9 @@ class NativeAssociationTracker:
 
 def create_tracker(config, fps):
     kind = config.get('kind', 'conservative-v2')
+    if kind == 'occlusion-aware-v1':
+        from .occlusion_tracking import OcclusionAwareTracker
+        return OcclusionAwareTracker(config)
     if kind == 'conservative-v2':
         return ConservativeTracker(config)
     if kind in {'bytetrack', 'botsort'}:

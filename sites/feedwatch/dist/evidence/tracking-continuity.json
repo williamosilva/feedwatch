@@ -1,0 +1,705 @@
+{
+  "schema": 1,
+  "scope": "Association-only regression on two demonstration videos; cached detector observations and original decoded images. No model training or new inference.",
+  "annotation_status": "Provisional visually assisted identity anchors from original-video contact sheets and cached detection boxes. Not blinded, not independent ground truth. Reference identities are local visual hypotheses only. Hidden fish are not assigned boxes. Boxes copied from existing detections: association-only evaluation conditional on detection, not detector recall. Frozen before candidate comparison.",
+  "limitations": [
+    "Only selected visually distinguishable targets; incorrect associations to unannotated fish may escape these metrics.",
+    "Sparse visible anchors do not prove continuous identity in every intermediate frame.",
+    "Same two demonstration recordings; not a farm/camera generalization test.",
+    "ID changes are fragmentation or reassignment, not automatically a wrong-fish transfer.",
+    "Cross-reference transfer counts only observable reuse among annotated targets; zero does not establish absence of wrong associations to other fish.",
+    "Temporal development/verification labels are descriptive partitions, not independent blinded validation.",
+    "Source detections, confidence scores, order, counts and feeding outputs are unchanged; no detector or feeding model was run."
+  ],
+  "definitions": {
+    "id_changes_along_reference": "A visible reference target has a different displayed tracking ID than at its previous visible anchor. Includes fragmentation and return to a recovered prior ID; not automatically a wrong-fish transfer.",
+    "observed_cross_reference_id_transfers": "An ID previously observed on one annotated target appears on another annotated target in the same scene. This detects only transfers among the annotated targets; errors involving other fish can be missed.",
+    "all_frame_allocated_ids": "Count of IDs allocated across all detections, including unannotated fish and errors. A diagnostic of fragmentation, not identity accuracy."
+  },
+  "reference_sha256": "b02f6eac8859f241086a3d37f27a22f76269110d4ac3807505f62305e701e2e6",
+  "module_sha256": {
+    "occlusion_tracking.py": "5615edf605995a0f839f94a177b150f55b0762ba62f40b6036afd022ed9f12a0",
+    "association_tracking.py": "ce08720e03137d93913cd46c26880487499fd21d2ca30f9324da30cca1244f72",
+    "conservative_tracking.py": "a318831f4f32682e43c0e7fd932aa3fdb76c6dcb9ce9f6ac6bfbb6f390047a86"
+  },
+  "configs": {
+    "conservative_0p1s": {
+      "kind": "conservative-v2",
+      "max_gap_seconds": 0.1,
+      "trail_seconds": 0.5,
+      "min_iou": 0.2,
+      "max_innovation_diagonals": 0.3,
+      "max_center_speed_diagonals_per_second": 8.0,
+      "max_area_ratio": 2.0,
+      "min_assignment_margin": 0.12,
+      "confirmation_frames": 3,
+      "min_speed_observations": 6,
+      "min_speed_history_seconds": 0.2,
+      "speed_window_seconds": 0.24
+    },
+    "conservative_1s": {
+      "kind": "conservative-v2",
+      "max_gap_seconds": 1.0,
+      "trail_seconds": 0.5,
+      "min_iou": 0.2,
+      "max_innovation_diagonals": 0.3,
+      "max_center_speed_diagonals_per_second": 8.0,
+      "max_area_ratio": 2.0,
+      "min_assignment_margin": 0.12,
+      "confirmation_frames": 3,
+      "min_speed_observations": 6,
+      "min_speed_history_seconds": 0.2,
+      "speed_window_seconds": 0.24
+    },
+    "bytetrack_1s": {
+      "kind": "bytetrack",
+      "max_gap_seconds": 1.0,
+      "trail_seconds": 0.5,
+      "min_iou": 0.2,
+      "max_innovation_diagonals": 0.3,
+      "max_center_speed_diagonals_per_second": 8.0,
+      "max_area_ratio": 2.0,
+      "min_assignment_margin": 0.12,
+      "confirmation_frames": 3,
+      "min_speed_observations": 6,
+      "min_speed_history_seconds": 0.2,
+      "speed_window_seconds": 0.24
+    },
+    "botsort_1s": {
+      "kind": "botsort",
+      "max_gap_seconds": 1.0,
+      "trail_seconds": 0.5,
+      "min_iou": 0.2,
+      "max_innovation_diagonals": 0.3,
+      "max_center_speed_diagonals_per_second": 8.0,
+      "max_area_ratio": 2.0,
+      "min_assignment_margin": 0.12,
+      "confirmation_frames": 3,
+      "min_speed_observations": 6,
+      "min_speed_history_seconds": 0.2,
+      "speed_window_seconds": 0.24
+    },
+    "occlusion_1s": {
+      "kind": "occlusion-aware-v1",
+      "max_gap_seconds": 1.0,
+      "trail_seconds": 0.5,
+      "confirmation_frames": 3,
+      "min_speed_observations": 6,
+      "min_speed_history_seconds": 0.2,
+      "speed_window_seconds": 0.24,
+      "max_area_ratio": 3.0,
+      "max_center_speed_diagonals_per_second": 8.0,
+      "occlusion_overlap_threshold": 0.35,
+      "max_prediction_seconds": 0.75,
+      "max_prediction_distance_diagonals": 0.65,
+      "prediction_uncertainty_diagonals_per_second": 0.65,
+      "max_recovery_distance_without_appearance": 0.4,
+      "appearance_max_distance": 0.72,
+      "recovery_appearance_max_distance": 0.52,
+      "appearance_weight": 0.65,
+      "appearance_update_alpha": 0.1,
+      "min_assignment_margin": 0.1
+    }
+  },
+  "overall": {
+    "conservative_0p1s": {
+      "reference_observations": 46,
+      "reference_identities": 5,
+      "id_changes_along_reference": 5,
+      "observed_cross_reference_id_transfers": 0
+    },
+    "conservative_1s": {
+      "reference_observations": 46,
+      "reference_identities": 5,
+      "id_changes_along_reference": 9,
+      "observed_cross_reference_id_transfers": 0
+    },
+    "bytetrack_1s": {
+      "reference_observations": 46,
+      "reference_identities": 5,
+      "id_changes_along_reference": 3,
+      "observed_cross_reference_id_transfers": 0
+    },
+    "botsort_1s": {
+      "reference_observations": 46,
+      "reference_identities": 5,
+      "id_changes_along_reference": 4,
+      "observed_cross_reference_id_transfers": 0
+    },
+    "occlusion_1s": {
+      "reference_observations": 46,
+      "reference_identities": 5,
+      "id_changes_along_reference": 3,
+      "observed_cross_reference_id_transfers": 0
+    }
+  },
+  "sequences": [
+    {
+      "scene": "carpas",
+      "source_sha256": "d98d6d5eac2abad9a156c4482ca08ac228a2c7ad6a7c127206581dc4dbd77e56",
+      "cached_frames_sha256": "1c72b1aa46941ed6aaa8852c6881f8da42e64c7ba08bb8a3db77d8408fa85094",
+      "processed_frames_including_warmup": 316,
+      "methods": {
+        "conservative_0p1s": {
+          "all": {
+            "reference_observations": 22,
+            "reference_identities": 2,
+            "id_changes_along_reference": 4,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                64,
+                108,
+                119,
+                127,
+                136
+              ],
+              "red-bottom-koi": [
+                55
+              ]
+            }
+          },
+          "development": {
+            "reference_observations": 13,
+            "reference_identities": 2,
+            "id_changes_along_reference": 1,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                64,
+                108
+              ],
+              "red-bottom-koi": [
+                55
+              ]
+            }
+          },
+          "verification": {
+            "reference_observations": 9,
+            "reference_identities": 2,
+            "id_changes_along_reference": 2,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                119,
+                127,
+                136
+              ],
+              "red-bottom-koi": [
+                55
+              ]
+            }
+          }
+        },
+        "conservative_1s": {
+          "all": {
+            "reference_observations": 22,
+            "reference_identities": 2,
+            "id_changes_along_reference": 8,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                99,
+                156,
+                223,
+                263,
+                278,
+                298,
+                313,
+                328,
+                352
+              ],
+              "red-bottom-koi": [
+                95
+              ]
+            }
+          },
+          "development": {
+            "reference_observations": 13,
+            "reference_identities": 2,
+            "id_changes_along_reference": 4,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                99,
+                156,
+                223,
+                263,
+                278
+              ],
+              "red-bottom-koi": [
+                95
+              ]
+            }
+          },
+          "verification": {
+            "reference_observations": 9,
+            "reference_identities": 2,
+            "id_changes_along_reference": 3,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                298,
+                313,
+                328,
+                352
+              ],
+              "red-bottom-koi": [
+                95
+              ]
+            }
+          }
+        },
+        "bytetrack_1s": {
+          "all": {
+            "reference_observations": 22,
+            "reference_identities": 2,
+            "id_changes_along_reference": 1,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                19,
+                23
+              ],
+              "red-bottom-koi": [
+                1
+              ]
+            }
+          },
+          "development": {
+            "reference_observations": 13,
+            "reference_identities": 2,
+            "id_changes_along_reference": 0,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                23
+              ],
+              "red-bottom-koi": [
+                1
+              ]
+            }
+          },
+          "verification": {
+            "reference_observations": 9,
+            "reference_identities": 2,
+            "id_changes_along_reference": 1,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                19,
+                23
+              ],
+              "red-bottom-koi": [
+                1
+              ]
+            }
+          }
+        },
+        "botsort_1s": {
+          "all": {
+            "reference_observations": 22,
+            "reference_identities": 2,
+            "id_changes_along_reference": 2,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                19,
+                25
+              ],
+              "red-bottom-koi": [
+                6
+              ]
+            }
+          },
+          "development": {
+            "reference_observations": 13,
+            "reference_identities": 2,
+            "id_changes_along_reference": 0,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                25
+              ],
+              "red-bottom-koi": [
+                6
+              ]
+            }
+          },
+          "verification": {
+            "reference_observations": 9,
+            "reference_identities": 2,
+            "id_changes_along_reference": 2,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                19,
+                25
+              ],
+              "red-bottom-koi": [
+                6
+              ]
+            }
+          }
+        },
+        "occlusion_1s": {
+          "all": {
+            "reference_observations": 22,
+            "reference_identities": 2,
+            "id_changes_along_reference": 2,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                31,
+                50
+              ],
+              "red-bottom-koi": [
+                30
+              ]
+            }
+          },
+          "development": {
+            "reference_observations": 13,
+            "reference_identities": 2,
+            "id_changes_along_reference": 1,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                31,
+                50
+              ],
+              "red-bottom-koi": [
+                30
+              ]
+            }
+          },
+          "verification": {
+            "reference_observations": 9,
+            "reference_identities": 2,
+            "id_changes_along_reference": 0,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "gold-koi": [
+                31
+              ],
+              "red-bottom-koi": [
+                30
+              ]
+            }
+          }
+        }
+      },
+      "all_frame_diagnostics": {
+        "conservative_0p1s": {
+          "total_detected_observations": 1434,
+          "recoveries_after_missing_frame": 133,
+          "allocated_id_count": 149
+        },
+        "conservative_1s": {
+          "total_detected_observations": 1434,
+          "recoveries_after_missing_frame": 182,
+          "allocated_id_count": 371
+        },
+        "bytetrack_1s": {
+          "total_detected_observations": 1434,
+          "recoveries_after_missing_frame": 170,
+          "allocated_id_count": 52
+        },
+        "botsort_1s": {
+          "total_detected_observations": 1434,
+          "recoveries_after_missing_frame": 162,
+          "allocated_id_count": 59
+        },
+        "occlusion_1s": {
+          "total_detected_observations": 1434,
+          "recoveries_after_missing_frame": 204,
+          "allocated_id_count": 65
+        }
+      }
+    },
+    {
+      "scene": "aquario",
+      "source_sha256": "6adf6c14388abc9b2980b3e8184e3f038725284ca0081a6558ddfee5e5551a4c",
+      "cached_frames_sha256": "e4a6d2b440da9b590a76f96239dc7e2f9bb42e5fa96cb408e9ac35eeb6000273",
+      "processed_frames_including_warmup": 226,
+      "methods": {
+        "conservative_0p1s": {
+          "all": {
+            "reference_observations": 24,
+            "reference_identities": 3,
+            "id_changes_along_reference": 1,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "small-silver-rightward": [
+                114,
+                138
+              ],
+              "large-silver-leftward-control": [
+                83
+              ],
+              "large-striped-up-left": [
+                123
+              ]
+            }
+          },
+          "development": {
+            "reference_observations": 0,
+            "reference_identities": 0,
+            "id_changes_along_reference": 0,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {}
+          },
+          "verification": {
+            "reference_observations": 24,
+            "reference_identities": 3,
+            "id_changes_along_reference": 1,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "small-silver-rightward": [
+                114,
+                138
+              ],
+              "large-silver-leftward-control": [
+                83
+              ],
+              "large-striped-up-left": [
+                123
+              ]
+            }
+          }
+        },
+        "conservative_1s": {
+          "all": {
+            "reference_observations": 24,
+            "reference_identities": 3,
+            "id_changes_along_reference": 1,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "small-silver-rightward": [
+                68,
+                122
+              ],
+              "large-silver-leftward-control": [
+                71
+              ],
+              "large-striped-up-left": [
+                54
+              ]
+            }
+          },
+          "development": {
+            "reference_observations": 0,
+            "reference_identities": 0,
+            "id_changes_along_reference": 0,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {}
+          },
+          "verification": {
+            "reference_observations": 24,
+            "reference_identities": 3,
+            "id_changes_along_reference": 1,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "small-silver-rightward": [
+                68,
+                122
+              ],
+              "large-silver-leftward-control": [
+                71
+              ],
+              "large-striped-up-left": [
+                54
+              ]
+            }
+          }
+        },
+        "bytetrack_1s": {
+          "all": {
+            "reference_observations": 24,
+            "reference_identities": 3,
+            "id_changes_along_reference": 2,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "small-silver-rightward": [
+                55,
+                96
+              ],
+              "large-silver-leftward-control": [
+                57
+              ],
+              "large-striped-up-left": [
+                77
+              ]
+            }
+          },
+          "development": {
+            "reference_observations": 0,
+            "reference_identities": 0,
+            "id_changes_along_reference": 0,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {}
+          },
+          "verification": {
+            "reference_observations": 24,
+            "reference_identities": 3,
+            "id_changes_along_reference": 2,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "small-silver-rightward": [
+                55,
+                96
+              ],
+              "large-silver-leftward-control": [
+                57
+              ],
+              "large-striped-up-left": [
+                77
+              ]
+            }
+          }
+        },
+        "botsort_1s": {
+          "all": {
+            "reference_observations": 24,
+            "reference_identities": 3,
+            "id_changes_along_reference": 2,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "small-silver-rightward": [
+                55,
+                85,
+                92
+              ],
+              "large-silver-leftward-control": [
+                57
+              ],
+              "large-striped-up-left": [
+                75
+              ]
+            }
+          },
+          "development": {
+            "reference_observations": 0,
+            "reference_identities": 0,
+            "id_changes_along_reference": 0,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {}
+          },
+          "verification": {
+            "reference_observations": 24,
+            "reference_identities": 3,
+            "id_changes_along_reference": 2,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "small-silver-rightward": [
+                55,
+                85,
+                92
+              ],
+              "large-silver-leftward-control": [
+                57
+              ],
+              "large-striped-up-left": [
+                75
+              ]
+            }
+          }
+        },
+        "occlusion_1s": {
+          "all": {
+            "reference_observations": 24,
+            "reference_identities": 3,
+            "id_changes_along_reference": 1,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "small-silver-rightward": [
+                70
+              ],
+              "large-silver-leftward-control": [
+                75
+              ],
+              "large-striped-up-left": [
+                114,
+                118
+              ]
+            }
+          },
+          "development": {
+            "reference_observations": 0,
+            "reference_identities": 0,
+            "id_changes_along_reference": 0,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {}
+          },
+          "verification": {
+            "reference_observations": 24,
+            "reference_identities": 3,
+            "id_changes_along_reference": 1,
+            "observed_cross_reference_id_transfers": 0,
+            "unique_ids_per_reference": {
+              "small-silver-rightward": [
+                70
+              ],
+              "large-silver-leftward-control": [
+                75
+              ],
+              "large-striped-up-left": [
+                114,
+                118
+              ]
+            }
+          }
+        }
+      },
+      "all_frame_diagnostics": {
+        "conservative_0p1s": {
+          "total_detected_observations": 3646,
+          "recoveries_after_missing_frame": 45,
+          "allocated_id_count": 143
+        },
+        "conservative_1s": {
+          "total_detected_observations": 3646,
+          "recoveries_after_missing_frame": 70,
+          "allocated_id_count": 125
+        },
+        "bytetrack_1s": {
+          "total_detected_observations": 3646,
+          "recoveries_after_missing_frame": 83,
+          "allocated_id_count": 98
+        },
+        "botsort_1s": {
+          "total_detected_observations": 3646,
+          "recoveries_after_missing_frame": 79,
+          "allocated_id_count": 94
+        },
+        "occlusion_1s": {
+          "total_detected_observations": 3646,
+          "recoveries_after_missing_frame": 112,
+          "allocated_id_count": 127
+        }
+      }
+    }
+  ],
+  "recovery_example": {
+    "scene": "aquario",
+    "reference_identity": "small-silver-rightward",
+    "last_visible_frame": 200,
+    "next_visible_frame": 215,
+    "last_visible_timestamp_seconds": 6.673333333333334,
+    "next_visible_timestamp_seconds": 7.1738333333333335,
+    "elapsed_between_observations_seconds": 0.5004999999999997,
+    "unobserved_frames": 14,
+    "candidate_displayed_ids": [
+      70,
+      70
+    ],
+    "baseline_displayed_ids": [
+      114,
+      138
+    ],
+    "interpretation": "Visually assisted local hypothesis: the small silver fish passes behind a larger striped fish and reappears. Candidate ID70 is absent, not assigned to another observed box, for frames201-214. No predicted box is displayed during the gap.",
+    "audit_image": "aquario-recovery-comparison.png",
+    "limits": "One visually distinguishable local event; not a guarantee of individual identity for indistinguishable fish or long occlusions."
+  },
+  "recommendation": "Use occlusion-aware-v1 as the default for the prototype. It recovers the selected aquarium occlusion, reduces sparse-anchor ID changes from5 to3, and shows no transfer between the5 annotated targets. ByteTrack also has3 total changes but loses the selected aquarium identity. Keep appearance+motion gates and suspend ambiguous associations; do not interpret these limited anchors as a general identity accuracy estimate."
+}

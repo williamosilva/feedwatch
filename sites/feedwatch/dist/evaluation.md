@@ -55,7 +55,23 @@ As caixas de referência são provisórias, com incerteza sobre peixes parcialme
 
 Na exportação completa das carpas, as imagens com zero detecções passaram de 347 em 562 contagens disponíveis para 1 em 563. A caixa sobre a mão no quadro 28 (0,93 s) deixou de aparecer, mas outra caixa incorreta ainda aparece sobre parte da mão no quadro 180 (6 s). O exemplo continua identificado como sujeito a falhas. O aquário manteve contagem disponível nas 395 imagens, sem imagens com zero detecções. Esses totais descrevem as saídas do detector, não medem a quantidade real de peixes.
 
-ByteTrack e BoT-SORT foram comparados ao rastreador conservador com as mesmas detecções em 24 quadros consecutivos, acompanhando dois alvos selecionados por cena. Os três registraram 48 observações associadas, sem perdas ou trocas de identificador nessa pequena verificação. As caixas de identidade de referência foram interpoladas entre extremos inspecionados, com conferência no quadro intermediário. Não é uma avaliação independente de rastreamento ou de oclusões longas. Sem ganho demonstrado, `conservative-v2` continua como padrão; os outros dois podem ser selecionados em `tracker.kind` na configuração.
+O rastreador padrão, `occlusion-aware-v1`, combina previsão curta de movimento com descritores de cor e textura da imagem original. Mantém associações ausentes por até um segundo e só atualiza a aparência quando não há sobreposição relevante. Não usa um modelo treinado para reconhecer cada peixe. Associações ambíguas podem receber um ID temporário; peixes ausentes não ganham caixas previstas. Trajetórias e velocidades recomeçam após uma ausência.
+
+Uma comparação com as mesmas detecções processou 542 quadros dos dois vídeos e conferiu 46 observações visuais de cinco peixes selecionados:
+
+| Rastreador | Mudanças de ID nos alvos conferidos |
+|---|---:|
+| Anterior, memória de 0,1 s | 5 |
+| Anterior, apenas memória ampliada para 1 s | 9 |
+| ByteTrack, memória de 1 s | 3 |
+| BoT-SORT, memória de 1 s | 4 |
+| Aparência e movimento, memória de 1 s | 3 |
+
+No aquário, o peixe pequeno que passa atrás de um peixe maior ficou sem detecção durante 14 quadros. A nova associação recuperou o ID `70` após 0,5005 s entre observações; a anterior mudou de `114` para `138`. Na verificação curta anterior, sem oclusão, o novo rastreador também manteve as 48 observações sem perdas ou mudanças de ID.
+
+As referências são hipóteses visuais assistidas e esparsas, sem revisão humana independente. Mudança de ID pode ser fragmentação ou retorno a uma associação anterior; não prova troca entre peixes. Não foi observada transferência entre os cinco alvos anotados, mas erros envolvendo outros peixes podem passar despercebidos. Os resultados não medem precisão geral de identidade nem garantem reconhecimento após ocultação total. A classificação alimentar, as caixas, os scores e as contagens por quadro permanecem iguais.
+
+O [registro de continuidade](evidence/tracking-continuity.json) contém configurações, hashes, resultados por vídeo e os limites da comparação. As [referências utilizadas](evidence/tracking-references.json) e `scripts/benchmark_tracking_continuity.py` permitem repetir a associação com as gravações originais e os respectivos arquivos `run.json` e `frames.jsonl`. O script `scripts/retrack_saved_video.py` refaz o vídeo a partir dessas detecções, sem executar novamente os modelos.
 
 Os [resultados de detecção e rastreamento](evidence/detection-regression.json) descrevem os limites dessa comparação. O exportador também registra o timestamp bruto do decodificador e a origem do tempo usado pelo rastreador. Corrige somente pequenas inconsistências compatíveis com o relógio de quadros; falhas maiores continuam indisponíveis.
 

@@ -4,11 +4,11 @@
 
 Upload a video of fish during feeding. FeedWatch uses a trained model to estimate feeding intensity in two-second intervals and produces a report with time ranges for each result.
 
-![How FeedWatch analyzes a feeding video, followed by fish tracking, a motion map and synchronized metrics](docs/assets/feedwatch-demo.gif)
+![Fish tracking, motion map and synchronized estimates](docs/assets/feedwatch-demo.gif)
 
 Example estimates in the report: `00:00–00:02 · moderate` and `00:02–00:04 · low`. Times refer to positions in the uploaded video.
 
-[Download the Full HD demonstration video](https://github.com/williamosilva/feedwatch/releases/download/v0.1.0/feedwatch-grid-only-en.mp4)
+[Download the Full HD demonstration video](https://github.com/williamosilva/feedwatch/releases/download/v0.1.0/feedwatch-grid-tracking-en.mp4)
 
 The aquarium segment shows real detection and tracking output. This footage was not used to train the feeding classifier and has no feeding activity labels. Video: [Richard Muller / Pexels](https://www.pexels.com/video/fishes-swimming-in-aquarium-6472322/) ([license](https://www.pexels.com/license/)).
 
@@ -23,6 +23,8 @@ The aquarium segment shows real detection and tracking output. This footage was 
 This prototype runs locally. A frozen MobileNetV3 Small extracts features; a GRU trained on AV-FFIA classifies feeding activity. Separate Fishial models detect fish. The application accepts videos from 2 to 60 seconds, up to 100 MB. The interface starts in English and includes a Portuguese language selector.
 
 The motion map highlights changes between consecutive original frames. It includes water and reflections; its colors represent image motion, separately from the feeding estimate.
+
+Numbers on fish boxes are temporary tracking IDs. The tracker uses movement, color and texture to recover short interruptions of up to one second. Similar fish and longer occlusions can still cause ID changes. These IDs do not determine feeding intensity. See the [tracking comparison](evidence/tracking-continuity.json).
 
 <details>
 <summary>Interface and video overview</summary>

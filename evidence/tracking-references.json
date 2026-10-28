@@ -1,0 +1,693 @@
+{
+  "schema": 1,
+  "annotation_status": "Provisional visually assisted identity anchors from original-video contact sheets and cached detection boxes. Not blinded, not independent ground truth. Reference identities are local visual hypotheses only. Hidden fish are not assigned boxes. Boxes copied from existing detections: association-only evaluation conditional on detection, not detector recall. Frozen before candidate comparison.",
+  "limitations": [
+    "Only selected visually distinguishable targets; incorrect associations to unannotated fish may escape these metrics.",
+    "Sparse visible anchors do not prove continuous identity in every intermediate frame.",
+    "Same two demonstration recordings; not a farm/camera generalization test."
+  ],
+  "sequences": [
+    {
+      "scene": "carpas",
+      "source": "sites/feedwatch/dist/media/carpas-original.mp4",
+      "run": "20261026T011136-detector-v3-carpas",
+      "fps": 30.0,
+      "warmup_start_frame": 0,
+      "last_frame": 315,
+      "frames": [
+        {
+          "frame_index": 150,
+          "timestamp": 5.0,
+          "split": "development",
+          "reference": [
+            {
+              "identity": "gold-koi",
+              "detection_index": 2,
+              "xyxy": [
+                920.28662109375,
+                5.344940185546875,
+                1400.57666015625,
+                479.17144775390625
+              ]
+            },
+            {
+              "identity": "red-bottom-koi",
+              "detection_index": 1,
+              "xyxy": [
+                436.73858642578125,
+                612.806396484375,
+                877.5997924804688,
+                1067.083740234375
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 165,
+          "timestamp": 5.5,
+          "split": "development",
+          "reference": [
+            {
+              "identity": "gold-koi",
+              "detection_index": 0,
+              "xyxy": [
+                1068.8602294921875,
+                5.23699951171875,
+                1379.724609375,
+                609.344970703125
+              ]
+            },
+            {
+              "identity": "red-bottom-koi",
+              "detection_index": 1,
+              "xyxy": [
+                403.3279724121094,
+                715.1614379882812,
+                880.3967895507812,
+                987.6492919921875
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 180,
+          "timestamp": 6.0,
+          "split": "development",
+          "reference": [
+            {
+              "identity": "gold-koi",
+              "detection_index": 1,
+              "xyxy": [
+                1044.1700439453125,
+                4.2648468017578125,
+                1375.373046875,
+                731.7960205078125
+              ]
+            },
+            {
+              "identity": "red-bottom-koi",
+              "detection_index": 2,
+              "xyxy": [
+                223.197509765625,
+                628.7088012695312,
+                887.3281860351562,
+                1033.0443115234375
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 195,
+          "timestamp": 6.5,
+          "split": "development",
+          "reference": [
+            {
+              "identity": "gold-koi",
+              "detection_index": 0,
+              "xyxy": [
+                1057.4388427734375,
+                5.392822265625,
+                1407.468994140625,
+                721.1824951171875
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 210,
+          "timestamp": 7.0,
+          "split": "development",
+          "reference": [
+            {
+              "identity": "gold-koi",
+              "detection_index": 0,
+              "xyxy": [
+                1008.1846923828125,
+                0.0,
+                1523.173583984375,
+                879.0144653320312
+              ]
+            },
+            {
+              "identity": "red-bottom-koi",
+              "detection_index": 1,
+              "xyxy": [
+                391.63330078125,
+                678.347412109375,
+                784.3584594726562,
+                1041.1929931640625
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 225,
+          "timestamp": 7.5,
+          "split": "development",
+          "reference": [
+            {
+              "identity": "gold-koi",
+              "detection_index": 0,
+              "xyxy": [
+                954.2120361328125,
+                1.3952178955078125,
+                1559.104248046875,
+                738.320068359375
+              ]
+            },
+            {
+              "identity": "red-bottom-koi",
+              "detection_index": 2,
+              "xyxy": [
+                275.18658447265625,
+                672.0782470703125,
+                700.75244140625,
+                1046.3800048828125
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 240,
+          "timestamp": 8.0,
+          "split": "development",
+          "reference": [
+            {
+              "identity": "gold-koi",
+              "detection_index": 2,
+              "xyxy": [
+                619.9774780273438,
+                40.35639953613281,
+                1454.6552734375,
+                826.5228881835938
+              ]
+            },
+            {
+              "identity": "red-bottom-koi",
+              "detection_index": 0,
+              "xyxy": [
+                13.20904541015625,
+                563.1123046875,
+                567.2489013671875,
+                956.9901123046875
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 255,
+          "timestamp": 8.5,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "gold-koi",
+              "detection_index": 4,
+              "xyxy": [
+                956.572998046875,
+                336.5442810058594,
+                1344.9969482421875,
+                736.4817504882812
+              ]
+            },
+            {
+              "identity": "red-bottom-koi",
+              "detection_index": 0,
+              "xyxy": [
+                4.2760162353515625,
+                563.359375,
+                431.9858093261719,
+                983.2258911132812
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 270,
+          "timestamp": 9.0,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "gold-koi",
+              "detection_index": 1,
+              "xyxy": [
+                562.3796997070312,
+                154.85023498535156,
+                1382.45556640625,
+                857.256591796875
+              ]
+            },
+            {
+              "identity": "red-bottom-koi",
+              "detection_index": 0,
+              "xyxy": [
+                0.10636138916015625,
+                560.4306030273438,
+                383.28985595703125,
+                930.3419189453125
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 285,
+          "timestamp": 9.5,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "gold-koi",
+              "detection_index": 4,
+              "xyxy": [
+                919.4445190429688,
+                25.824005126953125,
+                1369.9102783203125,
+                889.9050903320312
+              ]
+            },
+            {
+              "identity": "red-bottom-koi",
+              "detection_index": 1,
+              "xyxy": [
+                0.0,
+                529.9863891601562,
+                354.7200622558594,
+                858.6033935546875
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 300,
+          "timestamp": 10.0,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "gold-koi",
+              "detection_index": 1,
+              "xyxy": [
+                900.57568359375,
+                172.4040985107422,
+                1381.89990234375,
+                760.9193115234375
+              ]
+            },
+            {
+              "identity": "red-bottom-koi",
+              "detection_index": 3,
+              "xyxy": [
+                0.08544158935546875,
+                529.874267578125,
+                276.440673828125,
+                774.1481323242188
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 315,
+          "timestamp": 10.5,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "red-bottom-koi",
+              "detection_index": 2,
+              "xyxy": [
+                0.0,
+                435.8445739746094,
+                199.0245819091797,
+                742.3609008789062
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "scene": "aquario",
+      "source": "sites/feedwatch/dist/media/aquario-original.mp4",
+      "run": "20261026T010808-detector-v2-aquario",
+      "fps": 29.97002997002997,
+      "warmup_start_frame": 0,
+      "last_frame": 225,
+      "frames": [
+        {
+          "frame_index": 180,
+          "timestamp": 6.006,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "small-silver-rightward",
+              "detection_index": 6,
+              "xyxy": [
+                1023.569091796875,
+                343.2992858886719,
+                1224.4638671875,
+                423.5762939453125
+              ]
+            },
+            {
+              "identity": "large-silver-leftward-control",
+              "detection_index": 0,
+              "xyxy": [
+                391.4215393066406,
+                186.35302734375,
+                693.311767578125,
+                340.38983154296875
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 185,
+          "timestamp": 6.172833333333333,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "small-silver-rightward",
+              "detection_index": 4,
+              "xyxy": [
+                1065.96142578125,
+                337.1774597167969,
+                1263.6192626953125,
+                415.7220458984375
+              ]
+            },
+            {
+              "identity": "large-striped-up-left",
+              "detection_index": 7,
+              "xyxy": [
+                1462.96044921875,
+                621.0165405273438,
+                1622.5478515625,
+                821.43359375
+              ]
+            },
+            {
+              "identity": "large-silver-leftward-control",
+              "detection_index": 0,
+              "xyxy": [
+                309.92242431640625,
+                153.04559326171875,
+                614.7299194335938,
+                312.1214294433594
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 190,
+          "timestamp": 6.339666666666667,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "small-silver-rightward",
+              "detection_index": 4,
+              "xyxy": [
+                1084.46435546875,
+                327.8863220214844,
+                1300.8931884765625,
+                421.9996032714844
+              ]
+            },
+            {
+              "identity": "large-striped-up-left",
+              "detection_index": 3,
+              "xyxy": [
+                1402.066162109375,
+                541.6434326171875,
+                1671.36376953125,
+                844.167236328125
+              ]
+            },
+            {
+              "identity": "large-silver-leftward-control",
+              "detection_index": 1,
+              "xyxy": [
+                218.09075927734375,
+                120.45869445800781,
+                523.6940307617188,
+                281.7470703125
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 195,
+          "timestamp": 6.5065,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "small-silver-rightward",
+              "detection_index": 3,
+              "xyxy": [
+                1118.4656982421875,
+                326.8373107910156,
+                1337.8253173828125,
+                430.4844970703125
+              ]
+            },
+            {
+              "identity": "large-striped-up-left",
+              "detection_index": 1,
+              "xyxy": [
+                1331.50146484375,
+                459.2198181152344,
+                1629.5994873046875,
+                773.55029296875
+              ]
+            },
+            {
+              "identity": "large-silver-leftward-control",
+              "detection_index": 2,
+              "xyxy": [
+                120.04307556152344,
+                82.32249450683594,
+                440.23974609375,
+                244.59461975097656
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 200,
+          "timestamp": 6.673333333333334,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "small-silver-rightward",
+              "detection_index": 7,
+              "xyxy": [
+                1149.7376708984375,
+                332.12060546875,
+                1342.8575439453125,
+                430.7703552246094
+              ]
+            },
+            {
+              "identity": "large-striped-up-left",
+              "detection_index": 3,
+              "xyxy": [
+                1267.346435546875,
+                385.47454833984375,
+                1570.646484375,
+                700.5877685546875
+              ]
+            },
+            {
+              "identity": "large-silver-leftward-control",
+              "detection_index": 1,
+              "xyxy": [
+                20.74486541748047,
+                44.916011810302734,
+                338.597900390625,
+                207.88980102539062
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": "Small silver fish visibly passes behind large striped fish; no reference box while hidden."
+        },
+        {
+          "frame_index": 205,
+          "timestamp": 6.840166666666667,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "large-striped-up-left",
+              "detection_index": 1,
+              "xyxy": [
+                1206.134765625,
+                312.8705749511719,
+                1522.1607666015625,
+                637.470458984375
+              ]
+            },
+            {
+              "identity": "large-silver-leftward-control",
+              "detection_index": 4,
+              "xyxy": [
+                0.0,
+                2.9426193237304688,
+                259.3323974609375,
+                175.43321228027344
+              ]
+            }
+          ],
+          "occluded_identities": [
+            "small-silver-rightward"
+          ],
+          "notes": "Small silver fish visibly passes behind large striped fish; no reference box while hidden."
+        },
+        {
+          "frame_index": 210,
+          "timestamp": 7.007000000000001,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "large-striped-up-left",
+              "detection_index": 1,
+              "xyxy": [
+                1134.764892578125,
+                243.8380126953125,
+                1459.0782470703125,
+                570.471923828125
+              ]
+            },
+            {
+              "identity": "large-silver-leftward-control",
+              "detection_index": 5,
+              "xyxy": [
+                0.1619396209716797,
+                0.9534645080566406,
+                143.2720184326172,
+                129.52182006835938
+              ]
+            }
+          ],
+          "occluded_identities": [
+            "small-silver-rightward"
+          ],
+          "notes": "Small silver fish visibly passes behind large striped fish; no reference box while hidden."
+        },
+        {
+          "frame_index": 215,
+          "timestamp": 7.1738333333333335,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "small-silver-rightward",
+              "detection_index": 9,
+              "xyxy": [
+                1343.267333984375,
+                373.418212890625,
+                1475.281494140625,
+                458.9828796386719
+              ]
+            },
+            {
+              "identity": "large-striped-up-left",
+              "detection_index": 1,
+              "xyxy": [
+                1065.1405029296875,
+                173.03973388671875,
+                1395.9232177734375,
+                500.37548828125
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": "Small silver fish visibly passes behind large striped fish; no reference box while hidden."
+        },
+        {
+          "frame_index": 220,
+          "timestamp": 7.3406666666666665,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "small-silver-rightward",
+              "detection_index": 4,
+              "xyxy": [
+                1296.419677734375,
+                369.8055114746094,
+                1503.3074951171875,
+                462.1430969238281
+              ]
+            },
+            {
+              "identity": "large-striped-up-left",
+              "detection_index": 1,
+              "xyxy": [
+                984.813720703125,
+                111.59750366210938,
+                1346.142822265625,
+                441.4109802246094
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        },
+        {
+          "frame_index": 225,
+          "timestamp": 7.5075,
+          "split": "verification",
+          "reference": [
+            {
+              "identity": "small-silver-rightward",
+              "detection_index": 6,
+              "xyxy": [
+                1322.895263671875,
+                374.87347412109375,
+                1512.3214111328125,
+                478.60400390625
+              ]
+            },
+            {
+              "identity": "large-striped-up-left",
+              "detection_index": 2,
+              "xyxy": [
+                906.06005859375,
+                46.86153030395508,
+                1320.168701171875,
+                369.8330383300781
+              ]
+            }
+          ],
+          "occluded_identities": [],
+          "notes": ""
+        }
+      ]
+    }
+  ]
+}

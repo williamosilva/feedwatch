@@ -16,6 +16,8 @@ EVIDENCE={
     'config/diverse_v3.json':'diverse-training-protocol.json',
     'artifacts/experiments/diverse-v3/validation-results.json':'diverse-validation-results.json',
     'artifacts/improvements-v9/detection-evidence.json':'detection-regression.json',
+    'artifacts/tracking-continuity/summary.json':'tracking-continuity.json',
+    'artifacts/tracking-continuity/references-v1.json':'tracking-references.json',
 }
 DOCUMENTS=('methodology.md','evaluation.md','session-review-template.csv')
 

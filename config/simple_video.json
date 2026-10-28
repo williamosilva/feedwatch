@@ -42,19 +42,28 @@
     ]
   },
   "tracker": {
-    "kind": "conservative-v2",
-    "max_gap_seconds": 0.1,
+    "kind": "occlusion-aware-v1",
+    "max_gap_seconds": 1.0,
     "trail_seconds": 0.5,
     "min_iou": 0.2,
     "max_innovation_diagonals": 0.3,
     "max_center_speed_diagonals_per_second": 8.0,
-    "max_area_ratio": 2.0,
-    "min_assignment_margin": 0.12,
+    "max_area_ratio": 3.0,
+    "min_assignment_margin": 0.1,
     "confirmation_frames": 3,
     "min_speed_observations": 6,
     "min_speed_history_seconds": 0.2,
     "speed_window_seconds": 0.24,
-    "description": "AND gates and mutual assignment margin; trails only observed, confirmed consecutive positions; no predicted boxes; net displacement over >=0.2 s for displayed px/s."
+    "description": "Short occlusion memory; bounded motion prediction and original-image HSV/texture association. Appearance updates only on clean observations. Ambiguous matches may get temporary IDs. Current detector boxes only; no gap trails or speed.",
+    "occlusion_overlap_threshold": 0.35,
+    "max_prediction_seconds": 0.75,
+    "max_prediction_distance_diagonals": 0.65,
+    "prediction_uncertainty_diagonals_per_second": 0.65,
+    "max_recovery_distance_without_appearance": 0.4,
+    "appearance_max_distance": 0.72,
+    "recovery_appearance_max_distance": 0.52,
+    "appearance_weight": 0.65,
+    "appearance_update_alpha": 0.1
   },
   "motion": {
     "analysis_long_edge": 640,

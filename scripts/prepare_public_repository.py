@@ -14,11 +14,12 @@ README_ASSETS=('feedwatch-demo.gif','feedwatch-demo-pt.gif',
                'feedwatch-interface-en.png','feedwatch-interface-pt.png')
 PUBLIC_SCRIPTS=(
     'acquire_independent_sample.py','benchmark_fish_detection.py','benchmark_fish_tracking.py',
+    'benchmark_tracking_continuity.py',
     'build_diverse_evidence.py','build_learning_evidence.py','build_portfolio.py',
     'build_release_bundle.py','check_public_assets.py','evaluate_independent_candidate.py',
     'evaluate_sessions.py','export_public_evidence.py','prepare_official_continuous.py',
     'learning_svg_locale.py',
-    'prepare_public_repository.py','serve_portfolio.py','train_diverse_candidate.py',
+    'prepare_public_repository.py','retrack_saved_video.py','serve_portfolio.py','train_diverse_candidate.py',
     'train_generalization_candidate.py','train_portfolio_candidate.py',
 )
 PUBLIC_IGNORE='''/.venv/

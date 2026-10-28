@@ -110,7 +110,7 @@ def parser() -> argparse.ArgumentParser:
         command.add_argument("--protocol-dir", type=Path, default=Path("artifacts/experiments/final-test"))
         command.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
         command.add_argument("--motion-only", action="store_true", help="Desliga o detector explicitamente; não cria caixas")
-    simple=commands.add_parser('annotate-simple',help='Vídeo legível com acompanhamento conservador e conclusão determinística')
+    simple=commands.add_parser('annotate-simple',help='Vídeo anotado com rastreamento e resumo por intervalo')
     simple.add_argument('--video',type=Path,required=True)
     simple.add_argument('--output-dir',type=Path,required=True)
     simple.add_argument('--config',type=Path,default=Path('config/simple_video.json'))
