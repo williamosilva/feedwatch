@@ -133,5 +133,7 @@
   "Preparando movimento": "Preparing motion",
   "Sincronizado": "Synchronized",
   "Movimento médio da imagem até {seconds} s; escala de 0 a {maximum} px/s.": "Average image motion up to {seconds} s; scale from 0 to {maximum} px/s.",
-  "Área em movimento: pixels acima de {threshold} px/s.": "Moving area: pixels above {threshold} px/s."
+  "Área em movimento: pixels acima de {threshold} px/s.": "Moving area: pixels above {threshold} px/s.",
+  "Carregando vídeo…": "Loading video…",
+  "Preparando a reprodução": "Preparing playback"
 }

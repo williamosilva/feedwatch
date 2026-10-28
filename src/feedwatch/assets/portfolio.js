@@ -39,6 +39,53 @@ function motionChartData(frames, time, duration) {
   return {path,maximum,cursor:300*Math.min(1,Math.max(0,time/length))};
 }
 
+async function resolveFeedWatchMedia(source, options={}) {
+  const signal=options.signal, urls=options.urlApi||URL;
+  const checkAbort=()=>{if(signal?.aborted)throw new DOMException('Media request aborted','AbortError');};
+  const handle=(url,owned=false)=>{
+    let released=false;
+    return {url,release(){if(!released && owned)urls.revokeObjectURL(url);released=true;}};
+  };
+  const asBlob=blob=>{
+    checkAbort();
+    if(!blob.size)throw new Error('Empty media response');
+    const result=handle(urls.createObjectURL(blob),true);
+    if(signal?.aborted){result.release();checkAbort();}
+    return result;
+  };
+  checkAbort();
+  if(typeof Blob!=='undefined' && source instanceof Blob)return asBlob(source);
+  if(typeof source!=='string' || !source)throw new TypeError('Invalid media source');
+  if(/^(blob:|data:|file:)/i.test(source))return handle(source);
+  const base=options.baseUrl||(typeof document!=='undefined'?document.baseURI:'http://localhost/');
+  const crossOrigin=new URL(source,base).origin!==new URL(base).origin;
+  let response;
+  try {
+    response=await (options.fetchImpl||fetch)(source,{headers:{Range:'bytes=0-0'},signal});
+  } catch(error) {
+    checkAbort();
+    if(crossOrigin && error.name==='TypeError')return handle(source);
+    throw error;
+  }
+  checkAbort();
+  const cancel=async()=>{try{await response.body?.cancel();}catch{}checkAbort();};
+  if(response.status===206) {
+    const range=response.headers.get('Content-Range');
+    await cancel();
+    if(/^bytes\s+0-0\/(?:[1-9]\d*|\*)$/i.test(range||''))return handle(source);
+    if(crossOrigin && !range)return handle(source);
+    throw new Error('Invalid media range response');
+  }
+  if(crossOrigin && response.type==='opaque'){await cancel();return handle(source);}
+  if(response.status!==200){await cancel();throw new Error('Media request failed ('+response.status+')');}
+  const type=response.headers.get('Content-Type')||'';
+  if(/^(?:text\/|application\/(?:json|problem\+json))/i.test(type)) {
+    await cancel();throw new Error('Media response is not a video');
+  }
+  // A host ignoring Range already sent the full resource: consume it once.
+  return asBlob(await response.blob());
+}
+
 function mountFeedWatch(root, data) {
   const I=window.FeedWatchI18n;
   const tr=(source, values)=>I.t(source, values);
@@ -68,15 +115,17 @@ function mountFeedWatch(root, data) {
   const present=q('[data-present]');
   let current=null, mode='annotated', switching=false, frame=0, destroyed=false, generation=0;
   let motionFrames=[], motionFailed=false, motionPlayPending=false, motionAutoplayBlocked=false, motionKey='', motionPlayToken=0;
+  let mainMedia=null, mainRequest=null, mainLoading=false, mainFailed=false, mainTarget=0, mainResume=false;
+  let motionMedia=null, motionRequest=null, motionGeneration=0;
   const format=t=>Number(t||0).toLocaleString(I.locale,{minimumFractionDigits:1,maximumFractionDigits:1})+tr(' s');
   let names={none:tr('Não observada'),weak:tr('Baixa'),medium:tr('Moderada'),strong:tr('Alta')};
   let meanings={none:tr('O sistema não identificou sinais de atividade alimentar neste período.'),weak:tr('O sistema estimou pouca atividade alimentar neste período.'),medium:tr('O sistema estimou um nível intermediário de atividade alimentar neste período.'),strong:tr('O sistema estimou atividade alimentar intensa neste período.')};
   const setText=(selector,text)=>{const node=q(selector),value=tr(text);if(node && node.textContent!==value)node.textContent=value;};
   const decimal=n=>Number(n).toLocaleString(I.locale,{maximumFractionDigits:1});
-  const motionSource=()=>current?.motion?.video?new URL(current.motion.video,document.baseURI).href:'';
+  const activeSource=(element,media)=>Boolean(media && (element.currentSrc||element.src)===new URL(media.url,document.baseURI).href);
   function stopMotion(unload=false) {
     motionVideo.pause();
-    if(unload){motionVideo.removeAttribute('src');motionVideo.load();}
+    if(unload){motionVideo.removeAttribute('src');motionVideo.load();motionMedia?.release();motionMedia=null;}
   }
   function syncMotion(force=false) {
     if(destroyed || !current?.motion?.video || motionFailed || motionVideo.readyState<1)return;
@@ -93,22 +142,31 @@ function mountFeedWatch(root, data) {
     }
   }
   function configureMotion() {
+    motionRequest?.abort();motionRequest=null;
+    const version=++motionGeneration;
     stopMotion(true);
     motionPlayToken++;motionPlayPending=false;motionFailed=false;motionAutoplayBlocked=false;motionKey='';
     motionFrames=(current.motion?.frames||[]).filter(row=>Number.isFinite(row.timestamp_seconds));
     const available=Boolean(current.motion?.video);
     motionCard.dataset.available=String(available);
     motionCard.setAttribute('aria-busy',String(available));
-    motionVideo.hidden=!available;
-    q('[data-motion-empty]').hidden=available;
-    q('[data-motion-empty]').textContent=tr('Mapa não disponível neste vídeo.');
+    motionVideo.hidden=true;
+    q('[data-motion-empty]').hidden=false;
+    q('[data-motion-empty]').textContent=tr(available?'Carregando mapa…':'Mapa não disponível neste vídeo.');
     setText('[data-motion-status]',available?'Carregando mapa…':'Sem dados');
     q('[data-motion-legend]').hidden=!available;
     q('[data-motion-scale]').hidden=!available;
     q('[data-motion-metrics]').hidden=!motionFrames.length;
     if(available) {
       motionVideo.muted=true;motionVideo.defaultMuted=true;motionVideo.disablePictureInPicture=true;
-      motionVideo.src=current.motion.video;motionVideo.load();
+      const controller=new AbortController();motionRequest=controller;
+      resolveFeedWatchMedia(current.motion.video,{signal:controller.signal}).then(media=>{
+        if(destroyed || version!==motionGeneration){media.release();return;}
+        motionMedia=media;motionVideo.src=media.url;motionVideo.load();
+      }).catch(error=>{
+        if(destroyed || version!==motionGeneration || controller.signal.aborted)return;
+        failMotion();
+      }).finally(()=>{if(version===motionGeneration)motionRequest=null;});
     }
     updateMotionLabels();
   }
@@ -147,17 +205,21 @@ function mountFeedWatch(root, data) {
     q('[data-motion-chart]').setAttribute('aria-label',tr('Movimento médio da imagem até {seconds} s; escala de 0 a {maximum} px/s.',{seconds:decimal(time),maximum:decimal(chart.maximum)}));
   }
   motionVideo.onloadedmetadata=()=>{
-    if(destroyed || motionVideo.currentSrc!==motionSource())return;
+    if(destroyed || !activeSource(motionVideo,motionMedia))return;
+    motionVideo.hidden=false;q('[data-motion-empty]').hidden=true;
     motionCard.setAttribute('aria-busy','false');
     updateMotionLabels();syncMotion(true);
   };
-  motionVideo.onerror=()=>{
-    if(destroyed || motionFailed || (motionVideo.currentSrc||motionVideo.src)!==motionSource())return;
+  function failMotion() {
     motionFailed=true;stopMotion(true);motionVideo.hidden=true;motionCard.dataset.available='false';
     motionCard.setAttribute('aria-busy','false');
     q('[data-motion-empty]').hidden=false;q('[data-motion-empty]').textContent=tr('Mapa indisponível.');
     q('[data-motion-legend]').hidden=true;q('[data-motion-scale]').hidden=true;
     setText('[data-motion-status]','Mapa indisponível.');
+  }
+  motionVideo.onerror=()=>{
+    if(destroyed || motionFailed || !activeSource(motionVideo,motionMedia))return;
+    failMotion();
   };
   const scenarioForm=q('[data-scenario-form]');
   scenarioForm.oninput=()=>{q('[data-scenario-output]').hidden=true;};
@@ -225,7 +287,8 @@ function mountFeedWatch(root, data) {
   select.replaceChildren(...data.cases.map((c,i)=>{const o=document.createElement('option');o.value=i;o.textContent=tr(c.title);return o;}));
   function update() {
     if (!current) return;
-    if(video.error){setText('[data-prediction]',tr('Vídeo indisponível'));setText('[data-meaning]',tr('Selecione outro exemplo ou recarregue a página para tentar novamente.'));setText('[data-window]',tr('Selecione outro exemplo'));setText('[data-count]','—');start.hidden=true;return;}
+    if(mainLoading){showMediaLoading();return;}
+    if(mainFailed || video.error){setText('[data-prediction]',tr('Vídeo indisponível'));setText('[data-meaning]',tr('Selecione outro exemplo ou recarregue a página para tentar novamente.'));setText('[data-window]',tr('Selecione outro exemplo'));setText('[data-count]','—');start.textContent=tr('Vídeo indisponível');start.disabled=true;start.hidden=false;return;}
     const t=video.currentTime;
     updateMotion(t);
     const complete=current.windows.filter(w=>w.status!=='incomplete' && (w.available_at_seconds??w.end_seconds)<=t+1e-9);
@@ -240,18 +303,41 @@ function mountFeedWatch(root, data) {
     for (const button of segments.children) button.dataset.active=String(latest?.window_id===Number(button.dataset.id));
     start.hidden=!video.paused || t>0;
   }
-  async function changeMode(next, time=video.currentTime, playing=!video.paused) {
+  function showMediaLoading() {
+    setText('[data-prediction]','Carregando vídeo…');setText('[data-window]','Preparando a reprodução');
+    setText('[data-count]','—');setText('[data-motion-mean]','—');setText('[data-motion-area]','—');
+    setText('[data-clock]','Carregando vídeo…');q('[data-motion-path]').setAttribute('d','');motionKey='';
+    for(const button of segments.children)button.dataset.active='false';
+    start.textContent=tr('Carregando vídeo…');start.disabled=true;start.hidden=false;seek.disabled=true;
+  }
+  async function changeMode(next, time=mainLoading?mainTarget:video.currentTime, playing=mainLoading?mainResume:!video.paused) {
     if (!current) return;
     switching=true; mode=next;
     const version=++generation;
+    mainRequest?.abort();const controller=new AbortController();mainRequest=controller;
+    mainLoading=true;mainFailed=false;mainTarget=time;mainResume=playing;
     q('[data-mode-label]').textContent=current.original===current.annotated?tr('Exemplo do conjunto de pesquisa'):(mode==='original'?tr('Gravação sem marcações'):tr('Peixes identificados pelo sistema'));
     for(const b of root.querySelectorAll('[data-mode]')) b.setAttribute('aria-pressed',String(b.dataset.mode===mode));
     video.pause();
-    video.src=current[mode];
-    const loaded=()=>{if(version!==generation)return;video.currentTime=Math.min(time,current.duration);switching=false;update();if(playing)video.play().catch(()=>{});};
-    video.addEventListener('loadedmetadata',loaded,{once:true});
-    video.load();
+    stopMotion();video.hidden=true;video.setAttribute('aria-busy','true');
+    video.removeAttribute('src');video.load();mainMedia?.release();mainMedia=null;
+    showMediaLoading();
+    try {
+      const media=await resolveFeedWatchMedia(current[mode],{signal:controller.signal});
+      if(destroyed || version!==generation){media.release();return;}
+      mainMedia=media;video.src=media.url;video.load();
+    } catch(error) {
+      if(destroyed || version!==generation || controller.signal.aborted)return;
+      mainLoading=false;mainFailed=true;switching=false;video.setAttribute('aria-busy','false');update();
+    } finally {if(version===generation)mainRequest=null;}
   }
+  video.onloadedmetadata=()=>{
+    if(destroyed || !activeSource(video,mainMedia))return;
+    video.currentTime=Math.min(mainTarget,current.duration);mainLoading=false;switching=false;
+    video.hidden=false;video.setAttribute('aria-busy','false');seek.disabled=false;
+    start.disabled=false;start.textContent=tr('Reproduzir vídeo');motionKey='';update();syncMotion(true);
+    if(mainResume)video.play().catch(()=>{});
+  };
   function choose(index) {
     current=data.cases[index];
     configureMotion();
@@ -320,7 +406,7 @@ function mountFeedWatch(root, data) {
   video.onseeking=()=>{stopMotion();syncMotion(true);update();};
   video.onseeked=()=>{syncMotion(true);update();};
   video.onratechange=()=>syncMotion(true);
-  video.onerror=()=>{stopMotion();update();};
+  video.onerror=()=>{if(!activeSource(video,mainMedia))return;mainFailed=true;mainLoading=false;switching=false;video.setAttribute('aria-busy','false');stopMotion();update();};
   function tick(){if(destroyed)return;if(!switching)update();frame=requestAnimationFrame(tick);}
   const requested=new URLSearchParams(location.search).get('exemplo');
   const initial=Math.max(0,data.cases.findIndex(c=>c.id===requested));select.value=initial;choose(initial);tick();
@@ -347,7 +433,7 @@ function mountFeedWatch(root, data) {
       const coverage=current.windows.reduce((n,w)=>n+(w.status==='ok'?w.end_seconds-w.start_seconds:0),0);
       q('[data-coverage]').textContent=format(coverage)+tr(' analisados');
       motionKey='';updateMotionLabels();
-      q('[data-motion-empty]').textContent=tr(motionFailed?'Mapa indisponível.':'Mapa não disponível neste vídeo.');
+      q('[data-motion-empty]').textContent=tr(motionFailed?'Mapa indisponível.':motionRequest?'Carregando mapa…':'Mapa não disponível neste vídeo.');
     }
     if(data.live){setText('[data-demo-heading]','Resultado do seu vídeo');setText('[data-demo-intro]','A classificação de cada período aparece durante a reprodução. O panorama abaixo resume o vídeo inteiro.');}
     if(!q('[data-scenario-output]').hidden)scenarioForm.onsubmit({preventDefault(){}});
@@ -355,5 +441,5 @@ function mountFeedWatch(root, data) {
     update();
   }
   const unsubscribe=I.subscribe(refreshLanguage);
-  root._fwCleanup=()=>{unsubscribe();destroyed=true;cancelAnimationFrame(frame);video.pause();stopMotion(true);document.removeEventListener('fullscreenchange',updatePresentation);document.removeEventListener('keydown',onPresentationKey);};
+  root._fwCleanup=()=>{unsubscribe();destroyed=true;generation++;motionGeneration++;mainRequest?.abort();motionRequest?.abort();cancelAnimationFrame(frame);video.pause();video.removeAttribute('src');video.load();mainMedia?.release();mainMedia=null;stopMotion(true);document.removeEventListener('fullscreenchange',updatePresentation);document.removeEventListener('keydown',onPresentationKey);};
 }
