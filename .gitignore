@@ -1,4 +1,11 @@
 /.venv/
+.*/
+!.github/
+node_modules/
+coverage/
+test-results/
+.DS_Store
+Thumbs.db
 __pycache__/
 *.py[cod]
 *.egg-info/

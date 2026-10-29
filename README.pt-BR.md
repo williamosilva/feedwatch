@@ -8,8 +8,6 @@ Envie um vídeo dos peixes durante a alimentação. O FeedWatch usa um modelo tr
 
 Exemplos de estimativas no relatório: `00:00–00:02 · moderada` e `00:02–00:04 · baixa`. Os tempos correspondem à posição no vídeo enviado.
 
-[Baixar o vídeo de demonstração em Full HD](https://github.com/williamosilva/feedwatch/releases/download/v0.1.0/feedwatch-grid-tracking-pt-BR.mp4)
-
 O trecho do aquário mostra uma saída real da detecção e do rastreamento. Essa gravação não foi usada no treinamento do classificador nem possui rótulos de atividade alimentar. Vídeo: [Richard Muller / Pexels](https://www.pexels.com/video/fishes-swimming-in-aquarium-6472322/) ([licença](https://www.pexels.com/license/)).
 
 ## Funcionamento

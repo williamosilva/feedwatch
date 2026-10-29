@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "feedwatch"
 version = "0.1.0"
-description = "Preparação verificável de vídeos AV-FFIA para atividade alimentar de peixes"
+description = "Video-based fish feeding activity analysis"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [

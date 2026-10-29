@@ -1,5 +1,6 @@
 """Create a source distribution without full videos, weights or machine-local state."""
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -8,7 +9,7 @@ from export_public_evidence import DOCUMENTS, EVIDENCE
 ROOT=Path(__file__).resolve().parents[1]
 STATIC_EXTENSIONS={'.html','.css','.js','.svg','.json','.csv','.md','.txt','.jpg'}
 STATIC_DOCUMENTS={'methodology.md','evaluation.md','finetuning.md','THIRD_PARTY.md','reproducao.md'}
-ROOT_FILES=('README.md','README.pt-BR.md','LICENSE','THIRD_PARTY.md','pyproject.toml','.gitignore',
+ROOT_FILES=('README.md','README.pt-BR.md','LICENSE','THIRD_PARTY.md','pyproject.toml','.gitignore','.gitattributes',
             'requirements-lock.txt','requirements-local-lock.txt','requirements-dynamic-lock.txt')
 README_ASSETS=('feedwatch-demo.gif','feedwatch-demo-pt.gif',
                'feedwatch-interface-en.png','feedwatch-interface-pt.png')
@@ -23,6 +24,13 @@ PUBLIC_SCRIPTS=(
     'train_generalization_candidate.py','train_portfolio_candidate.py','train_finetune_candidate.py',
 )
 PUBLIC_IGNORE='''/.venv/
+.*/
+!.github/
+node_modules/
+coverage/
+test-results/
+.DS_Store
+Thumbs.db
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -89,9 +97,22 @@ def public_files():
             files[relative]=json.dumps(data,ensure_ascii=False).encode('utf-8')
         elif path.name=='index.html':
             text=path.read_text(encoding='utf-8')
-            text=text.replace('<a href="feedwatch-source.zip" download>Baixar código AGPL-3.0</a>','<a href="../../../README.md">Executar o projeto</a>')
-            text=text.replace('<a href="feedwatch-runtime.zip" download>Baixar pacote de execução</a>','<a href="../../../README.md">Instalar os modelos</a>')
+            text=re.sub(r'<a\b[^>]*href="feedwatch-source\.zip"[^>]*>.*?</a>',
+                        '<a href="../../../README.md">README</a>',text,flags=re.DOTALL)
+            text=text.replace('href="feedwatch-runtime.zip" download',
+                              'href="https://github.com/williamosilva/feedwatch/releases/download/v0.1.0/feedwatch-runtime.zip"')
             files[relative]=text.encode('utf-8')
+        elif path.name=='THIRD_PARTY.md':
+            files[relative]=(ROOT/'THIRD_PARTY.md').read_bytes()
+        elif path.name=='reproducao.md':
+            files[relative]=('''# Executar o FeedWatch
+
+Siga as instruções do [README em inglês](../../../README.md) ou do [README em português](../../../README.pt-BR.md).
+
+O [pacote de execução](https://github.com/williamosilva/feedwatch/releases/download/v0.1.0/feedwatch-runtime.zip) contém o classificador treinado, o extrator e um vídeo de exemplo. Extraia o pacote na raiz do projeto. Os detectores Fishial são baixados pelo comando indicado no README.
+
+Não é necessário baixar os datasets nem treinar novamente para analisar um vídeo. O código está sob AGPL-3.0; os componentes externos mantêm seus próprios termos, descritos em [THIRD_PARTY.md](THIRD_PARTY.md).
+''').encode('utf-8')
         else:files[relative]=path.read_bytes()
     return files
 
